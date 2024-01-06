@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 
-export default function Home() {
+export default function Template() {
     return (
-        <View style={styles.Home}>
+        <View style={styles.Template}>
             <Text>Layout</Text>
         </View>
     )
@@ -11,7 +11,7 @@ export default function Home() {
 
 
 const styles = StyleSheet.create({
-    Home: {
+    Template: {
 
     },
 });
