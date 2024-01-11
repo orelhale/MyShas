@@ -15,7 +15,7 @@ export default function Home({ navigation, route }) {
     return (
         <View style={styles.Home}>
             <Text>Home</Text>
-            <Text>{route.params.otherParam || "nooooo"}</Text>
+            <Text>{(route.params && route.params["otherParam"] ? route.params["otherParam"] : "no data from route")}</Text>
             <Button
                 title="Go to Home222"
                 onPress={() => {
