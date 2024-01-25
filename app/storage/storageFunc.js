@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import storage from "../data/baseData_list.json";
 
+const listCat = ["0", "1", "2", "3", "4", "5"]
 
 const storeData = async (value) => {
    try {
@@ -10,7 +12,8 @@ const storeData = async (value) => {
          throw new Error("Data of storeData is not Object")
 
       const parceToString = JSON.stringify(value);
-      await AsyncStorage.setItem('my-key', parceToString);
+      
+      return AsyncStorage.setItem('data', parceToString);
    } catch (e) {
       console.log("Error: storeData = ", e);
    }
@@ -19,22 +22,58 @@ const storeData = async (value) => {
 
 const getData = async () => {
    try {
-      const jsonValue = await AsyncStorage.getItem('my-key');
+      const jsonValue = await AsyncStorage.getItem("data");
 
       if (jsonValue != null) {
          return JSON.parse(jsonValue)
       }
 
-      return initStorage()
+      return jsonValue
    } catch (e) {
       console.log("Error: getData = ", e);
    }
 };
+// const getData = async (key) => {
+//    try {
+//       const jsonValue = await AsyncStorage.getItem(key || "");
+
+//       if (jsonValue != null) {
+//          return JSON.parse(jsonValue)
+//       }
+
+//       return jsonValue
+//    } catch (e) {
+//       console.log("Error: getData = ", e);
+//    }
+// };
+
+const getAllData = async () => {
+   try {
+      let data = await getData()
+      
+      // console.log("data = ", data);
+      
+      if(!data){
+         data = await initStorage()
+      }
+      return data
+   } catch (e) {
+      console.log("Error: getAllData = ", e);
+   }
+};
+
 
 
 async function initStorage() {
    console.log("****** initStorage *******");
-
-   await storeData([])
+   // console.log("storage ===== ", storage);
+   await storeData(storage)
    return await getData();
 }
+
+async function deleteAllData() {
+   console.log("*** deleteAllData ***");
+   await AsyncStorage.setItem('data', "")
+}
+// deleteAllData()
+export { getAllData,deleteAllData ,storeData}
