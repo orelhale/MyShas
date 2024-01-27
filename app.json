@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "MyShas",
-    "slug": "MyShas",
+    "name": "myshas",
+    "slug": "myshas",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.orelh.myshas"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5e1ee29e-96fb-4396-a9c5-c1038886e0a2"
+      }
+    },
+    "owner": "orelh"
   }
 }

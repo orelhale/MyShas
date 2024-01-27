@@ -1,18 +1,21 @@
 import { memo, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
-import { sizeStyle } from '../styleFile/sizeStyle';
+import { StyleSheet, Text, View, Button, I18nManager } from 'react-native';
+import globalSizes from '../styleFile/globalSizes';
 import CheckBox from 'react-native-check-box';
+
+
 export default memo(PageList)
 function PageList({
    selectItem,
    listOfPagesName,
    listOfPagesData,
    selectPage,
-   flagToSelectAll,
 }) {
 
    let [pages, setPages] = useState()
    let [showPages, setShowPages] = useState()
+
+   let RTL = I18nManager.isRTL
 
    useEffect(() => {
       if (listOfPagesData) {
@@ -28,24 +31,24 @@ function PageList({
       }
    }, [listOfPagesName])
 
-   useEffect(() => {
-      // if (pages) console.log("pages ==== ", pages);
-   }, [pages])
+   // useEffect(() => {
+   //    if (pages) console.log("pages ==== ", pages);
+   // }, [pages])
 
-   useEffect(() => {
-      if (showPages && pages && flagToSelectAll != undefined) {
-         // selectAllPage()
-      }
-   }, [flagToSelectAll])
+   // useEffect(() => {
+   //    if (showPages && pages && flagToSelectAll != undefined) {
+   //       // selectAllPage()
+   //    }
+   // }, [flagToSelectAll])
 
 
-   function selectAllPage() {
-      for (const key in pages) {
-         selectItem.pageTrack[key] = flagToSelectAll
-         pages[key] = flagToSelectAll
-      }
-      setPages({ ...pages })
-   }
+   // function selectAllPage() {
+   //    for (const key in pages) {
+   //       selectItem.pageTrack[key] = flagToSelectAll
+   //       pages[key] = flagToSelectAll
+   //    }
+   //    setPages({ ...pages })
+   // }
 
 
    function clickOnPage(pageName) {
@@ -66,12 +69,12 @@ function PageList({
          {showPages && pages && showPages.map((page, index) => {
             //  console.log("PageList ????");
             return (
-               <View style={[styles.page]} key={("page" + index)}>
-                  <View style={[styles.pageInside2]}>
+               <View style={[styles.page, RTL && { flexDirection: "row" }]} key={("page" + index)}>
+                  <View style={[styles.pageInside2, RTL && { flexDirection: "row" }]}>
 
-                     <Text style={[sizeStyle.fontSize]}>{page}</Text>
+                     <Text style={[globalSizes.fontSize]}>{page}</Text>
                      <CheckBox
-                        
+
                         onClick={() => {
                            clickOnPage(page)
                         }}
@@ -94,24 +97,20 @@ const styles = StyleSheet.create({
    PageList: {
    },
    // wrapPages: {
-   //    flexDirection: "row-reverse",
    //    flexWrap: "wrap",
    // },
    page: {
       flexDirection: "row-reverse",
-      // flexDirection: "row",
       width: "25%"
       // width: 50,
    },
    pageInside: {
       flexDirection: "row-reverse",
-      // flexDirection: "row",
       justifyContent: "space-between",
       width: "70%",
    },
    pageInside2: {
       flexDirection: "row-reverse",
-      // flexDirection: "row",
       justifyContent: "space-between",
       width: "100%",
       paddingLeft: "17%",
