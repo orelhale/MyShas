@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function Template() {
     return (
         <View style={styles.Template}>
-            <Text>Layout</Text>
+            <Text>Template</Text>
         </View>
     )
 }
