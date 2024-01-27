@@ -1,8 +1,9 @@
 
 
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { sizeStyle } from '../styleFile/sizeStyle';
+import { I18nManager, StyleSheet, Text, View } from 'react-native';
+import ProgressCircle from './ProgressCircle';
+// import ChartProgress from './ChartProgress';
 
 
 export default function PageDataAnalysis({
@@ -12,6 +13,7 @@ export default function PageDataAnalysis({
     eventPage,
 }) {
     let [pageNumData, setPageNumData] = useState()
+    let RTL = I18nManager.isRTL
 
 
     useEffect(() => {
@@ -47,11 +49,11 @@ export default function PageDataAnalysis({
     }, [selectItem])
 
 
-    // useEffect(() => {
-    //     if (pageNumData) {
-    //         console.log("pageNumData ==== ", pageNumData);
-    //     }
-    // }, [pageNumData])
+    useEffect(() => {
+        if (pageNumData) {
+            console.log("pageNumData ==== ", pageNumData);
+        }
+    }, [pageNumData])
 
 
     useEffect(() => {
@@ -79,6 +81,7 @@ export default function PageDataAnalysis({
     function addFild(key, value) {
         let copy_pageNumData = pageNumData || {}
         copy_pageNumData[key] = value
+        // console.log("copy_pageNumData ==== ",copy_pageNumData);
         setPageNumData({ ...copy_pageNumData })
     }
 
@@ -115,39 +118,85 @@ export default function PageDataAnalysis({
             sumPages += item.numPages
             sumFinishedPages += item.finishedPages
         })
+        let dataInPercentage = Math.floor((sumFinishedPages / sumPages) * 100)
         // console.log("data ==== ", { sumPages, sumFinishedPages });
-        return { sumPages, sumFinishedPages }
+        return { sumPages, sumFinishedPages, dataInPercentage }
     }
 
 
     return (
         <>
-            {pageNumData &&
-                <View style={styles.PageDataAnalysis}>
+            {pageNumData && <>
+                <View style={[styles.PageDataAnalysis, RTL && { flexDirection: "row-reverse" }]}>
+                    {pageNumData.allShas && <ProgressCircle
+                        chartData={{ data: (pageNumData.allShas.dataInPercentage / 100), lable: `${pageNumData.allShas.dataInPercentage}%` }}/>}
+                    {pageNumData.pageCat && <ProgressCircle
+                        chartData={{ data: (pageNumData.pageCat.dataInPercentage / 100), lable: `${pageNumData.pageCat.dataInPercentage}%` }}/>}
+                    {pageNumData.pageGmara && <ProgressCircle
+                        chartData={{ data: (pageNumData.pageGmara.dataInPercentage / 100), lable: `${pageNumData.pageGmara.dataInPercentage}%` }}/>}
+                </View>
 
+                {/* <View style={[styles.PageDataAnalysis, RTL && { flexDirection: "row-reverse" }]}>
+                    {pageNumData.allShas && <ChartProgress
+                        chartData={{ data: (pageNumData.allShas.dataInPercentage / 100), lable: `${pageNumData.allShas.dataInPercentage}%` }}/>}
+                    {pageNumData.pageCat && <ChartProgress
+                        chartData={{ data: (pageNumData.pageCat.dataInPercentage / 100), lable: `${pageNumData.pageCat.dataInPercentage}%` }}/>}
+                    {pageNumData.pageGmara && <ChartProgress
+                        chartData={{ data: (pageNumData.pageGmara.dataInPercentage / 100), lable: `${pageNumData.pageGmara.dataInPercentage}%` }}/>}
+                </View> */}
+
+                {/* <View style={[styles.PageDataAnalysis2, RTL && { flexDirection: "row-reverse" }]}>
                     {pageNumData.allShas &&
-                        <View style={styles.details}>
-                            <Text style={[styles.text, sizeStyle.fontSize]}>Page shas: {pageNumData.allShas.sumPages} </Text>
-                            <Text style={[styles.text, sizeStyle.fontSize]}> Finished: {pageNumData.allShas.sumFinishedPages} </Text>
-                            <Text style={[styles.text, sizeStyle.fontSize]}> {Math.floor((pageNumData.allShas.sumFinishedPages / pageNumData.allShas.sumPages) * 100)}%</Text>
+                        <View style={[styles.details, RTL && { flexDirection: "row-reverse" }]}>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}>Page shas: {"   "+pageNumData.allShas.sumPages} </Text>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}> Finished: {pageNumData.allShas.sumFinishedPages} </Text>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}> {pageNumData.allShas.dataInPercentage}%</Text>
                         </View>
                     }
                     {pageNumData.pageCat &&
-                        <View style={styles.details}>
-                            <Text style={[styles.text, sizeStyle.fontSize]}>Page cat: {pageNumData.pageCat.sumPages} </Text>
-                            <Text style={[styles.text, sizeStyle.fontSize]}> Finished: {pageNumData.pageCat.sumFinishedPages} </Text>
-                            <Text style={[styles.text, sizeStyle.fontSize]}> {Math.floor((pageNumData.pageCat.sumFinishedPages / pageNumData.pageCat.sumPages) * 100)}%</Text>
+                        <View style={[styles.details, RTL && { flexDirection: "row-reverse" }]}>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}>Page cat: {"      "+pageNumData.pageCat.sumPages} </Text>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}> Finished: {pageNumData.pageCat.sumFinishedPages} </Text>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}> {pageNumData.pageCat.dataInPercentage}%</Text>
                         </View>
                     }
                     {pageNumData.pageGmara &&
-                        <View style={styles.details}>
-                            <Text style={[styles.text, sizeStyle.fontSize]}>Page gmara: {pageNumData.pageGmara.sumPages} </Text>
-                            <Text style={[styles.text, sizeStyle.fontSize]}> Finished: {pageNumData.pageGmara.sumFinishedPages} </Text>
-                            <Text style={[styles.text, sizeStyle.fontSize]}> {Math.floor((pageNumData.pageGmara.sumFinishedPages / pageNumData.pageGmara.sumPages) * 100)}%</Text>
+                        <View style={[styles.details, RTL && { flexDirection: "row-reverse" }]}>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}>Page gmara: {" "+pageNumData.pageGmara.sumPages+" "} </Text>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}> Finished: {pageNumData.pageGmara.sumFinishedPages} </Text>
+                            <Text style={[
+                                styles.text,
+                                // globalSizes.fontSize
+                            ]}> {pageNumData.pageGmara.dataInPercentage}%</Text>
                         </View>
                     }
+                </View> */}
+            </>
 
-                </View>
             }
         </>
     )
@@ -156,7 +205,14 @@ export default function PageDataAnalysis({
 
 const styles = StyleSheet.create({
     PageDataAnalysis: {
+        flexDirection: "row",
+        justifyContent:"space-around",
+    },
+    PageDataAnalysis2: {// למחוק אחרי שכל הסתדר
 
+        flexDirection: "row",
+        flexWrap: "wrap",
+        // justifyContent: "space-between"
     },
     text: {
         // width: "30%",

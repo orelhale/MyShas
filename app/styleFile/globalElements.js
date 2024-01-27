@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-export const elementStyle = StyleSheet.create({
+export default globalElements = StyleSheet.create({
    element: {
 
    },
@@ -11,8 +11,11 @@ export const elementStyle = StyleSheet.create({
       flexBasis: "30%",
       justifyContent: 'center',
       alignItems: "center",
-      height:60,
+      height: 60,
       // width:60,
-      
+
    },
+   btnOptions: {
+      borderRadius: 30,
+   }
 });

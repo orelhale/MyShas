@@ -5,8 +5,12 @@ import GmaraList from '../components/GmaraList';
 import PageList from '../components/PageList';
 import Gmara from '../components/Gmara';
 import PageDataAnalysis from '../components/PageDataAnalysis';
+import globalColors from '../styleFile/globalColors';
+import ProgressCircle from '../components/ProgressCircle';
+// import ChartProgress from '../components/ChartProgress';
+// import PieComponent from '../components/PieComponent';
 
-export default function Home() {
+export default function HomeScreen() {
 
     let [selectItem, setSelectItem] = useState()
     let [selectCat, setSelectCat] = useState()
@@ -120,10 +124,10 @@ export default function Home() {
             // console.log("catIndex === ", catIndex);
             // console.log("index === ", index);
             // console.log("allData[catIndex].list[index] ==== ", allData[catIndex].list[index]);
-            
+
             // let finishedPages = allData[catIndex].list[index].finishedPages
             // let finishedPages = selectItem.finishedPages
-            
+
             // console.log("selectCat.finishedPages 1  ==== ", selectCat.finishedPages);
             // selectCat.finishedPages = (selectCat.finishedPages - finishedPages) + selectCat.numPages
             // console.log("selectCat.finishedPages 2  ==== ", selectCat.finishedPages);
@@ -139,35 +143,37 @@ export default function Home() {
     }
 
     return (
-        <ScrollView>
-            <View style={styles.Home}>
-                <PageDataAnalysis
-                    allData={allData}
-                    selectCat={selectCat}
-                    selectItem={selectItem}
-                    eventPage={eventPage}
-                />
-
-                <View style={styles.delete}>
-                    <Button color={"red"} title='Delete data' onPress={deleteAll}></Button>
-                </View>
-
-                {!selectItem && <GmaraList
-                    allData={allData}
-                    selectGmara={selectGmara}
-                    selectCatFunc={selectCatFunc}
-                    selectCat={selectCat}
-                />}
-
-                {selectItem && listNamePage && <>
-                    <Gmara
-                        listNamePage={listNamePage}
-                        setListNamePage={setListNamePage}
-                        setSelectItem={setSelectItem}
+        <>{allData &&
+            <ScrollView>
+                <View style={styles.HomeScreen}>
+                    {/* <PieComponent></PieComponent> */}
+                    <PageDataAnalysis
+                        allData={allData}
+                        selectCat={selectCat}
                         selectItem={selectItem}
-                        eventPageHndling={eventPageHndling}
+                        eventPage={eventPage}
                     />
-                    {/* <View>
+
+                    <View style={styles.delete}>
+                        <Button color={"red"} title='Delete data' onPress={deleteAll}></Button>
+                    </View>
+
+                    {!selectItem && <GmaraList
+                        allData={allData}
+                        selectGmara={selectGmara}
+                        selectCatFunc={selectCatFunc}
+                        selectCat={selectCat}
+                    />}
+
+                    {selectItem && listNamePage && <>
+                        <Gmara
+                            listNamePage={listNamePage}
+                            setListNamePage={setListNamePage}
+                            setSelectItem={setSelectItem}
+                            selectItem={selectItem}
+                            eventPageHndling={eventPageHndling}
+                        />
+                        {/* <View>
                     <Button title={(`<-`)} onPress={() => { removeSelect() }}></Button>
                     </View>
                     <PageList
@@ -177,21 +183,24 @@ export default function Home() {
                     listOfPagesData={copyObj(listNamePage, 10)}
                 /> */}
 
-                </>}
-            </View>
-        </ScrollView>
+                    </>}
+                </View>
+            </ScrollView>
+        }</>
     )
 }
 
 
 const styles = StyleSheet.create({
-    Home: {
-        // backgroundColor: "red",
+    HomeScreen: {
+        backgroundColor: globalColors.background,
+        flex:1,
+        // marginTop: 20,
     },
     delete: {
         // backgroundColor: "red",
         color: "red",
         marginBottom: 20,
-        marginTop: 20,
+        // marginTop: 10,
     },
 });

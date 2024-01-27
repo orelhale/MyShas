@@ -1,8 +1,8 @@
-import { Button, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, I18nManager, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import PageList from './PageList';
 import { useCallback, useEffect, useState } from 'react';
 import textToShow from '../data/textToShow';
-import { sizeStyle } from '../styleFile/sizeStyle';
+import globalSizes from '../styleFile/globalSizes';
 
 
 export default function Gmara({
@@ -13,33 +13,35 @@ export default function Gmara({
     eventPageHndling,
 }) {
     let pageToComponent = 15
+    let RTL = I18nManager.isRTL
 
     let [arrListNamePage, setArrListNamePage] = useState()
     let [arrListObjNamePage, setArrListObjNamePage] = useState()
-    let [flagToSelectAll, setFlagToSelectAll] = useState()
 
-    console.log("Gmara ????");
+    // console.log("Gmara ????");
 
 
-    useEffect(() => {
-        if (arrListNamePage) {
-            // console.log("arrListNamePage ==== ", arrListNamePage);
-            // console.log("arrListNamePage.length ==== ", arrListNamePage.length);
-            // console.log("last listNamePage ==== ", listNamePage[listNamePage.length - 2]);
-        }
-    }, [arrListNamePage])
+    // useEffect(() => {
+    //     if (arrListNamePage) {
+    //         // console.log("arrListNamePage ==== ", arrListNamePage);
+    //         // console.log("arrListNamePage.length ==== ", arrListNamePage.length);
+    //         // console.log("last listNamePage ==== ", listNamePage[listNamePage.length - 2]);
+    //     }
+    // }, [arrListNamePage])
 
     // useEffect(() => {
     //     console.log("flagToSelectAll ==== ", flagToSelectAll);
     // }, [flagToSelectAll])
 
-    useEffect(() => {
-        if (arrListObjNamePage) {
-            // console.log("arrListObjNamePage ==== ", arrListObjNamePage);
-            // console.log("arrListObjNamePage.length ==== ", arrListObjNamePage.length);
-            // console.log("last listNamePage ==== ", listNamePage[listNamePage.length - 1]);
-        }
-    }, [arrListObjNamePage])
+    // useEffect(() => {
+    //     if (arrListObjNamePage) {
+    //         // console.log("arrListObjNamePage ==== ", arrListObjNamePage);
+    //         // console.log("arrListObjNamePage.length ==== ", arrListObjNamePage.length);
+    //         // console.log("last listNamePage ==== ", listNamePage[listNamePage.length - 1]);
+    //     console.log("arrListObjNamePage ==== ",JSON.parse(JSON.stringify(arrListObjNamePage)));
+            
+    //     }
+    // }, [arrListObjNamePage])
 
 
     useEffect(() => {
@@ -104,19 +106,19 @@ export default function Gmara({
             }
         }
         eventPageHndling(valueOfselectAll ? "selectAll" : "unSelectAll")
-        setFlagToSelectAll(valueOfselectAll)
+        setArrListObjNamePage(JSON.parse(JSON.stringify(arrListObjNamePage)))
     }
 
     return (
         <View>
-            <View style={styles.wrapButtons}>
+            <View style={[styles.wrapButtons, RTL && { flexDirection: "row-reverse" }]}>
                 <Button title={(` <- `)} onPress={() => { removeSelect() }} />
                 <Button title={selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll} onPress={selectAll_func} />
             </View>
 
-            <Text style={[styles.text, sizeStyle.fontSize]}>{textToShow.Masechet + " " + selectItem.name}</Text>
+            <Text style={[styles.text, globalSizes.fontSize]}>{textToShow.Masechet + " " + selectItem.name}</Text>
 
-            <View style={styles.wrapPages}>
+            <View style={[styles.wrapPages, RTL && { flexDirection: "row" }]}>
                 {
                     arrListNamePage && arrListObjNamePage &&
                     arrListNamePage.map((list, index) => {
@@ -128,8 +130,6 @@ export default function Gmara({
                             listOfPagesName={arrListNamePage[index]}
                             listOfPagesData={arrListObjNamePage[index]}
                             selectPage={selectPage}
-                            flagToSelectAll={flagToSelectAll}
-                        // temp={temp}
                         />
                     }
                     )
@@ -146,12 +146,10 @@ const styles = StyleSheet.create({
     },
     // wrapList: {
     //     display: "flex",
-    //     flexDirection: "row",
     //     flexWrap: "wrap",
     //     justifyContent: 'space-around',
     // },
     wrapPages: {
-        // flexDirection: "row",
         // flex:1,
         flexDirection: "row-reverse",
 

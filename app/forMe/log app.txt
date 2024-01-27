@@ -1,0 +1,6 @@
+npm install --global eas-cli && npx create-expo-app myshas && cd myshas && eas init --id 5e1ee29e-96fb-4396-a9c5-c1038886e0a2
+
+
+https://expo.dev/accounts/orelh/projects/myshas/builds/3bb62057-14fb-4227-81b5-7f81be21f003
+
+https://expo.dev/artifacts/eas/rM71HbRWrFJVWLBJvvCcRb.apk

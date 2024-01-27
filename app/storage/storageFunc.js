@@ -1,8 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import storage from "../data/baseData_list.json";
 
-const listCat = ["0", "1", "2", "3", "4", "5"]
-
 const storeData = async (value) => {
    try {
       if (!value)
