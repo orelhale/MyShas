@@ -2,8 +2,8 @@
 
 
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View, Button } from 'react-native';
-import { elementStyle } from '../styleFile/elementStyle';
+import { Pressable, StyleSheet, Text, View, Button, I18nManager } from 'react-native';
+import globalElements from '../styleFile/globalElements';
 
 
 export default function GmaraList({
@@ -14,6 +14,7 @@ export default function GmaraList({
 }) {
 
    let [listToShow, setCatsToShow] = useState()
+   let RTL = I18nManager.isRTL
 
    useEffect(() => {
       if (allData) {
@@ -39,7 +40,7 @@ export default function GmaraList({
          {
             listToShow && !selectCat && <View style={[styles.wrapList]}>
                {listToShow.map((item, index) =>
-                  <Pressable key={("Pressable1" + index)} style={[elementStyle.item]} onPress={() => pressCat(item)}>
+                  <Pressable key={("Pressable1" + index)} style={[globalElements.item]} onPress={() => pressCat(item)}>
                      <Text>{item.name}</Text>
                   </Pressable>
                )}
@@ -48,12 +49,12 @@ export default function GmaraList({
          {
             selectCat && (
                <View>
-                  <View>
-                     <Button title={(`<-`)} onPress={() => { removeSelect() }}></Button>
+                  <View style={[styles.wrapButtons, RTL && { flexDirection: "row-reverse" }]}>
+                     <Button title={(` <- `)} onPress={() => { removeSelect() }}></Button>
                   </View>
                   <View style={[styles.wrapList]}>
                      {selectCat.list.map((item, index) =>
-                        <Pressable key={("Pressable2" + index)} style={[elementStyle.item]} onPress={() => { selectGmara(item) }}>
+                        <Pressable key={("Pressable2" + index)} style={[globalElements.item]} onPress={() => { selectGmara(item) }}>
                            <Text>{item.name}</Text>
                         </Pressable>)}
                   </View>
@@ -77,5 +78,9 @@ const styles = StyleSheet.create({
    },
    item: {
 
+   },
+   wrapButtons: {
+      flexDirection: "row",
+      justifyContent: "space-between",
    },
 });
