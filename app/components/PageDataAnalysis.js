@@ -1,7 +1,7 @@
 
 
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ProgressCircle from './ProgressCircle';
 import globalSizes from '../styleFile/globalSizes';
 import CompletedTracking from './CompletedTracking';
@@ -48,11 +48,11 @@ export default function PageDataAnalysis({
     }, [selectItem])
 
 
-    useEffect(() => {
-        if (pageNumData) {
-            // console.log("pageNumData ==== ", pageNumData);
-        }
-    }, [pageNumData])
+    // useEffect(() => {
+    //     if (pageNumData) {
+    //         console.log("pageNumData ==== ", pageNumData);
+    //     }
+    // }, [pageNumData])
 
 
     useEffect(() => {
@@ -62,9 +62,9 @@ export default function PageDataAnalysis({
             let pageGmara = initPages("pageGmara", [selectItem])
             let pageCat = initPages("pageCat", selectCat.list, selectCat)
             let allShas = initPages("allShas", allData)
-            console.log("pageGmara ==== ", pageGmara.value);
-            console.log("pageCat ==== ", pageCat.value);
-            console.log("allShas ==== ", allShas.value);
+            // console.log("pageGmara ==== ", pageGmara.value);
+            // console.log("pageCat ==== ", pageCat.value);
+            // console.log("allShas ==== ", allShas.value);
             // let obj = {}
             // !!selectItem.catId && (obj.catId = selectItem.catId)
             // !!selectItem.id && (obj.id = selectItem.id)
@@ -247,6 +247,8 @@ const styles = StyleSheet.create({
     PageDataAnalysis: {
         flexDirection: "row",
         justifyContent: "space-around",
+        marginTop: 10,
+        marginBottom: 10,
     },
     PageDataAnalysis2: {// למחוק אחרי שכל הסתדר
 

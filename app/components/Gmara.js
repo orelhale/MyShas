@@ -1,7 +1,6 @@
 import { Button, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import PageList from './PageList';
 import { useCallback, useEffect, useState } from 'react';
-import textToShow from '../data/textToShow';
 import globalSizes from '../styleFile/globalSizes';
 import globalColors from '../styleFile/globalColors';
 import ButtonApp from './ButtonApp';
@@ -14,6 +13,7 @@ export default function Gmara({
     listNamePage,
     selectItem,
     eventPageHndling,
+    textToShow,
 }) {
     let pageToComponent = 15
 
@@ -47,7 +47,6 @@ export default function Gmara({
 
 
     useEffect(() => {
-
         if (selectItem && listNamePage && listNamePage.length) {
             // console.log("selectItem.pageTrack ==== ",selectItem.pageTrack);
             // console.log("selectItem ==== ", selectItem);
@@ -134,6 +133,7 @@ export default function Gmara({
                     </View>
                 </ButtonApp>}
 
+                {/* {!selectItem.startAgain && <ButtonApp title={textToShow.multipleChoice} onPress={() => { }} />} */}
                 <ButtonApp title={(selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll)} onPress={selectAll_func} />
             </View>
 
@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
     wrapButtons: {
         flexDirection: "row",
         justifyContent: "space-between",
+        marginBottom: 10,
 
     },
     text: {

@@ -52,7 +52,7 @@ export default function GmaraList({
                <View>
                   <View style={[styles.wrapButtons, globalSizes.flexRowReverse]}>
                      {/* <Button title={(` <- `)} onPress={() => { removeSelect() }}></Button> */}
-                     <ButtonApp title={` <- `} onPress={() => { removeSelect() }}/>
+                     <ButtonApp title={` <- `} onPress={() => { removeSelect() }} />
                   </View>
                   <View style={[styles.wrapList]}>
                      {selectCat.list.map((item, index) =>
@@ -84,5 +84,6 @@ const styles = StyleSheet.create({
    wrapButtons: {
       flexDirection: "row",
       justifyContent: "space-between",
+      marginBottom: 10,
    },
 });

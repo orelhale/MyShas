@@ -6,7 +6,8 @@ let textToShowEnglish = {
     UnSelectAll: "Unselect All",
     // Masechet: "Masechet: ",
     Masechet: "מסכת: ",
-    startAgain: "start again",
+    startAgain: "Atart again",
+    multipleChoice: "Multiple choice",
 }
 
 let textToShowHebrow = {
@@ -14,9 +15,12 @@ let textToShowHebrow = {
     UnSelectAll: "בטל הכל",
     Masechet: "מסכת: ",
     startAgain: "להתחיל שוב",
+    multipleChoice: "בחירה מרובה",
 }
 
-let textToShow = textToShowEnglish
-
+let textToShow = {
+    "en": textToShowEnglish,
+    "he": textToShowHebrow,
+}
 
 export default textToShow
