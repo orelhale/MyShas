@@ -34,6 +34,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { VictoryPie } from 'victory-native';
+import globalColors from '../styleFile/globalColors';
 
 const ProgressCircle = ({ chartData }) => {
 
@@ -43,7 +44,7 @@ const ProgressCircle = ({ chartData }) => {
     let color = '#008ffb'
     let backgroundColor = '#008ffb25'
     let strokeWidth = 8
-    
+
     const percentage = Math.round(progress * 100);
 
     const data = [
@@ -55,7 +56,7 @@ const ProgressCircle = ({ chartData }) => {
         <View style={{ alignItems: 'center' }}>
             <VictoryPie
                 data={data}
-                colorScale={[color, backgroundColor]}
+                colorScale={[(percentage == 100 ? globalColors.gold : color), backgroundColor]}
                 innerRadius={radius - 10}
                 radius={radius}
                 labels={() => null}

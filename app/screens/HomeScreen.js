@@ -25,10 +25,17 @@ export default function HomeScreen() {
     useEffect(() => {
         initData()
     }, [])
+    let temp = { "name": "נדה 2", "numPages": 143, "completed": 0, "finishedPages": 0, "id": 42, "catId": "6", "pageTrack": { "ב.": false, "ב:": false, "ג.": false, "ג:": false, "ד.": false, "ד:": false, "ה.": false, "ה:": false, "ו.": false, "ו:": false, "ז.": false, "ז:": false, "ח.": false, "ח:": false, "ט.": false, "ט:": false, "י.": false, "י:": false, "יא.": false, "יא:": false, "יב.": false, "יב:": false, "יג.": false, "יג:": false, "יד.": false, "יד:": false, "טו.": false, "טו:": false, "טז.": false, "טז:": false, "יז.": false, "יז:": false, "יח.": false, "יח:": false, "יט.": false, "יט:": false, "כ.": false, "כ:": false, "כא.": false, "כא:": false, "כב.": false, "כב:": false, "כג.": false, "כג:": false, "כד.": false, "כד:": false, "כה.": false, "כה:": false, "כו.": false, "כו:": false, "כז.": false, "כז:": false, "כח.": false, "כח:": false, "כט.": false, "כט:": false, "ל.": false, "ל:": false, "לא.": false, "לא:": false, "לב.": false, "לב:": false, "לג.": false, "לג:": false, "לד.": false, "לד:": false, "לה.": false, "לה:": false, "לו.": false, "לו:": false, "לז.": false, "לז:": false, "לח.": false, "לח:": false, "לט.": false, "לט:": false, "מ.": false, "מ:": false, "מא.": false, "מא:": false, "מב.": false, "מב:": false, "מג.": false, "מג:": false, "מד.": false, "מד:": false, "מה.": false, "מה:": false, "מו.": false, "מו:": false, "מז.": false, "מז:": false, "מח.": false, "מח:": false, "מט.": false, "מט:": false, "נ.": false, "נ:": false, "נא.": false, "נא:": false, "נב.": false, "נב:": false, "נג.": false, "נג:": false, "נד.": false, "נד:": false, "נה.": false, "נה:": false, "נו.": false, "נו:": false, "נז.": false, "נז:": false, "נח.": false, "נח:": false, "נט.": false, "נט:": false, "ס.": false, "ס:": false, "סא.": false, "סא:": false, "סב.": false, "סב:": false, "סג.": false, "סג:": false, "סד.": false, "סד:": false, "סה.": false, "סה:": false, "סו.": false, "סו:": false, "סז.": false, "סז:": false, "סח.": false, "סח:": false, "סט.": false, "סט:": false, "ע.": false, "ע:": false, "עא.": false, "עא:": false, "עב.": false, "עב:": false, "עג.": false } }
 
     useEffect(() => {
         if (allData) {
-            // console.log("allData = ", allData);
+            // let obj = allData.find((c)=>c.id == 6)
+            // obj.list.push(temp)
+            for (const cat of allData) {
+                let {name,completed } = cat
+                // console.log("name = ",name);
+                // console.log("completed = ",completed);
+            }
         }
     }, [allData])
 
@@ -108,8 +115,8 @@ export default function HomeScreen() {
         if (event == "select") {
             selectCat.finishedPages++
             selectItem.finishedPages++
+            // console.log("selectItem === ", selectItem.finishedPages);
             // console.log("selectCat === ", selectCat.finishedPages);
-            // console.log("selectCat === ", selectItem.finishedPages);
         }
         if (event == "unSelect") {
             selectCat.finishedPages--
@@ -138,6 +145,18 @@ export default function HomeScreen() {
             // selectCat.finishedPages = selectCat.finishedPages - finishedPages
             selectItem.finishedPages = 0
         }
+
+        if (event == "startAgain") {
+            if (selectCat.finishedPages == selectCat.numPages) {
+                console.log("yesssssssssssssssssssssssssssssssss");
+            }
+        }
+
+        selectItem.startAgain = (selectItem.finishedPages == selectItem.numPages)
+
+        // console.log("selectItem.finishedPages === ", selectItem.finishedPages);
+        // console.log("selectItem.numPages === ", selectItem.numPages);
+        // console.log("selectItem.startAgain === " + selectItem.startAgain);
         setEventPage((new Date().getTime()) + "")
         needToSaveChanges()
     }
@@ -146,7 +165,6 @@ export default function HomeScreen() {
         <>{allData &&
             <ScrollView>
                 <View style={styles.HomeScreen}>
-                    {/* <PieComponent></PieComponent> */}
                     <PageDataAnalysis
                         allData={allData}
                         selectCat={selectCat}
@@ -194,8 +212,8 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     HomeScreen: {
         backgroundColor: globalColors.background,
-        flex:1,
-        // marginTop: 20,
+        flex: 1,
+        marginTop: 5,
     },
     delete: {
         // backgroundColor: "red",

@@ -1,11 +1,11 @@
 
 
 import { useEffect, useState } from 'react';
-import { I18nManager, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import ProgressCircle from './ProgressCircle';
+import globalSizes from '../styleFile/globalSizes';
+import CompletedTracking from './CompletedTracking';
 // import ChartProgress from './ChartProgress';
-
-
 export default function PageDataAnalysis({
     allData,
     selectCat,
@@ -13,15 +13,13 @@ export default function PageDataAnalysis({
     eventPage,
 }) {
     let [pageNumData, setPageNumData] = useState()
-    let RTL = I18nManager.isRTL
-
 
     useEffect(() => {
         if (allData) {
-            return initPages("allShas", allData)
+            initPages("allShas", allData)
         }
         if (!allData && pageNumData) {
-            return removeFild("allShas")
+            removeFild("allShas")
         }
     }, [allData])
 
@@ -29,10 +27,10 @@ export default function PageDataAnalysis({
     useEffect(() => {
         if (selectCat) {
             // console.log("selectCat ==== ", selectCat.numPages);
-            return initPages("pageCat", selectCat.list, selectCat)
+            initPages("pageCat", selectCat.list, selectCat)
         }
         if (!selectCat && pageNumData) {
-            return removeFild("pageCat")
+            removeFild("pageCat")
         }
     }, [selectCat])
 
@@ -40,18 +38,19 @@ export default function PageDataAnalysis({
     useEffect(() => {
         if (selectItem) {
             // console.log("selectCat ==== ", selectCat.numPages);
-            return initPages("pageGmara", [selectItem])
-            // return addFild("pageGmara", selectItem.numPages)
+            selectItem.startAgain = (selectItem.finishedPages == selectItem.numPages)
+            initPages("pageGmara", [selectItem])
+            // addFild("pageGmara", selectItem.numPages)
         }
         if (!selectItem && pageNumData) {
-            return removeFild("pageGmara")
+            removeFild("pageGmara")
         }
     }, [selectItem])
 
 
     useEffect(() => {
         if (pageNumData) {
-            console.log("pageNumData ==== ", pageNumData);
+            // console.log("pageNumData ==== ", pageNumData);
         }
     }, [pageNumData])
 
@@ -60,9 +59,12 @@ export default function PageDataAnalysis({
         // כאשר מסמנים דף אז מתעזכנים כמויות הדפים בקומפוננטה
         if (eventPage) {
             // console.log("pageNumData = ", pageNumData);
-            initPages("pageGmara", [selectItem])
-            initPages("pageCat", selectCat.list, selectCat)
-            initPages("allShas", allData)
+            let pageGmara = initPages("pageGmara", [selectItem])
+            let pageCat = initPages("pageCat", selectCat.list, selectCat)
+            let allShas = initPages("allShas", allData)
+            console.log("pageGmara ==== ", pageGmara.value);
+            console.log("pageCat ==== ", pageCat.value);
+            console.log("allShas ==== ", allShas.value);
             // let obj = {}
             // !!selectItem.catId && (obj.catId = selectItem.catId)
             // !!selectItem.id && (obj.id = selectItem.id)
@@ -99,44 +101,82 @@ export default function PageDataAnalysis({
         if (!allData) {
             return
         }
-        let value = parceList(list)
+
+        let sumCompleted = list[0]["completed"];
+        list.forEach((item) => {
+            if (item.completed != undefined && sumCompleted > item.completed) {
+                sumCompleted = item.completed
+            }
+        })
+        let value = parceList(list, (key == "pageGmara") ? null : sumCompleted);
+
+        value.sumCompleted = sumCompleted;
         // console.log(key,": value ==== ",value);
-        addFild(key, value)
+        addFild(key, value);
 
         if (obj) {
             obj.finishedPages = value.sumFinishedPages
+            obj.completed = value.sumCompleted
+            obj.numPages = value.sumPages
         }
+        return { value, obj }
     }
 
 
     // מחשב ומחזיר את - 1) סך כמות הדפים הכללית 2) וסך וכמות הדפים שנחברו
-    function parceList(list) {
-        let sumPages = 0
-        let sumFinishedPages = 0
+    function parceList(list, sumCompleted) {
+        let sumPages = 0;
+        let sumFinishedPages = 0;
+
+
 
         list.forEach((item) => {
+            // if(!item.numPages)return
             sumPages += item.numPages
-            sumFinishedPages += item.finishedPages
+            sumFinishedPages += !sumCompleted ? item.finishedPages : ((item.completed > sumCompleted) ? item.numPages : item.finishedPages)
         })
+
+
+
         let dataInPercentage = Math.floor((sumFinishedPages / sumPages) * 100)
         // console.log("data ==== ", { sumPages, sumFinishedPages });
         return { sumPages, sumFinishedPages, dataInPercentage }
     }
 
-
     return (
         <>
             {pageNumData && <>
-                <View style={[styles.PageDataAnalysis, RTL && { flexDirection: "row-reverse" }]}>
-                    {pageNumData.allShas && <ProgressCircle
-                        chartData={{ data: (pageNumData.allShas.dataInPercentage / 100), lable: `${pageNumData.allShas.dataInPercentage}%` }}/>}
-                    {pageNumData.pageCat && <ProgressCircle
-                        chartData={{ data: (pageNumData.pageCat.dataInPercentage / 100), lable: `${pageNumData.pageCat.dataInPercentage}%` }}/>}
-                    {pageNumData.pageGmara && <ProgressCircle
-                        chartData={{ data: (pageNumData.pageGmara.dataInPercentage / 100), lable: `${pageNumData.pageGmara.dataInPercentage}%` }}/>}
+                <View style={[styles.PageDataAnalysis, globalSizes.flexRowReverse]}>
+                    {pageNumData.allShas && <>
+                        <View style={[styles.wrapData, globalSizes.flexColumnReverse]}>
+                            {/* <CompletedTracking sumCompleted={(pageNumData.allShas.sumCompleted + (pageNumData.allShas.dataInPercentage == 100 ? 1 : 0))} /> */}
+                            <CompletedTracking sumCompleted={pageNumData.allShas.sumCompleted} />
+                            <ProgressCircle
+                                chartData={{ data: (pageNumData.allShas.dataInPercentage / 100) }}
+                            />
+                        </View>
+                    </>}
+                    {pageNumData.pageCat && <>
+                        <View style={[styles.wrapData, globalSizes.flexColumnReverse]}>
+                            {/* <CompletedTracking sumCompleted={(pageNumData.pageCat.sumCompleted + (pageNumData.pageCat.dataInPercentage == 100 ? 1 : 0))} /> */}
+                            <CompletedTracking sumCompleted={pageNumData.pageCat.sumCompleted} />
+                            <ProgressCircle
+                                chartData={{ data: (pageNumData.pageCat.dataInPercentage / 100) }}
+                            />
+                        </View>
+                    </>}
+                    {pageNumData.pageGmara && <>
+                        <View style={[styles.wrapData, globalSizes.flexColumnReverse]}>
+                            {/* <CompletedTracking sumCompleted={(pageNumData.pageGmara.sumCompleted + (pageNumData.pageGmara.dataInPercentage == 100 ? 1 : 0))} /> */}
+                            <CompletedTracking sumCompleted={pageNumData.pageGmara.sumCompleted} />
+                            <ProgressCircle
+                                chartData={{ data: (pageNumData.pageGmara.dataInPercentage / 100) }}
+                            />
+                        </View>
+                    </>}
                 </View>
 
-                {/* <View style={[styles.PageDataAnalysis, RTL && { flexDirection: "row-reverse" }]}>
+                {/* <View style={[styles.PageDataAnalysis, globalSizes.flexRowReverse]}>
                     {pageNumData.allShas && <ChartProgress
                         chartData={{ data: (pageNumData.allShas.dataInPercentage / 100), lable: `${pageNumData.allShas.dataInPercentage}%` }}/>}
                     {pageNumData.pageCat && <ChartProgress
@@ -145,9 +185,9 @@ export default function PageDataAnalysis({
                         chartData={{ data: (pageNumData.pageGmara.dataInPercentage / 100), lable: `${pageNumData.pageGmara.dataInPercentage}%` }}/>}
                 </View> */}
 
-                {/* <View style={[styles.PageDataAnalysis2, RTL && { flexDirection: "row-reverse" }]}>
+                {/* <View style={[styles.PageDataAnalysis2, globalSizes.flexRowReverse]}>
                     {pageNumData.allShas &&
-                        <View style={[styles.details, RTL && { flexDirection: "row-reverse" }]}>
+                        <View style={[styles.details, globalSizes.flexRowReverse]}>
                             <Text style={[
                                 styles.text,
                                 // globalSizes.fontSize
@@ -163,7 +203,7 @@ export default function PageDataAnalysis({
                         </View>
                     }
                     {pageNumData.pageCat &&
-                        <View style={[styles.details, RTL && { flexDirection: "row-reverse" }]}>
+                        <View style={[styles.details, globalSizes.flexRowReverse]}>
                             <Text style={[
                                 styles.text,
                                 // globalSizes.fontSize
@@ -179,7 +219,7 @@ export default function PageDataAnalysis({
                         </View>
                     }
                     {pageNumData.pageGmara &&
-                        <View style={[styles.details, RTL && { flexDirection: "row-reverse" }]}>
+                        <View style={[styles.details, globalSizes.flexRowReverse]}>
                             <Text style={[
                                 styles.text,
                                 // globalSizes.fontSize
@@ -206,7 +246,7 @@ export default function PageDataAnalysis({
 const styles = StyleSheet.create({
     PageDataAnalysis: {
         flexDirection: "row",
-        justifyContent:"space-around",
+        justifyContent: "space-around",
     },
     PageDataAnalysis2: {// למחוק אחרי שכל הסתדר
 
@@ -222,5 +262,8 @@ const styles = StyleSheet.create({
     details: {
         flexDirection: "row",
         justifyContent: "space-between"
+    },
+    wrapData: {
+        alignItems: "center",
     },
 });
