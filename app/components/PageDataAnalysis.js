@@ -133,7 +133,7 @@ export default function PageDataAnalysis({
         list.forEach((item) => {
             // if(!item.numPages)return
             sumPages += item.numPages
-            sumFinishedPages += !sumCompleted ? item.finishedPages : ((item.completed > sumCompleted) ? item.numPages : item.finishedPages)
+            sumFinishedPages += (sumCompleted == null && sumCompleted != 0) ? item.finishedPages : ((item.completed > sumCompleted) ? item.numPages : item.finishedPages)
         })
 
 
