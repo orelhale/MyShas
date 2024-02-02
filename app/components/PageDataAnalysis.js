@@ -1,10 +1,13 @@
 
 
 import { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import ProgressCircle from './ProgressCircle';
 import globalSizes from '../styleFile/globalSizes';
 import CompletedTracking from './CompletedTracking';
+import Popup from './Popup';
+import app_json from '../../app.json';
+
 // import ChartProgress from './ChartProgress';
 export default function PageDataAnalysis({
     allData,
@@ -13,6 +16,21 @@ export default function PageDataAnalysis({
     eventPage,
 }) {
     let [pageNumData, setPageNumData] = useState()
+
+    // ******** Only for show developer and version ********
+    const [toOpanPopup, setToOpanPopup] = useState(false);
+    const [countClicks, setCountClicks] = useState(0);
+    useEffect(() => {
+        if (countClicks >= 5) {
+            setCountClicks(0)
+            setToOpanPopup(true)
+        }
+    }, [countClicks])
+    function addOneCountClicks() {
+        setCountClicks(countClicks + 1)
+    }
+    // ******** Only for show developer and version ********
+
 
     useEffect(() => {
         if (allData) {
@@ -146,14 +164,25 @@ export default function PageDataAnalysis({
     return (
         <>
             {pageNumData && <>
+
+                {/* ******** Only for show developer and version ******** */}
+                <Popup toOpanPopup={toOpanPopup}  pressOnBackground={setToOpanPopup} backdropOpacity={0.4}>
+                    <Text style={{ fontWeight: "bold" }}>Develop by: Orel Hale</Text>
+                    <Text style={{ fontWeight: "bold" }}>Version: {app_json.expo.version}</Text>
+                </Popup>
+                {/* ******** Only for show developer and version ******** */}
+
+
                 <View style={[styles.PageDataAnalysis, globalSizes.flexRowReverse]}>
                     {pageNumData.allShas && <>
                         <View style={[styles.wrapData, globalSizes.flexColumnReverse]}>
                             {/* <CompletedTracking sumCompleted={(pageNumData.allShas.sumCompleted + (pageNumData.allShas.dataInPercentage == 100 ? 1 : 0))} /> */}
                             <CompletedTracking sumCompleted={pageNumData.allShas.sumCompleted} />
-                            <ProgressCircle
-                                chartData={{ data: (pageNumData.allShas.dataInPercentage / 100) }}
-                            />
+                            <Pressable onPress={addOneCountClicks}>
+                                <ProgressCircle
+                                    chartData={{ data: (pageNumData.allShas.dataInPercentage / 100) }}
+                                />
+                            </Pressable>
                         </View>
                     </>}
                     {pageNumData.pageCat && <>

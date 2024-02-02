@@ -146,10 +146,10 @@ export default function HomeScreen({ setLang, lang }) {
                         eventPage={eventPage}
                     />
 
-                    {/* <View style={styles.delete}>
+                    <View style={styles.delete}>
                         <Button color={"red"} title='Delete data' onPress={deleteAll}></Button>
                         <Button color={"red"} title='Delete lang' onPress={() => { deleteLang(); setLang() }}></Button>
-                    </View> */}
+                    </View>
 
                     {!selectItem && <GmaraList
                         allData={allData}

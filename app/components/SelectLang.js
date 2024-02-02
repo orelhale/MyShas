@@ -40,9 +40,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 0,
+        backgroundColor: "#ddd"
     },
     modalContent: {
-        // backgroundColor: 'white',
+        backgroundColor: 'white',
         padding: 20,
         paddingBottom: 30,
         borderRadius: 10,

@@ -1,8 +1,21 @@
 1
 (run ->) npm i -g eas-cli
+{
+    If "eas" not reconize (after -  npm i -g eas-cli ),so you need to add these two path to system variable
 
+    C:\Users\OrelHale\AppData\Roaming\npm
+    C:\Users\OrelHale\AppData\Roaming\npm\node_modules\eas-cli\bin
+}
+===========================
 2
 (run ->) eas build -p android --profile preview
 
+===========================
+
 3
 after build in the terminal i get link to dounload the apk file 
+
+=============================
+
+
+
