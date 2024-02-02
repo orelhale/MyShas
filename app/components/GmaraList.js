@@ -2,8 +2,10 @@
 
 
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View, Button, I18nManager } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
 import globalElements from '../styleFile/globalElements';
+import globalSizes from '../styleFile/globalSizes';
+import ButtonApp from './ButtonApp';
 
 
 export default function GmaraList({
@@ -14,7 +16,6 @@ export default function GmaraList({
 }) {
 
    let [listToShow, setCatsToShow] = useState()
-   let RTL = I18nManager.isRTL
 
    useEffect(() => {
       if (allData) {
@@ -40,23 +41,24 @@ export default function GmaraList({
          {
             listToShow && !selectCat && <View style={[styles.wrapList]}>
                {listToShow.map((item, index) =>
-                  <Pressable key={("Pressable1" + index)} style={[globalElements.item]} onPress={() => pressCat(item)}>
-                     <Text>{item.name}</Text>
-                  </Pressable>
+                  <TouchableOpacity key={("Pressable1" + index)} style={[globalElements.boxTtem]} onPress={() => pressCat(item)}>
+                     <Text style={globalElements.textTtem}>{item.name}</Text>
+                  </TouchableOpacity>
                )}
             </View>
          }
          {
             selectCat && (
                <View>
-                  <View style={[styles.wrapButtons, RTL && { flexDirection: "row-reverse" }]}>
-                     <Button title={(` <- `)} onPress={() => { removeSelect() }}></Button>
+                  <View style={[styles.wrapButtons, globalSizes.flexRowReverse]}>
+                     {/* <Button title={(` <- `)} onPress={() => { removeSelect() }}></Button> */}
+                     <ButtonApp title={` <- `} onPress={() => { removeSelect() }} />
                   </View>
                   <View style={[styles.wrapList]}>
                      {selectCat.list.map((item, index) =>
-                        <Pressable key={("Pressable2" + index)} style={[globalElements.item]} onPress={() => { selectGmara(item) }}>
-                           <Text>{item.name}</Text>
-                        </Pressable>)}
+                        <TouchableOpacity key={("Pressable2" + index)} style={[globalElements.boxTtem]} onPress={() => { selectGmara(item) }}>
+                           <Text style={globalElements.textTtem}>{item.name}</Text>
+                        </TouchableOpacity>)}
                   </View>
                </View>
             )
@@ -82,5 +84,6 @@ const styles = StyleSheet.create({
    wrapButtons: {
       flexDirection: "row",
       justifyContent: "space-between",
+      marginBottom: 10,
    },
 });

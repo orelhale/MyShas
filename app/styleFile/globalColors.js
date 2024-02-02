@@ -1,5 +1,10 @@
 export default HomeScreen = {
-    primary: "",
+    primary: "#FDFBF4",
     // background: "#efefef",
-    background: "#fff",
+    background: "#FFF",
+    secondary:"#950712",
+    // #761C21
+    gold:"#CCA400",
+    // gold:"rgb(238, 191, 0)",
+    // gold:"#F6E27D",
 }

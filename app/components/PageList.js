@@ -1,7 +1,8 @@
 import { memo, useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, I18nManager } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import globalSizes from '../styleFile/globalSizes';
 import CheckBox from 'react-native-check-box';
+import globalElements from '../styleFile/globalElements';
 
 
 export default memo(PageList)
@@ -15,7 +16,6 @@ function PageList({
    let [pages, setPages] = useState()
    let [showPages, setShowPages] = useState()
 
-   let RTL = I18nManager.isRTL
 
    useEffect(() => {
       if (listOfPagesData) {
@@ -69,17 +69,11 @@ function PageList({
          {showPages && pages && showPages.map((page, index) => {
             //  console.log("PageList ????");
             return (
-               <View style={[styles.page, RTL && { flexDirection: "row" }]} key={("page" + index)}>
-                  <View style={[styles.pageInside2, RTL && { flexDirection: "row" }]}>
+               <View style={[styles.page, globalSizes.flexRow, globalElements.page]} key={("page" + index)}>
+                  <View style={[styles.pageInside2, globalSizes.flexRow]}>
 
                      <Text style={[globalSizes.fontSize]}>{page}</Text>
-                     <CheckBox
-
-                        onClick={() => {
-                           clickOnPage(page)
-                        }}
-                        isChecked={pages[page]}
-                     ></CheckBox>
+                     <CheckBox style={[globalSizes.checkBox]} onClick={() => { clickOnPage(page) }} isChecked={pages[page]}></CheckBox>
                   </View>
                </View>
             )
@@ -115,12 +109,6 @@ const styles = StyleSheet.create({
       width: "100%",
       paddingLeft: "17%",
       paddingRight: "17%",
-   },
-   pageRTL: {
-      flexDirection: "row",
-   },
-   pageInsideRTL: {
-      flexDirection: "row",
    },
    textPage: {
 

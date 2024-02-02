@@ -1,16 +1,14 @@
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
-import { getAllData, deleteAllData, storeData } from "../storage/storageFunc";
+import { StyleSheet, View, Button, ScrollView } from 'react-native';
+import { getAllData, deleteAllData, storeData, deleteLang } from "../storage/storageFunc";
 import GmaraList from '../components/GmaraList';
-import PageList from '../components/PageList';
 import Gmara from '../components/Gmara';
 import PageDataAnalysis from '../components/PageDataAnalysis';
 import globalColors from '../styleFile/globalColors';
-import ProgressCircle from '../components/ProgressCircle';
-// import ChartProgress from '../components/ChartProgress';
-// import PieComponent from '../components/PieComponent';
+import textToShow from '../data/textToShow';
 
-export default function HomeScreen() {
+
+export default function HomeScreen({ setLang, lang }) {
 
     let [selectItem, setSelectItem] = useState()
     let [selectCat, setSelectCat] = useState()
@@ -26,11 +24,11 @@ export default function HomeScreen() {
         initData()
     }, [])
 
-    useEffect(() => {
-        if (allData) {
-            // console.log("allData = ", allData);
-        }
-    }, [allData])
+    // useEffect(() => {
+    //     if (allData) {
+    //         console.log("allData = ",allData);
+    //     }
+    // }, [allData])
 
     useEffect(() => {
         if (selectItem) {
@@ -108,8 +106,8 @@ export default function HomeScreen() {
         if (event == "select") {
             selectCat.finishedPages++
             selectItem.finishedPages++
+            // console.log("selectItem === ", selectItem.finishedPages);
             // console.log("selectCat === ", selectCat.finishedPages);
-            // console.log("selectCat === ", selectItem.finishedPages);
         }
         if (event == "unSelect") {
             selectCat.finishedPages--
@@ -118,26 +116,21 @@ export default function HomeScreen() {
             // console.log("unSelect === ", selectItem.finishedPages);
         }
         if (event == "selectAll") {
-            // allData[selectItem.catId]
-            // let catIndex = allData.findIndex((cat) => cat.id == selectItem.catId)
-            // let index = allData[catIndex].list.findIndex((gmara) => gmara.id == selectItem.id)
-            // console.log("catIndex === ", catIndex);
-            // console.log("index === ", index);
-            // console.log("allData[catIndex].list[index] ==== ", allData[catIndex].list[index]);
-
-            // let finishedPages = allData[catIndex].list[index].finishedPages
-            // let finishedPages = selectItem.finishedPages
-
-            // console.log("selectCat.finishedPages 1  ==== ", selectCat.finishedPages);
-            // selectCat.finishedPages = (selectCat.finishedPages - finishedPages) + selectCat.numPages
-            // console.log("selectCat.finishedPages 2  ==== ", selectCat.finishedPages);
             selectItem.finishedPages = selectItem.numPages
         }
         if (event == "unSelectAll") {
-            // let finishedPages = selectItem.finishedPages
-            // selectCat.finishedPages = selectCat.finishedPages - finishedPages
             selectItem.finishedPages = 0
         }
+
+        if (event == "startAgain") {
+
+        }
+
+        selectItem.startAgain = (selectItem.finishedPages == selectItem.numPages)
+
+        // console.log("selectItem.finishedPages === ", selectItem.finishedPages);
+        // console.log("selectItem.numPages === ", selectItem.numPages);
+        // console.log("selectItem.startAgain === " + selectItem.startAgain);
         setEventPage((new Date().getTime()) + "")
         needToSaveChanges()
     }
@@ -146,7 +139,6 @@ export default function HomeScreen() {
         <>{allData &&
             <ScrollView>
                 <View style={styles.HomeScreen}>
-                    {/* <PieComponent></PieComponent> */}
                     <PageDataAnalysis
                         allData={allData}
                         selectCat={selectCat}
@@ -156,6 +148,7 @@ export default function HomeScreen() {
 
                     <View style={styles.delete}>
                         <Button color={"red"} title='Delete data' onPress={deleteAll}></Button>
+                        <Button color={"red"} title='Delete lang' onPress={() => { deleteLang(); setLang() }}></Button>
                     </View>
 
                     {!selectItem && <GmaraList
@@ -172,6 +165,8 @@ export default function HomeScreen() {
                             setSelectItem={setSelectItem}
                             selectItem={selectItem}
                             eventPageHndling={eventPageHndling}
+                            textToShow={textToShow[lang]}
+
                         />
                         {/* <View>
                     <Button title={(`<-`)} onPress={() => { removeSelect() }}></Button>
@@ -194,8 +189,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     HomeScreen: {
         backgroundColor: globalColors.background,
-        flex:1,
-        // marginTop: 20,
+        flex: 1,
+        marginTop: 5,
+        // marginTop: 60,
     },
     delete: {
         // backgroundColor: "red",

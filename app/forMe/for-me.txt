@@ -2,7 +2,11 @@ onPress not work on View elemnmatTabLabel
 
 
 TouchableOpacity  - כמו דיב רק עם פלש כאשר לוחצים עליו
-TouchableWithoutFeedback - כמו דיב בלי עם פלש כאשר לוחצים עליו
+
+
+TouchableWithoutFeedback - כמו דיב בלי עם פלש כאשר לוחצים עליו , וזה לא יוצר "ביעבוע"י
+propagation = ביעבוע
+
 
 TouchableHighlight - לא יודע
 

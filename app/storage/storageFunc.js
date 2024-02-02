@@ -10,7 +10,7 @@ const storeData = async (value) => {
          throw new Error("Data of storeData is not Object")
 
       const parceToString = JSON.stringify(value);
-      
+
       return AsyncStorage.setItem('data', parceToString);
    } catch (e) {
       console.log("Error: storeData = ", e);
@@ -48,10 +48,10 @@ const getData = async () => {
 const getAllData = async () => {
    try {
       let data = await getData()
-      
+
       // console.log("data = ", data);
-      
-      if(!data){
+
+      if (!data) {
          data = await initStorage()
       }
       return data
@@ -71,7 +71,28 @@ async function initStorage() {
 
 async function deleteAllData() {
    console.log("*** deleteAllData ***");
-   await AsyncStorage.setItem('data', "")
+   await AsyncStorage.removeItem('data')
+}
+
+const storeLang = async (value) => {
+   await AsyncStorage.setItem('lang', value);
+   return value
+}
+
+const getLang = async () => {
+   let react = await AsyncStorage.getItem("lang");
+   return react == null ? undefined : react
+}
+const deleteLang = async () => {
+   await AsyncStorage.removeItem("lang")
 }
 // deleteAllData()
-export { getAllData,deleteAllData ,storeData}
+export {
+   getAllData,
+   deleteAllData,
+   storeData,
+   storeLang,
+   getLang,
+   getData,
+   deleteLang,
+}
