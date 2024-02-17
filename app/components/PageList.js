@@ -70,7 +70,7 @@ function PageList({
             //  console.log("PageList ????");
             return (
                <View style={[styles.page, globalSizes.flexRow, globalElements.page]} key={("page" + index)}>
-                  <View style={[styles.pageInside2, globalSizes.flexRow]}>
+                  <View style={[styles.pageInside, globalSizes.flexRow]}>
 
                      <Text style={[globalSizes.fontSize]}>{page}</Text>
                      <CheckBox style={[globalSizes.checkBox]} onClick={() => { clickOnPage(page) }} isChecked={pages[page]}></CheckBox>
@@ -94,17 +94,12 @@ const styles = StyleSheet.create({
    //    flexWrap: "wrap",
    // },
    page: {
-      flexDirection: "row-reverse",
+      // flexDirection: "row-reverse",
       width: "25%"
       // width: 50,
    },
    pageInside: {
-      flexDirection: "row-reverse",
-      justifyContent: "space-between",
-      width: "70%",
-   },
-   pageInside2: {
-      flexDirection: "row-reverse",
+      // flexDirection: "row-reverse",
       justifyContent: "space-between",
       width: "100%",
       paddingLeft: "17%",

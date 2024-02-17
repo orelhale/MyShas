@@ -8,11 +8,13 @@ import globalColors from '../styleFile/globalColors';
 import textToShow from '../data/textToShow';
 
 
-export default function HomeScreen({ setLang, lang }) {
+export default function HomeScreen({ lang = 'en',
+    allData, setAllData,
+}) {
 
     let [selectItem, setSelectItem] = useState()
     let [selectCat, setSelectCat] = useState()
-    let [allData, setAllData] = useState()
+    // let [allData, setAllData] = useState()
     let [listNamePage, setListNamePage] = useState()
 
     let [flagSaveDate, setFlagSaveDate] = useState(false)
@@ -20,9 +22,7 @@ export default function HomeScreen({ setLang, lang }) {
     let [eventPage, setEventPage] = useState(false)
     let timeToSave = 3000;
 
-    useEffect(() => {
-        initData()
-    }, [])
+
 
     // useEffect(() => {
     //     if (allData) {
@@ -146,10 +146,10 @@ export default function HomeScreen({ setLang, lang }) {
                         eventPage={eventPage}
                     />
 
-                    <View style={styles.delete}>
+                    {/* <View style={styles.delete}>
                         <Button color={"red"} title='Delete data' onPress={deleteAll}></Button>
                         <Button color={"red"} title='Delete lang' onPress={() => { deleteLang(); setLang() }}></Button>
-                    </View>
+                    </View> */}
 
                     {!selectItem && <GmaraList
                         allData={allData}
@@ -188,9 +188,9 @@ export default function HomeScreen({ setLang, lang }) {
 
 const styles = StyleSheet.create({
     HomeScreen: {
-        backgroundColor: globalColors.background,
-        flex: 1,
-        marginTop: 5,
+        // backgroundColor: globalColors.background,
+        // flex: 1,
+        // marginTop: 5,
         // marginTop: 60,
     },
     delete: {

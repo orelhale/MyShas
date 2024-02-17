@@ -274,14 +274,14 @@ export default function PageDataAnalysis({
 
 const styles = StyleSheet.create({
     PageDataAnalysis: {
-        flexDirection: "row",
+        // flexDirection: "row",
         justifyContent: "space-around",
         marginTop: 10,
         marginBottom: 10,
     },
     PageDataAnalysis2: {// למחוק אחרי שכל הסתדר
 
-        flexDirection: "row",
+        // flexDirection: "row",
         flexWrap: "wrap",
         // justifyContent: "space-between"
     },
@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
     },
     details: {
-        flexDirection: "row",
+        // flexDirection: "row",
         justifyContent: "space-between"
     },
     wrapData: {

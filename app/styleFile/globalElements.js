@@ -7,8 +7,10 @@ export default globalElements = StyleSheet.create({
    },
    boxTtem: {
       marginBottom: 10,
-      // backgroundColor: globalColors.gold,
       backgroundColor: 'red',
+      backgroundColor: globalColors.gold,
+      borderWidth: 1,
+      borderColor: globalColors.gold,
       color: "red",
       fontSize: 30,
       flexBasis: "30%",
@@ -20,17 +22,8 @@ export default globalElements = StyleSheet.create({
    },
    textTtem: {
       // color: globalColors.secondary,
-   },
-   btnWrap: {
-      borderRadius: 5,
-      // backgroundColor: globalColors.secondary,
-      backgroundColor: "#ddd",
-      justifyContent: 'center',
-      alignItems: "center",
-      // borderColor: globalColors.gold,
-      // borderWidth: 1,
-      // height: 40,
-      // width: 40,
+      color: '#fff',
+      fontSize: 20,
    },
    btnText: {
       // color: globalColors.gold,
