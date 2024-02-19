@@ -1,10 +1,11 @@
 import { Button, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import PageList from './PageList';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import globalSizes from '../styleFile/globalSizes';
 import globalColors from '../styleFile/globalColors';
 import ButtonApp from './ButtonApp';
 import CompletedTracking from './CompletedTracking';
+import { Context } from '../screens/Context';
 
 
 export default function Gmara({
@@ -15,10 +16,11 @@ export default function Gmara({
     eventPageHndling,
     textToShow,
 }) {
-    let pageToComponent = 15
+    let pageToComponent = 15;
 
     let [arrListNamePage, setArrListNamePage] = useState()
     let [arrListObjNamePage, setArrListObjNamePage] = useState()
+    let { addFuncToReturnButton } = useContext(Context)
 
     // console.log("Gmara ????");
 
@@ -51,6 +53,7 @@ export default function Gmara({
             // console.log("selectItem.pageTrack ==== ",selectItem.pageTrack);
             // console.log("selectItem ==== ", selectItem);
             initGmara()
+            // addFuncToReturnButton(removeSelect)
             // console.log("arr ==== ",arr);
         }
     }, [selectItem])
@@ -121,20 +124,27 @@ export default function Gmara({
             }
         }
     }
-
+    let styleTextBTN = {
+        ...styles.styleTextBTN,
+    }
+    let styleWrapBTN = {
+        backgroundColor: globalColors.gold,
+        ...globalSizes.flexRow
+    }
     return (
         <View>
             <View style={[styles.wrapButtons, globalSizes.flexRowReverse]}>
-                <ButtonApp title={` <- `} onPress={() => { removeSelect() }} />
+                {/* <ButtonApp title={` <- `} onPress={() => { removeSelect() }} /> */}
 
-                {selectItem.startAgain && <ButtonApp title={textToShow.startAgain} styleWrap={{ backgroundColor: globalColors.gold, paddingLeft: 15 }} styleText={{ color: "#fff" }} onPress={startAgain} >
+                <ButtonApp title={(selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll)} onPress={selectAll_func} />
+                
+                {selectItem.startAgain && <ButtonApp title={textToShow.startAgain} styleWrap={styleWrapBTN} styleText={styleTextBTN} onPress={startAgain} >
                     <View style={styles.wrapCupStartAgin}>
-                        <CompletedTracking style={styles.cupStartAgin} />
+                        <CompletedTracking />
                     </View>
                 </ButtonApp>}
 
                 {/* {!selectItem.startAgain && <ButtonApp title={textToShow.multipleChoice} onPress={() => { }} />} */}
-                <ButtonApp title={(selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll)} onPress={selectAll_func} />
             </View>
 
             <Text style={[styles.text, globalSizes.fontSize]}>{textToShow.Masechet + " " + selectItem.name}</Text>
@@ -172,7 +182,7 @@ const styles = StyleSheet.create({
     // },
     wrapPages: {
         // flex:1,
-        flexDirection: "row-reverse",
+        // flexDirection: "row-reverse",
         flexWrap: "wrap",
         // marginBottom:50,
         // overflow:"scroll"
@@ -180,7 +190,7 @@ const styles = StyleSheet.create({
         // justifyContent:"space-around"
     },
     wrapButtons: {
-        flexDirection: "row",
+        // flexDirection: "row",
         justifyContent: "space-between",
         marginBottom: 10,
 
@@ -190,13 +200,11 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         fontWeight: 800,
     },
-    cupStartAgin: {
-        position: "absolute",
-        left: 32,
-        top: 16,
-    },
     wrapCupStartAgin: {
-        position: "relative",
-        zIndex: 2,
+        paddingRight: 10,
     },
+    styleTextBTN: {
+        color: "#fff",
+        paddingRight: 7,
+    }
 });

@@ -54,7 +54,7 @@ export default function ChartProgress({ styleData, chartData }) {
     return (
         <>
             {chartData &&
-                <View style={[styles.ChartProgress, { width: elementWidth }]}>
+                <View style={[styles.ChartProgress, globalSizes.flexRow, { width: elementWidth }]}>
                     <Text style={[globalSizes.fontSize, styles.positionText, { left: leftSize }]}>{chartData.lable}</Text>
                     <ProgressChart
                         data={{ data: [chartData.data] }}
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     },
     ChartProgress: {
         position: "relative",
-        flexDirection: 'row',
+        // flexDirection: 'row',
         justifyContent: "center",
     },
 });

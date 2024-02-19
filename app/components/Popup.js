@@ -21,10 +21,12 @@ export default function Popup({
     return (
         <Modal
             isVisible={!!modalVisible}
+            
             style={styles.wrapPopup}
             backdropColor={"#ddd"}
             backdropOpacity={(backdropOpacity || 0.1)}
-            deviceHeight={"100%"}
+            // ##### להחליף אכשהו את הגובה למספר, או להגדירר אותו במקום אחר
+            // deviceHeight={"100%"}
             onBackdropPress={() => (!backgroundNotClose && pressOnBackground())}
         >
             <View style={styles.popup}>

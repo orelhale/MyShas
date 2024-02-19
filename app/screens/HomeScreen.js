@@ -8,21 +8,22 @@ import globalColors from '../styleFile/globalColors';
 import textToShow from '../data/textToShow';
 
 
-export default function HomeScreen({ setLang, lang }) {
+export default function HomeScreen({
+    lang = 'en',
+    allData,
+    setAllData,
+    needToSaveChanges,
+}) {
 
     let [selectItem, setSelectItem] = useState()
     let [selectCat, setSelectCat] = useState()
-    let [allData, setAllData] = useState()
+    // let [allData, setAllData] = useState()
     let [listNamePage, setListNamePage] = useState()
 
-    let [flagSaveDate, setFlagSaveDate] = useState(false)
-    let [flagTo_FlagSaveDate, setFlagTo_FlagSaveDate] = useState(false)
-    let [eventPage, setEventPage] = useState(false)
-    let timeToSave = 3000;
 
-    useEffect(() => {
-        initData()
-    }, [])
+    let [eventPage, setEventPage] = useState(false)
+
+
 
     // useEffect(() => {
     //     if (allData) {
@@ -40,19 +41,7 @@ export default function HomeScreen({ setLang, lang }) {
         }
     }, [selectItem])
 
-    useEffect(() => {
-        if (flagSaveDate) {
-            setTimeout(() => {
-                setFlagTo_FlagSaveDate(true)
-            }, timeToSave)
-        }
-    }, [flagSaveDate])
 
-    useEffect(() => {
-        if (flagTo_FlagSaveDate) {
-            saveChanges(allData)
-        }
-    }, [flagTo_FlagSaveDate])
 
     async function initData() {
         let data = await getAllData()
@@ -67,28 +56,7 @@ export default function HomeScreen({ setLang, lang }) {
         setSelectCat(cat)
     }
 
-    function needToSaveChanges(dataToSaveNow) {
-        if (dataToSaveNow) {
-            return saveChanges(dataToSaveNow)
-        }
-        if (!flagSaveDate) {
-            setFlagSaveDate(true)
-        }
-    }
 
-    function saveChanges(data) {
-        setFlagSaveDate(false)
-        setFlagTo_FlagSaveDate(false)
-
-        // let catIndex = allData.findIndex((cat)=>cat.id == selectItem.catId)
-        // let index = allData[catIndex].list.findIndex((gmara)=>gmara.id == selectItem.id)
-        // console.log("catIndex === ",catIndex);
-        // console.log("index === ",index);
-        // console.log("allData[catIndex].list[index] === ",allData[catIndex].list[index]);
-
-        storeData(data)
-        console.log("---- Data saving  ----");
-    }
 
     function deleteAll() {
         deleteAllData()
@@ -146,10 +114,10 @@ export default function HomeScreen({ setLang, lang }) {
                         eventPage={eventPage}
                     />
 
-                    <View style={styles.delete}>
+                    {/* <View style={styles.delete}>
                         <Button color={"red"} title='Delete data' onPress={deleteAll}></Button>
                         <Button color={"red"} title='Delete lang' onPress={() => { deleteLang(); setLang() }}></Button>
-                    </View>
+                    </View> */}
 
                     {!selectItem && <GmaraList
                         allData={allData}
@@ -188,9 +156,9 @@ export default function HomeScreen({ setLang, lang }) {
 
 const styles = StyleSheet.create({
     HomeScreen: {
-        backgroundColor: globalColors.background,
-        flex: 1,
-        marginTop: 5,
+        // backgroundColor: globalColors.background,
+        // flex: 1,
+        // marginTop: 5,
         // marginTop: 60,
     },
     delete: {
