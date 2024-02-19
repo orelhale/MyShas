@@ -8,8 +8,11 @@ import globalColors from '../styleFile/globalColors';
 import textToShow from '../data/textToShow';
 
 
-export default function HomeScreen({ lang = 'en',
-    allData, setAllData,
+export default function HomeScreen({
+    lang = 'en',
+    allData,
+    setAllData,
+    needToSaveChanges,
 }) {
 
     let [selectItem, setSelectItem] = useState()
@@ -17,10 +20,8 @@ export default function HomeScreen({ lang = 'en',
     // let [allData, setAllData] = useState()
     let [listNamePage, setListNamePage] = useState()
 
-    let [flagSaveDate, setFlagSaveDate] = useState(false)
-    let [flagTo_FlagSaveDate, setFlagTo_FlagSaveDate] = useState(false)
+
     let [eventPage, setEventPage] = useState(false)
-    let timeToSave = 3000;
 
 
 
@@ -40,19 +41,7 @@ export default function HomeScreen({ lang = 'en',
         }
     }, [selectItem])
 
-    useEffect(() => {
-        if (flagSaveDate) {
-            setTimeout(() => {
-                setFlagTo_FlagSaveDate(true)
-            }, timeToSave)
-        }
-    }, [flagSaveDate])
 
-    useEffect(() => {
-        if (flagTo_FlagSaveDate) {
-            saveChanges(allData)
-        }
-    }, [flagTo_FlagSaveDate])
 
     async function initData() {
         let data = await getAllData()
@@ -67,28 +56,7 @@ export default function HomeScreen({ lang = 'en',
         setSelectCat(cat)
     }
 
-    function needToSaveChanges(dataToSaveNow) {
-        if (dataToSaveNow) {
-            return saveChanges(dataToSaveNow)
-        }
-        if (!flagSaveDate) {
-            setFlagSaveDate(true)
-        }
-    }
 
-    function saveChanges(data) {
-        setFlagSaveDate(false)
-        setFlagTo_FlagSaveDate(false)
-
-        // let catIndex = allData.findIndex((cat)=>cat.id == selectItem.catId)
-        // let index = allData[catIndex].list.findIndex((gmara)=>gmara.id == selectItem.id)
-        // console.log("catIndex === ",catIndex);
-        // console.log("index === ",index);
-        // console.log("allData[catIndex].list[index] === ",allData[catIndex].list[index]);
-
-        storeData(data)
-        console.log("---- Data saving  ----");
-    }
 
     function deleteAll() {
         deleteAllData()

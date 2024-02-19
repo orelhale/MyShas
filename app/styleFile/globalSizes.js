@@ -16,8 +16,11 @@ export default globalSizes = StyleSheet.create({
         flexDirection: (RTL ? "column" : "column-reverse"),
     },
     flexColumnReverse: {
-        flexDirection: (RTL ? "column-reverse" : "column"),
+        flexDirection: "column",
     },
+    // flexColumnReverse: {
+    //     flexDirection: (RTL ? "column-reverse" : "column"),
+    // },
     iconSize: 25,
 
 });

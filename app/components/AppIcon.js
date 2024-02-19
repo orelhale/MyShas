@@ -13,16 +13,21 @@ export default function AppIcon({
     name,
     onPress,
     color,
+    size,
 }) {
 
     return (
         <Pressable
             onPress={() => onPress && onPress()}
-            style={({ pressed }) => [styles.button, { backgroundColor: pressed ? globalColors.backgroundGold : 'white' }]}
-            >
+            style={({ pressed }) => [
+                styles.button,
+                size && { width: size, height: size, },
+                { backgroundColor: pressed ? globalColors.backgroundGold : 'white' }
+            ]}
+        >
             <MIcon
                 name={name || ''}
-                size={globalSizes.iconSize}
+                size={size || globalSizes.iconSize}
                 color={color || globalColors.gold}
             />
         </Pressable>

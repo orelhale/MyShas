@@ -16,7 +16,7 @@ export default function Gmara({
     eventPageHndling,
     textToShow,
 }) {
-    let pageToComponent = 15
+    let pageToComponent = 15;
 
     let [arrListNamePage, setArrListNamePage] = useState()
     let [arrListObjNamePage, setArrListObjNamePage] = useState()

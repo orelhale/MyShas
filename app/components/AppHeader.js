@@ -52,10 +52,14 @@ export default function AppHeader({
                     //     </View>
                     // </ButtonApp>
                     <>
-                        <AppIcon name='trophy' onPress={() => {
-                            setShowScreen('CompletAreaScreen')
-                            setFuncReturnButton([() => setShowScreen('HomeScreen')])
-                        }} color={globalColors.gold2} />
+                        <AppIcon
+                            name='trophy'
+                            onPress={() => {
+                                setShowScreen('CompletAreaScreen')
+                                setFuncReturnButton([() => setShowScreen('HomeScreen')])
+                            }}
+                            color={globalColors.gold2}
+                        />
                     </>
                 )}
 
@@ -86,7 +90,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
         paddingBottom: 7,
         backgroundColor: "#ddd",
-        paddingTop: 50,
+        paddingTop: 10,
         paddingRight: 10,
         paddingLeft: 10,
 

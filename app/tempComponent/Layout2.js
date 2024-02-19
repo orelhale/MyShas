@@ -26,7 +26,7 @@ export default function Layout2() {
       )
    }
 
-      return (
+   return (
       <NavigationContainer>
          <Stack.Navigator
             initialRouteName='Home'
@@ -44,22 +44,22 @@ export default function Layout2() {
                <Stack.Screen
                   name={name}
                   component={component}
-                  // options={(option) => (
-                  //    {
-                  //       // headerTitle: (props) => <LogoTitle />
-                  //       headerTitle: (props) => {
+               // options={(option) => (
+               //    {
+               //       // headerTitle: (props) => <LogoTitle />
+               //       headerTitle: (props) => {
 
-                  //          // names.map(({ name }) => <Text>{name}</Text>)
-                  //          // <View>
-                  //          //    {names.map(({ name }) => <Text>{name}</Text>)}
-                  //          // </View>
-                  //          // console.log("option ==== ",option);
-                  //          // console.log("props ==== ",props);
-                  //          return buttonHeader(option)
-                  //       }
+               //          // names.map(({ name }) => <Text>{name}</Text>)
+               //          // <View>
+               //          //    {names.map(({ name }) => <Text>{name}</Text>)}
+               //          // </View>
+               //          // console.log("option ==== ",option);
+               //          // console.log("props ==== ",props);
+               //          return buttonHeader(option)
+               //       }
 
-                  //    }
-                  // )}
+               //    }
+               // )}
 
                />
             ))}
@@ -88,15 +88,15 @@ export default function Layout2() {
 
          </Stack.Navigator>
       </NavigationContainer>
-      );
+   );
 }
-      const styles = StyleSheet.create({
-         wrapButton: {
-         flexDirection: "row",
+const styles = StyleSheet.create({
+   wrapButton: {
+      flexDirection: "row",
       gap: 30,
    },
-      text: {
-         fontSize: 18,
+   text: {
+      fontSize: 18,
       color: "yellow"
    }
 })
