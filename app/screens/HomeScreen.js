@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, Button, ScrollView } from 'react-native';
 import { getAllData, deleteAllData, storeData, deleteLang } from "../storage/storageFunc";
 import GmaraList from '../components/GmaraList';
@@ -6,6 +6,11 @@ import Gmara from '../components/Gmara';
 import PageDataAnalysis from '../components/PageDataAnalysis';
 import globalColors from '../styleFile/globalColors';
 import textToShow from '../data/textToShow';
+import Loader from '../components/Loader';
+import { Context } from './Context';
+import Loader4 from '../tempComponent/Loader4';
+import Loader3 from '../tempComponent/Loader3';
+import Loader2 from '../tempComponent/Loader2';
 
 
 export default function HomeScreen({
@@ -23,6 +28,7 @@ export default function HomeScreen({
 
     let [eventPage, setEventPage] = useState(false)
 
+    let { showLoader } = useContext(Context)
 
 
     // useEffect(() => {
@@ -126,7 +132,7 @@ export default function HomeScreen({
                         selectCat={selectCat}
                     />}
 
-                    {selectItem && listNamePage && <>
+                    {selectItem && listNamePage && <View style={styles.wrapGmara}>
                         <Gmara
                             listNamePage={listNamePage}
                             setListNamePage={setListNamePage}
@@ -146,7 +152,15 @@ export default function HomeScreen({
                     listOfPagesData={copyObj(listNamePage, 10)}
                 /> */}
 
-                    </>}
+                        <View style={[{ display: showLoader ? "flex" : "none" }, styles.wrapLoader]}>
+                            <Loader4 />
+                        </View>
+                    </View>
+                    }
+
+                </View>
+                <View style={[{ display: showLoader ? "flex" : "none" }, styles.wrapLoader]}>
+                    <Loader4 />
                 </View>
             </ScrollView>
         }</>
@@ -166,5 +180,23 @@ const styles = StyleSheet.create({
         color: "red",
         marginBottom: 20,
         // marginTop: 10,
+    },
+    wrapGmara: {
+        position: "relative",
+    },
+    wrapLoader: {
+        justifyContent: "center",
+        alignItems: "center",
+        // position: "absolute",
+        height: 400,
+        // height: "100%",
+        // flex: 1,
+        // top: 0,
+        // button: 0,
+
+        // top: '50%',
+        // zIndex: 50,
+        // left: 150,
+        // backgroundColor: "red"
     },
 });

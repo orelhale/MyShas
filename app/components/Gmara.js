@@ -20,10 +20,11 @@ export default function Gmara({
 
     let [arrListNamePage, setArrListNamePage] = useState()
     let [arrListObjNamePage, setArrListObjNamePage] = useState()
-    let { addFuncToReturnButton } = useContext(Context)
+    let { addFuncToReturnButtonz, setShowLoader } = useContext(Context)
 
-    // console.log("Gmara ????");
-
+    useEffect(() => {
+        setShowLoader(false)
+    })
 
     // useEffect(() => {
     //     if (arrListNamePage) {

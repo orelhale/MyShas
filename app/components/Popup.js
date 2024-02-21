@@ -10,6 +10,7 @@ export default function Popup({
     pressOnBackground,
     styleBackground,
     backdropOpacity,
+    style,
 }) {
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -27,9 +28,9 @@ export default function Popup({
             backdropOpacity={(backdropOpacity || 0.1)}
             // ##### להחליף אכשהו את הגובה למספר, או להגדירר אותו במקום אחר
             // deviceHeight={"100%"}
-            onBackdropPress={() => (!backgroundNotClose && pressOnBackground())}
+            onBackdropPress={() => (!backgroundNotClose ? setModalVisible(false) : (pressOnBackground && pressOnBackground()))}
         >
-            <View style={styles.popup}>
+            <View style={[styles.popup, style]}>
                 {children}
             </View>
         </Modal>
@@ -43,7 +44,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     popup: {
-        backgroundColor: "red",
         borderColor: "#1890FF",
         width: 200,
         borderWidth: 1,

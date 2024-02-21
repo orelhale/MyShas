@@ -17,7 +17,7 @@ export default function GmaraList({
    selectCat,
 }) {
 
-   let { addFuncToReturnButton } = useContext(Context)
+   let { setShowLoader, addFuncToReturnButton } = useContext(Context)
 
    // useEffect(() => {
    //    if (selectCat) {
@@ -69,7 +69,10 @@ export default function GmaraList({
                            // style={[globalElements.boxTtem]}
                            style={({ pressed }) => [globalElements.boxTtem, (pressed && { backgroundColor: globalColors.backgroundGold })]}
 
-                           onPress={() => { pressGmara(item) }}
+                           onPress={() => {
+                              setShowLoader(new String("s"))
+                              pressGmara(item)
+                           }}
                         >
                            <Text style={globalElements.textTtem}>{item.name}</Text>
                         </Pressable>)}

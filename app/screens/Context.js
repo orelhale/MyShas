@@ -9,6 +9,7 @@ function ContextComponent({ children }) {
 
     const [funcReturnButton, setFuncReturnButton] = useState([]);
     let [lang, setLang] = useState()
+    let [showLoader, setShowLoader] = useState(false)
 
 
     function addFuncToReturnButton(func) {
@@ -37,6 +38,8 @@ function ContextComponent({ children }) {
             callFuncFromReturnButton,
             lang,
             setLang,
+            showLoader, 
+            setShowLoader,
         }}>
             {children}
         </Context.Provider>
