@@ -14,70 +14,39 @@ import CompletedTracking from './CompletedTracking';
 import textToShow from '../data/textToShow';
 
 
-export default function AppHeader({
-    showScreen,
-    setShowScreen,
-}) {
+export default function AppHeader() {
 
-    const { funcReturnButton, lang, callFuncFromReturnButton, addFuncToReturnButton, setFuncReturnButton } = useContext(Context);
-
-
-    // let [] = useState({
-
-    // })
-
-    useEffect(() => {
-        console.log("funcReturnButton ===== ", funcReturnButton);
-    }, [funcReturnButton])
-
-
-    let styleWrapBTN = {
-        backgroundColor: globalColors.gold,
-        ...globalSizes.flexRow
-    }
+    const { funcReturnButton, callFuncFromReturnButton } = useContext(Context);
 
     return (
         <View style={[styles.AppHeader, globalSizes.flexRow]}>
-
             <View style={[styles.sideRight, globalSizes.flexRow]}>
-                {showScreen != 'CompletAreaScreen' && (
-                    // <ButtonApp
-                    //     title={textToShow[lang].completArea}
-                    //     styleWrap={styleWrapBTN}
-                    //     styleText={styles.styleText}
-                    //     onPress={() => setShowScreen('CompletAreaScreen')}
-                    // >
-                    //     <View style={styles.wrapCupStartAgin}>
-                    //         <CompletedTracking />
-                    //     </View>
-                    // </ButtonApp>
-                    <>
-                        <AppIcon
-                            name='trophy'
-                            onPress={() => {
-                                setShowScreen('CompletAreaScreen')
-                                setFuncReturnButton([() => setShowScreen('HomeScreen')])
-                            }}
-                            color={globalColors.gold2}
-                        />
-                    </>
-                )}
+                <>
+                    {/* <ButtonApp
+                        title={textToShow[lang].completArea}
+                        styleWrap={styleWrapBTN}
+                        styleText={styles.styleText}
+                        onPress={() => { }}
+                    >
+                        <View style={styles.wrapCupStartAgin}>
+                            <CompletedTracking />
+                        </View>
+                    </ButtonApp> */}
 
-                {/* {showScreen != 'HomeScreen' && (
-                    <AppIcon name='checkbox-active' onPress={() => setShowScreen('HomeScreen')} color={globalColors.gold2} />
-                    // <ButtonApp
-                    //     title={textToShow[lang].myShas}
-                    //     styleWrap={styleWrapBTN}
-                    //     styleText={styles.styleText}
-                    //     onPress={() => setShowScreen('HomeScreen')}
-                    // />
-                )} */}
+                    {/* <AppIcon
+                        name='trophy'
+                        onPress={() => { }}
+                        color={globalColors.gold2}
+                    /> */}
+                </>
             </View>
 
             {/* חץ חזור */}
-            <View style={[styles.sideLeft, globalSizes.flexRow]}>
-                {(!!funcReturnButton && !!funcReturnButton.length) && <AppIcon name='keyboard-backspace' onPress={callFuncFromReturnButton} />}
-            </View>
+            {(!!funcReturnButton && !!funcReturnButton.length) && 
+                <View style={[styles.sideLeft, globalSizes.flexRow]}>
+                    <AppIcon name='keyboard-backspace' onPress={callFuncFromReturnButton} />
+                </View>
+            }
         </View>
     )
 }
@@ -93,6 +62,7 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingRight: 10,
         paddingLeft: 10,
+        height: 55,
 
     },
     sideLeft: {

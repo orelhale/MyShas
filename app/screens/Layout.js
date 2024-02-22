@@ -4,24 +4,25 @@ import { getAllData, getLang, storeData } from "../storage/storageFunc";
 import HomeScreen from "./HomeScreen";
 import CompletAreaScreen from "./CompletAreaScreen";
 import AppHeader from "../components/AppHeader";
+import AppFooter from "../components/AppFooter";
 import { StyleSheet, View } from "react-native";
 import globalColors from "../styleFile/globalColors";
 
 import { Context } from './Context'
 
 export default function Layout() {
-   let [showScreen, setShowScreen] = useState("HomeScreen")
-
    let { lang, setLang } = useContext(Context)
+
+   let [showScreen, setShowScreen] = useState("HomeScreen")
    let [flagSaveDate, setFlagSaveDate] = useState(false)
    let [flagTo_FlagSaveDate, setFlagTo_FlagSaveDate] = useState(false)
    let [allData, setAllData] = useState()
 
    let timeToSave = 2000;
 
-   getLang().then((data) => { setLang(data || false) })
 
    useEffect(() => {
+      getLang().then((data) => { setLang(data || false) })
       initData()
    }, [])
 
@@ -29,11 +30,6 @@ export default function Layout() {
       console.log("lang ====== ", lang);
    }, [lang])
 
-
-   async function initData() {
-      let data = await getAllData()
-      setAllData(data)
-   }
 
    useEffect(() => {
       if (flagSaveDate) {
@@ -50,8 +46,10 @@ export default function Layout() {
    }, [flagTo_FlagSaveDate])
 
 
-
-
+   async function initData() {
+      let data = await getAllData()
+      setAllData(data)
+   }
 
    function needToSaveChanges(dataToSaveNow) {
       if (dataToSaveNow) {
@@ -61,7 +59,6 @@ export default function Layout() {
          setFlagSaveDate(true)
       }
    }
-
 
    function saveChanges(data) {
       setFlagSaveDate(false)
@@ -79,7 +76,8 @@ export default function Layout() {
 
    return (
       <View style={styles.Layout}>
-         {lang && <AppHeader showScreen={showScreen} setShowScreen={setShowScreen} />}
+         
+         {lang && <AppHeader />}
 
          {lang && showScreen == 'HomeScreen' && (
             <HomeScreen
@@ -100,6 +98,9 @@ export default function Layout() {
          )}
 
          {(lang == false) && <SelectLang setLang={setLang} />}
+
+         {lang && <AppFooter showScreen={showScreen} setShowScreen={setShowScreen} />}
+
       </View>
    );
 }
