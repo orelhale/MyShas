@@ -194,15 +194,15 @@ export default function CompletAreaScreen({
         <ScrollView>
             <View style={styles.CompletAreaScreen}>
                 <View style={[styles.area, globalSizes.flexRow]}>
-                    {!!completData.shas.length && completData.shas.map((item) => <Item item={item} />
+                    {!!completData.shas.length && completData.shas.map((item, index) => <Item item={item} key={("shas" + index)} />
                     )}
                 </View>
                 <View style={[styles.area, globalSizes.flexRow]}>
-                    {!!completData.cats.length && completData.cats.map((item) => <Item item={item} />
+                    {!!completData.cats.length && completData.cats.map((item, index) => <Item item={item} key={("cats" + index)} />
                     )}
                 </View>
                 <View style={[styles.area, globalSizes.flexRow]}>
-                    {!!completData.gmaras.length && completData.gmaras.map((item) => <Item item={item} />
+                    {!!completData.gmaras.length && completData.gmaras.map((item, index) => <Item item={item} key={("gmaras" + index)} />
                     )}
                 </View>
             </View>

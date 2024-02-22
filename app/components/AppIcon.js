@@ -14,6 +14,7 @@ export default function AppIcon({
     onPress,
     color,
     size,
+    style
 }) {
 
     return (
@@ -22,7 +23,8 @@ export default function AppIcon({
             style={({ pressed }) => [
                 styles.button,
                 size && { width: size, height: size, },
-                { backgroundColor: pressed ? globalColors.backgroundGold : 'white' }
+                { backgroundColor: pressed ? globalColors.backgroundGold : 'white' },
+                style && style,
             ]}
         >
             <MIcon

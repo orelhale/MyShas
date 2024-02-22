@@ -14,7 +14,6 @@ import Loader2 from '../tempComponent/Loader2';
 
 
 export default function HomeScreen({
-    lang = 'en',
     allData,
     setAllData,
     needToSaveChanges,
@@ -28,7 +27,7 @@ export default function HomeScreen({
 
     let [eventPage, setEventPage] = useState(false)
 
-    let { showLoader } = useContext(Context)
+    let { showLoader , lang} = useContext(Context)
 
 
     // useEffect(() => {
