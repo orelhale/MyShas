@@ -73,7 +73,7 @@ function PageList({
                   <View style={[styles.pageInside, globalSizes.flexRow]}>
 
                      <Text style={[globalSizes.fontSize]}>{page}</Text>
-                     <CheckBox style={[globalSizes.checkBox]} onClick={() => { clickOnPage(page) }} isChecked={pages[page]}></CheckBox>
+                     <CheckBox style={styles.checkBox} onClick={() => { clickOnPage(page) }} isChecked={pages[page]}></CheckBox>
                   </View>
                </View>
             )
@@ -101,11 +101,12 @@ const styles = StyleSheet.create({
    pageInside: {
       // flexDirection: "row-reverse",
       justifyContent: "space-between",
+      alignItems: "center",
       width: "100%",
       paddingLeft: "17%",
       paddingRight: "17%",
    },
-   textPage: {
-
+   checkBox: {
+      transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }],
    },
 });

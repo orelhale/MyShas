@@ -15,26 +15,40 @@ export default function PageDataAnalysis({
     selectItem,
     eventPage,
 }) {
-    let [pageNumData, setPageNumData] = useState()
-
+    // ******** Only for show developer and version ********
     // ******** Only for show developer and version ********
     const [toOpanPopup, setToOpanPopup] = useState(false);
     const [countClicks, setCountClicks] = useState(0);
+
     useEffect(() => {
         if (countClicks >= 5) {
             setCountClicks(0)
             setToOpanPopup(true)
         }
     }, [countClicks])
+
     function addOneCountClicks() {
         setCountClicks(countClicks + 1)
     }
     // ******** Only for show developer and version ********
+    // ******** Only for show developer and version ********
 
 
+    let [pageNumData, setPageNumData] = useState()
+
+    // useEffect(() => {
+    //     if (pageNumData) {
+    //         console.log("pageNumData ==== ", pageNumData);
+    //     }
+    // }, [pageNumData])
+
+
+    // בכלל באפליקציה setAllData זה מתרחש רק פעם הראשונה כי אני לא עושה  
     useEffect(() => {
         if (allData) {
-            initPages("allShas", allData)
+            // initPages("allShas", allData)
+            refreshAllData()
+            console.log("PageDataAnalysis allData ====");
         }
         if (!allData && pageNumData) {
             removeFild("allShas")
@@ -65,12 +79,6 @@ export default function PageDataAnalysis({
         }
     }, [selectItem])
 
-
-    // useEffect(() => {
-    //     if (pageNumData) {
-    //         console.log("pageNumData ==== ", pageNumData);
-    //     }
-    // }, [pageNumData])
 
 
     useEffect(() => {
@@ -120,7 +128,9 @@ export default function PageDataAnalysis({
             return
         }
 
+        // null אני כן רוצה שזה היה או מספר או 
         let sumCompleted = list[0]["completed"];
+
         list.forEach((item) => {
             if (item.completed != undefined && sumCompleted > item.completed) {
                 sumCompleted = item.completed
@@ -146,27 +156,32 @@ export default function PageDataAnalysis({
         let sumPages = 0;
         let sumFinishedPages = 0;
 
-
-
         list.forEach((item) => {
             // if(!item.numPages)return
             sumPages += item.numPages
             sumFinishedPages += (sumCompleted == null && sumCompleted != 0) ? item.finishedPages : ((item.completed > sumCompleted) ? item.numPages : item.finishedPages)
         })
 
-
-
         let dataInPercentage = Math.floor((sumFinishedPages / sumPages) * 100)
-        // console.log("data ==== ", { sumPages, sumFinishedPages });
         return { sumPages, sumFinishedPages, dataInPercentage }
     }
 
+    // רענון של הסיומים של הסדרים והש"ס
+    function refreshAllData() {
+        // חישוב סיומי סדרים
+        for (const cat of allData) {
+            initPages("", cat.list, cat)
+        }
+        // חישוב סיומי ש"ס
+        initPages("allShas", allData)
+
+    }
     return (
         <>
             {pageNumData && <>
 
                 {/* ******** Only for show developer and version ******** */}
-                <Popup toOpanPopup={toOpanPopup}  pressOnBackground={setToOpanPopup} backdropOpacity={0.4}>
+                <Popup toOpanPopup={toOpanPopup} pressOnBackground={setToOpanPopup} backdropOpacity={0.4}>
                     <Text style={{ fontWeight: "bold" }}>Develop by: Orel Hale</Text>
                     <Text style={{ fontWeight: "bold" }}>Version: {app_json.expo.version}</Text>
                 </Popup>

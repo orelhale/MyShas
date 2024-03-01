@@ -40,10 +40,12 @@ const ProgressCircle = ({ chartData }) => {
 
     let progress = chartData.data
     let radius = 40
-    // let color = 'rgb(134, 65, 244)'
-    let color = '#008ffb'
-    let backgroundColor = '#008ffb25'
-    let strokeWidth = 8
+    // let color = "gray"
+    // let backgroundColor = "#dfdfdf"
+    let color = globalColors.blue
+    let backgroundColor = globalColors.backgroundBlue
+    
+    let circleWidth = 3
 
     const percentage = Math.round(progress * 100);
 
@@ -57,7 +59,7 @@ const ProgressCircle = ({ chartData }) => {
             <VictoryPie
                 data={data}
                 colorScale={[(percentage == 100 ? globalColors.gold : color), backgroundColor]}
-                innerRadius={radius - 10}
+                innerRadius={radius - circleWidth}
                 radius={radius}
                 labels={() => null}
                 height={90}

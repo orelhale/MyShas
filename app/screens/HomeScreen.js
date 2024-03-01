@@ -1,33 +1,30 @@
 import { useContext, useEffect, useState } from 'react';
-import { StyleSheet, View, Button, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
 import { getAllData, deleteAllData, storeData, deleteLang } from "../storage/storageFunc";
 import GmaraList from '../components/GmaraList';
 import Gmara from '../components/Gmara';
 import PageDataAnalysis from '../components/PageDataAnalysis';
 import globalColors from '../styleFile/globalColors';
 import textToShow from '../data/textToShow';
-import Loader from '../components/Loader';
 import { Context } from './Context';
-import Loader4 from '../tempComponent/Loader4';
-import Loader3 from '../tempComponent/Loader3';
-import Loader2 from '../tempComponent/Loader2';
-
 
 export default function HomeScreen({
     allData,
     setAllData,
     needToSaveChanges,
 }) {
+    let { lang } = useContext(Context)
 
     let [selectItem, setSelectItem] = useState()
     let [selectCat, setSelectCat] = useState()
     // let [allData, setAllData] = useState()
     let [listNamePage, setListNamePage] = useState()
-
-
     let [eventPage, setEventPage] = useState(false)
+    let [confForMenu, setConfForMenu] = useState({
+        selectAll: { condition: null, func: null },
+        startAgain: { condition: null, func: null },
+    })
 
-    let { showLoader , lang} = useContext(Context)
 
 
     // useEffect(() => {
@@ -60,8 +57,6 @@ export default function HomeScreen({
     function selectCatFunc(cat) {
         setSelectCat(cat)
     }
-
-
 
     function deleteAll() {
         deleteAllData()
@@ -139,6 +134,7 @@ export default function HomeScreen({
                             selectItem={selectItem}
                             eventPageHndling={eventPageHndling}
                             textToShow={textToShow[lang]}
+                            confForMenu={confForMenu}
 
                         />
                         {/* <View>
@@ -150,16 +146,9 @@ export default function HomeScreen({
                     listOfPagesName={listNamePage.splice(0, 10)}
                     listOfPagesData={copyObj(listNamePage, 10)}
                 /> */}
-
-                        <View style={[{ display: showLoader ? "flex" : "none" }, styles.wrapLoader]}>
-                            <Loader4 />
-                        </View>
                     </View>
                     }
 
-                </View>
-                <View style={[{ display: showLoader ? "flex" : "none" }, styles.wrapLoader]}>
-                    <Loader4 />
                 </View>
             </ScrollView>
         }</>
@@ -182,20 +171,5 @@ const styles = StyleSheet.create({
     },
     wrapGmara: {
         position: "relative",
-    },
-    wrapLoader: {
-        justifyContent: "center",
-        alignItems: "center",
-        // position: "absolute",
-        height: 400,
-        // height: "100%",
-        // flex: 1,
-        // top: 0,
-        // button: 0,
-
-        // top: '50%',
-        // zIndex: 50,
-        // left: 150,
-        // backgroundColor: "red"
     },
 });

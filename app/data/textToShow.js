@@ -4,6 +4,7 @@
 let textToShowEnglish = {
     SelectAll: "Select All",
     UnSelectAll: "Unselect All",
+    All: "All",
     // Masechet: "Masechet: ",
     Masechet: "מסכת: ",
     startAgain: "Start again",
@@ -15,6 +16,7 @@ let textToShowEnglish = {
 let textToShowHebrow = {
     SelectAll: "סמן הכל",
     UnSelectAll: "בטל הכל",
+    All: "הכל",
     Masechet: "מסכת: ",
     startAgain: "להתחיל שוב",
     multipleChoice: "בחירה מרובה",

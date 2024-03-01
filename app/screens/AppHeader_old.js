@@ -3,7 +3,7 @@
 // useEffect(() => {    }, [allData])
 
 
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import globalSizes from '../styleFile/globalSizes';
 import AppIcon from './AppIcon';
@@ -14,7 +14,7 @@ import CompletedTracking from './CompletedTracking';
 import textToShow from '../data/textToShow';
 
 
-export default function AppHeader({ children }) {
+export default function AppHeader_old() {
 
     const { funcReturnButton, callFuncFromReturnButton } = useContext(Context);
 
@@ -38,13 +38,11 @@ export default function AppHeader({ children }) {
                         onPress={() => { }}
                         color={globalColors.gold2}
                     /> */}
-
-                    {children}
                 </>
             </View>
 
             {/* חץ חזור */}
-            {(!!funcReturnButton && !!funcReturnButton.length) &&
+            {(!!funcReturnButton && !!funcReturnButton.length) && 
                 <View style={[styles.sideLeft, globalSizes.flexRow]}>
                     <AppIcon name='keyboard-backspace' onPress={callFuncFromReturnButton} />
                 </View>
@@ -57,22 +55,21 @@ export default function AppHeader({ children }) {
 const styles = StyleSheet.create({
     AppHeader: {
         justifyContent: 'space-between',
-        // borderBottomWidth: 1,
+        borderBottomWidth: 1,
         borderBottomColor: '#ddd',
+        paddingBottom: 7,
         backgroundColor: "#ddd",
-        // paddingBottom: 7,
-        // paddingTop: 10,
+        paddingTop: 10,
         paddingRight: 10,
         paddingLeft: 10,
-        marginBottom: 10,
-        marginTop: 10,
+        height: 55,
+
     },
     sideLeft: {
-        alignItems: "center",
+
     },
     sideRight: {
         gap: 15,
-        alignItems: "center",
     },
     styleText: {
         padding: 5,

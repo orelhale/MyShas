@@ -6,6 +6,7 @@ import globalColors from '../styleFile/globalColors';
 import ButtonApp from './ButtonApp';
 import CompletedTracking from './CompletedTracking';
 import { Context } from '../screens/Context';
+import MIcon2 from "react-native-vector-icons/Fontisto"
 
 
 export default function Gmara({
@@ -15,15 +16,18 @@ export default function Gmara({
     selectItem,
     eventPageHndling,
     textToShow,
+    confForMenu,
 }) {
     let pageToComponent = 15;
 
     let [arrListNamePage, setArrListNamePage] = useState()
     let [arrListObjNamePage, setArrListObjNamePage] = useState()
-    let { addFuncToReturnButtonz, setShowLoader } = useContext(Context)
+    let { addFuncToReturnButtonz, startLoader, stopLoader } = useContext(Context)
+
+
 
     useEffect(() => {
-        setShowLoader(false)
+        stopLoader()
     })
 
     // useEffect(() => {
@@ -38,24 +42,18 @@ export default function Gmara({
     //     console.log("flagToSelectAll ==== ", flagToSelectAll);
     // }, [flagToSelectAll])
 
-    // useEffect(() => {
-    //     if (arrListObjNamePage) {
-    //         // console.log("arrListObjNamePage ==== ", arrListObjNamePage);
-    //         // console.log("arrListObjNamePage.length ==== ", arrListObjNamePage.length);
-    //         // console.log("last listNamePage ==== ", listNamePage[listNamePage.length - 1]);
-    //     console.log("arrListObjNamePage ==== ",JSON.parse(JSON.stringify(arrListObjNamePage)));
-
-    //     }
-    // }, [arrListObjNamePage])
+    useEffect(() => {
+        if (arrListObjNamePage) {
+            confForMenu.selectAll = selectAll_func
+            confForMenu.startAgain = startAgain
+        }
+    }, [arrListObjNamePage])
 
 
     useEffect(() => {
         if (selectItem && listNamePage && listNamePage.length) {
-            // console.log("selectItem.pageTrack ==== ",selectItem.pageTrack);
-            // console.log("selectItem ==== ", selectItem);
+            // *** Create list name and list select *** 
             initGmara()
-            // addFuncToReturnButton(removeSelect)
-            // console.log("arr ==== ",arr);
         }
     }, [selectItem])
 
@@ -77,7 +75,6 @@ export default function Gmara({
                 }
                 i++
             }
-            // console.log("arrObj["+index+"] ==== ",arrObj[index]);
             index++
         }
         selectItem.finishedPages = finishedPages
@@ -94,13 +91,14 @@ export default function Gmara({
 
     const selectPage = useCallback((pageName, selected) => {
         selectItem.pageTrack[pageName] = selected;
-        // console.log("selectPage: " + pageName + " = " + selectItem.pageTrack[pageName]);
         eventPageHndling(selected ? "select" : "unSelect")
     }, [])
 
 
     function selectAll_func() {
-        let valueOfselectAll = selectItem.finishedPages == 0
+        startLoader()
+
+        let valueOfselectAll = !(selectItem.finishedPages == selectItem.numPages);
         initAllData(valueOfselectAll)
         eventPageHndling(valueOfselectAll ? "selectAll" : "unSelectAll")
         setArrListObjNamePage(JSON.parse(JSON.stringify(arrListObjNamePage)))
@@ -134,21 +132,30 @@ export default function Gmara({
     }
     return (
         <View>
-            <View style={[styles.wrapButtons, globalSizes.flexRowReverse]}>
+            <Text style={[styles.textTitle, globalSizes.fontSize]}>{textToShow.Masechet + " " + selectItem.name}</Text>
+
+            <View style={[styles.wrapButtons, globalSizes.flexRow]}>
                 {/* <ButtonApp title={` <- `} onPress={() => { removeSelect() }} /> */}
 
-                <ButtonApp title={(selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll)} onPress={selectAll_func} />
-                
+                {/* <ButtonApp title={(selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll)} onPress={selectAll_func} /> */}
+
+                <Pressable onPress={selectAll_func} style={[styles.wrapButton, globalSizes.flexRow]}>
+                    <Text style={styles.textButton}>{textToShow.All}</Text>
+                    <MIcon2
+                        size={30}
+                        name={(selectItem.finishedPages == selectItem.numPages ? 'checkbox-active' : 'checkbox-passive')}
+                        color={globalColors.gold}
+                    />
+                </Pressable>
+
                 {selectItem.startAgain && <ButtonApp title={textToShow.startAgain} styleWrap={styleWrapBTN} styleText={styleTextBTN} onPress={startAgain} >
                     <View style={styles.wrapCupStartAgin}>
                         <CompletedTracking />
                     </View>
                 </ButtonApp>}
 
-                {/* {!selectItem.startAgain && <ButtonApp title={textToShow.multipleChoice} onPress={() => { }} />} */}
             </View>
 
-            <Text style={[styles.text, globalSizes.fontSize]}>{textToShow.Masechet + " " + selectItem.name}</Text>
 
             <View style={[styles.wrapPages, globalSizes.flexRow]}>
                 {
@@ -176,11 +183,6 @@ const styles = StyleSheet.create({
     Gmara: {
 
     },
-    // wrapList: {
-    //     display: "flex",
-    //     flexWrap: "wrap",
-    //     justifyContent: 'space-around',
-    // },
     wrapPages: {
         // flex:1,
         // flexDirection: "row-reverse",
@@ -192,14 +194,18 @@ const styles = StyleSheet.create({
     },
     wrapButtons: {
         // flexDirection: "row",
-        justifyContent: "space-between",
-        marginBottom: 10,
-
+        // justifyContent: "space-between",
+        marginBottom: 30,
+        gap: 10,
     },
-    text: {
+    textTitle: {
         textAlign: "center",
         marginBottom: 10,
         fontWeight: 800,
+    },
+    textButton: {
+        fontSize: 20,
+        color: globalColors.gold,
     },
     wrapCupStartAgin: {
         paddingRight: 10,
@@ -207,5 +213,19 @@ const styles = StyleSheet.create({
     styleTextBTN: {
         color: "#fff",
         paddingRight: 7,
-    }
+    },
+    wrapButton: {
+        borderRadius: 10,
+        // borderWidth: 0.8,
+        padding: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+        borderColor: globalColors.gold,
+        width: 85,
+        height: "auto",
+        textAlign: "center",
+        alignItems: "center",
+        justifyContent: "space-between",
+        marginLeft: 15,
+    },
 });

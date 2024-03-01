@@ -26,7 +26,13 @@ function ContextComponent({ children }) {
         }
     }
 
+    function startLoader() {
+        setShowLoader(new String('s'))
+    }
 
+    function stopLoader() {
+        setShowLoader(false)
+    }
 
     // splice
     // unshift
@@ -38,8 +44,9 @@ function ContextComponent({ children }) {
             callFuncFromReturnButton,
             lang,
             setLang,
-            showLoader, 
-            setShowLoader,
+            showLoader,
+            startLoader,
+            stopLoader,
         }}>
             {children}
         </Context.Provider>

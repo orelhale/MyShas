@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
         // paddingBottom: 7,
         // backgroundColor: "#ddd",
-        paddingTop: 10,
+        paddingTop: 3,
         // paddingRight: 10,
         // paddingLeft: 10,
 
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#ddd",
         // backgroundColor: "red",
         borderTopLeftRadius: 20,
-        borderColor: globalColors.gold2,
+        // borderColor: globalColors.gold2,
         borderTopWidth: 1,
         borderLeftWidth: 1,
         // borderTopColor: '#d2d2d2',
