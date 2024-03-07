@@ -1,13 +1,14 @@
-import { Button, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import PageList from './PageList';
+import { Pressable, StyleSheet, Text, View, Dimensions } from 'react-native';
 import { useCallback, useContext, useEffect, useState } from 'react';
+import pageListName from '../data/pageListName.json';
+import PageList from './PageList';
 import globalSizes from '../styleFile/globalSizes';
 import globalColors from '../styleFile/globalColors';
 import ButtonApp from './ButtonApp';
 import CompletedTracking from './CompletedTracking';
 import { Context } from '../screens/Context';
 import MIcon2 from "react-native-vector-icons/Fontisto"
-
+import Slider from './slider/Slider';
 
 export default function Gmara({
     setSelectItem,
@@ -16,13 +17,14 @@ export default function Gmara({
     selectItem,
     eventPageHndling,
     textToShow,
-    confForMenu,
 }) {
     let pageToComponent = 15;
-
+    let heightS = Dimensions.get('screen').height
+    let heightW = Dimensions.get('window').height
     let [arrListNamePage, setArrListNamePage] = useState()
     let [arrListObjNamePage, setArrListObjNamePage] = useState()
     let { addFuncToReturnButtonz, startLoader, stopLoader } = useContext(Context)
+    let [sliderP, setSliderP] = useState(false)
 
 
 
@@ -43,16 +45,10 @@ export default function Gmara({
     // }, [flagToSelectAll])
 
     useEffect(() => {
-        if (arrListObjNamePage) {
-            confForMenu.selectAll = selectAll_func
-            confForMenu.startAgain = startAgain
-        }
-    }, [arrListObjNamePage])
-
-
-    useEffect(() => {
         if (selectItem && listNamePage && listNamePage.length) {
             // *** Create list name and list select *** 
+            console.log("heightS ===== ", heightS);
+            console.log("heightW ===== ", heightW);
             initGmara()
         }
     }, [selectItem])
@@ -91,15 +87,19 @@ export default function Gmara({
 
     const selectPage = useCallback((pageName, selected) => {
         selectItem.pageTrack[pageName] = selected;
+        selected ? selectItem.finishedPages++ : selectItem.finishedPages--;
+
         eventPageHndling(selected ? "select" : "unSelect")
     }, [])
 
 
     function selectAll_func() {
-        startLoader()
+        // startLoader()
 
         let valueOfselectAll = !(selectItem.finishedPages == selectItem.numPages);
         initAllData(valueOfselectAll)
+
+        valueOfselectAll ? (selectItem.finishedPages = selectItem.numPages) : selectItem.finishedPages = 0;
         eventPageHndling(valueOfselectAll ? "selectAll" : "unSelectAll")
         setArrListObjNamePage(JSON.parse(JSON.stringify(arrListObjNamePage)))
     }
@@ -123,6 +123,7 @@ export default function Gmara({
             }
         }
     }
+
     let styleTextBTN = {
         ...styles.styleTextBTN,
     }
@@ -130,16 +131,49 @@ export default function Gmara({
         backgroundColor: globalColors.gold,
         ...globalSizes.flexRow
     }
+
+
+    function emitRange(data) {
+        setSliderP(false)
+        selectRange(data.min, data.max, data.value)
+        eventPageHndling(data.event)
+        setArrListObjNamePage(JSON.parse(JSON.stringify(arrListObjNamePage)))
+    }
+
+    function selectRange(min, max, value) {
+        let i = 0
+        let finishedPages = 0;
+        let length = 0;
+
+        for (const obj of arrListObjNamePage) {
+            for (const pageName in obj) {
+                if (i >= min && i <= max) {
+                    // שינוי כל הדפים למה שנבחר, בשביל שהתוצאה של הבחירה תיראה על המסך
+                    obj[pageName] = value
+                    // וגם מאתחל את אובייקט המידע לתוצאה של הבחירה
+                    selectItem.pageTrack[pageName] = value
+                }
+                if (selectItem.pageTrack[pageName]) {
+                    finishedPages++;
+                }
+                i++;
+                length++;
+            }
+        }
+        selectItem.finishedPages = finishedPages;
+    }
+
     return (
-        <View>
+        <View style={{ minHeight: (heightW * 0.7) }}>
             <Text style={[styles.textTitle, globalSizes.fontSize]}>{textToShow.Masechet + " " + selectItem.name}</Text>
 
-            <View style={[styles.wrapButtons, globalSizes.flexRow]}>
+            {/* arrListNamePage && בשביל שהכפתורים לא יוצגו לפני שהמידע מוכן */}
+            {arrListNamePage && <View style={[styles.wrapButtons, globalSizes.flexRow]}>
                 {/* <ButtonApp title={` <- `} onPress={() => { removeSelect() }} /> */}
 
                 {/* <ButtonApp title={(selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll)} onPress={selectAll_func} /> */}
 
-                <Pressable onPress={selectAll_func} style={[styles.wrapButton, globalSizes.flexRow]}>
+                <Pressable onPress={() => startLoader(selectAll_func)} style={[styles.wrapButton, globalSizes.flexRow]}>
                     <Text style={styles.textButton}>{textToShow.All}</Text>
                     <MIcon2
                         size={30}
@@ -148,14 +182,31 @@ export default function Gmara({
                     />
                 </Pressable>
 
+                <ButtonApp title={'Range'} onPress={() => {
+                    setSliderP(new String('s'))
+                }} />
+
                 {selectItem.startAgain && <ButtonApp title={textToShow.startAgain} styleWrap={styleWrapBTN} styleText={styleTextBTN} onPress={startAgain} >
                     <View style={styles.wrapCupStartAgin}>
                         <CompletedTracking />
                     </View>
                 </ButtonApp>}
+            </View>}
 
-            </View>
-
+            {sliderP && <>
+                <Pressable style={[styles.wrapSliderBackground]} onPress={() => { setSliderP() }}>
+                </Pressable>
+                <View style={[styles.wrapSlider]}>
+                    <Slider
+                        pageListName={pageListName}
+                        max={selectItem.numPages - 1}
+                        emitRange={(data) => {
+                            setSliderP(false)
+                            startLoader(() => emitRange(data))
+                        }}
+                    />
+                </View>
+            </>}
 
             <View style={[styles.wrapPages, globalSizes.flexRow]}>
                 {
@@ -227,5 +278,26 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "space-between",
         marginLeft: 15,
+    },
+    wrapSliderBackground: {
+        backgroundColor: "#ddd",
+        opacity: 0.6,
+        position: "absolute",
+        flex: 1,
+        width: "100%",
+        height: "100%",
+        alignItems: 'center',
+        zIndex: 2,
+    },
+    wrapSlider: {
+        backgroundColor: "#fff",
+        opacity: 1,
+        position: "absolute",
+        zIndex: 4,
+        justifyContent: "center",
+        marginTop: 200,
+        left: 20,
+        right: 20,
+        borderRadius: 20,
     },
 });

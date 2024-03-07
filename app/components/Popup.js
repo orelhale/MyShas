@@ -8,7 +8,7 @@ export default function Popup({
     backgroundNotClose,
     children,
     pressOnBackground,
-    styleBackground,
+    styleBackground = {},
     backdropOpacity,
     style,
 }) {
@@ -22,8 +22,7 @@ export default function Popup({
     return (
         <Modal
             isVisible={!!modalVisible}
-            
-            style={styles.wrapPopup}
+            style={[styles.wrapPopup, styleBackground]}
             backdropColor={"#ddd"}
             backdropOpacity={(backdropOpacity || 0.1)}
             // ##### להחליף אכשהו את הגובה למספר, או להגדירר אותו במקום אחר
@@ -52,5 +51,6 @@ const styles = StyleSheet.create({
         padding: 20,
         alignItems: "center",
         gap: 20,
+        zIndex: 30,
     },
 });

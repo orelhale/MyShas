@@ -39,13 +39,14 @@ const styles = StyleSheet.create({
     // flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 100,
   },
   loader: {
     borderWidth: 8,
     borderRadius: 50,
     width: 50,
     height: 50,
-    borderWidth: 4,
+    borderWidth: 6,
     borderRadius: 60,
     borderBottomColor: "#f3f3f3",
     borderLeftColor: "#f3f3f3",
@@ -53,6 +54,8 @@ const styles = StyleSheet.create({
     borderTopColor: "#3498db",
     width: 80,
     height: 80,
+    zIndex: 100,
+
   },
 });
 

@@ -10,7 +10,15 @@ function ContextComponent({ children }) {
     const [funcReturnButton, setFuncReturnButton] = useState([]);
     let [lang, setLang] = useState()
     let [showLoader, setShowLoader] = useState(false)
+    let [funcShowLoader, setFuncShowLoader] = useState({ func: null })
+    let [startAgainMood, setStartAgainMood] = useState()
 
+    useEffect(() => {
+        if (funcShowLoader.func) {
+            funcShowLoader.func()
+            funcShowLoader.func = null
+        }
+    }, [showLoader])
 
     function addFuncToReturnButton(func) {
         funcReturnButton.unshift(func)
@@ -26,7 +34,8 @@ function ContextComponent({ children }) {
         }
     }
 
-    function startLoader() {
+    function startLoader(func) {
+        func && (funcShowLoader.func = func)
         setShowLoader(new String('s'))
     }
 
@@ -47,6 +56,8 @@ function ContextComponent({ children }) {
             showLoader,
             startLoader,
             stopLoader,
+            startAgainMood,
+            setStartAgainMood
         }}>
             {children}
         </Context.Provider>

@@ -5,14 +5,14 @@ import HomeScreen from "./HomeScreen";
 import CompletAreaScreen from "./CompletAreaScreen";
 import AppHeader from "../components/AppHeader";
 import AppFooter from "../components/AppFooter";
-import { Dimensions, StyleSheet, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import globalColors from "../styleFile/globalColors";
 
 import { Context } from './Context'
 import Loader4 from "../tempComponent/Loader4";
 
 export default function Layout() {
-   let { lang, setLang, setFuncReturnButton, showLoader } = useContext(Context)
+   let { lang, setLang, setFuncReturnButton, showLoader, startAgainMood } = useContext(Context)
 
    let [showScreen, setShowScreen] = useState("HomeScreen")
    let [flagSaveDate, setFlagSaveDate] = useState(false)
@@ -113,13 +113,22 @@ export default function Layout() {
 
          {(lang == false) && <SelectLang setLang={setLang} />}
 
+
+         {/* רקע בזמן טעינה - כדי למנוע מהמשתמש ללחוץ על כפתורים כשיש טעינה, חזקקקקקקקק */}
+         <View style={[styles.backgroundLoader, { display: showLoader ? "flex" : "none" }]}></View>
+         {/* Loader */}
          <View style={[styles.wrapLoader, { display: showLoader ? "flex" : "none", top: ((heightS / 2) - 25), zIndex: 100, left: ((whiteS / 2) - 25) }]}>
             <Loader4 />
          </View>
 
+         {startAgainMood && <View style={[styles.test, { top: heightS - 170 }]}><Pressable onPress={startAgainMood}>
+            <Text>+++</Text>
+         </Pressable>
+         </View>}
+
          {lang && <AppFooter showScreen={showScreen} setShowScreen={setShowScreen} />}
 
-      </View>
+      </View >
    );
 }
 
@@ -137,5 +146,23 @@ const styles = StyleSheet.create({
       position: "absolute",
       // backgroundColor: "#fff",
       // opacity: 0.5,
+      zIndex: 100,
+      opacity: 1,
+   },
+   backgroundLoader: {
+      backgroundColor: "#ddd",
+      opacity: 0.2,
+      position: "absolute",
+      flex: 1,
+      width: "100%",
+      height: "100%",
+      alignItems: 'center',
+      zIndex: 2,
+   },
+   test: {
+      position: "absolute",
+      button: 0,
+      left: 40,
+      backgroundColor: "red",
    },
 });

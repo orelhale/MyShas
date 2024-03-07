@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import globalSizes from '../styleFile/globalSizes';
 import { Context } from '../screens/Context'
@@ -11,13 +11,17 @@ export default function AppFooter({
     setShowScreen,
 }) {
 
-    const { lang } = useContext(Context);
+    let { startLoader, stopLoader } = useContext(Context)
+
+    useEffect(() => {
+        stopLoader()
+    })
 
     return (
         <View style={[styles.AppHeader, globalSizes.flexRow]}>
             <Pressable
                 style={[styles.sideRight, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "CompletAreaScreen" ? styles.active : styles.unActiveRight)]}
-                onPress={() => setShowScreen('CompletAreaScreen')}
+                onPress={() => { startLoader(); setShowScreen('CompletAreaScreen') }}
             >
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
                     <Text>איזור הסיומים</Text>
@@ -33,7 +37,7 @@ export default function AppFooter({
 
             <Pressable
                 style={[styles.sideLeft, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "HomeScreen" ? styles.active : styles.unActiveLeft)]}
-                onPress={() => setShowScreen('HomeScreen')}
+                onPress={() => { startLoader(); setShowScreen('HomeScreen') }}
             >
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
                     <Text>Home</Text>
@@ -58,7 +62,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
         // paddingBottom: 7,
         // backgroundColor: "#ddd",
-        paddingTop: 3,
+        marginTop: 4,
         // paddingRight: 10,
         // paddingLeft: 10,
 
@@ -96,7 +100,7 @@ const styles = StyleSheet.create({
 
     },
     active: {
-        borderBottomWidth: 3,
+        borderBottomWidth: 1,
     },
     unActiveRight: {
         backgroundColor: "#ddd",

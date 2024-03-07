@@ -48,7 +48,6 @@ export default function PageDataAnalysis({
         if (allData) {
             // initPages("allShas", allData)
             refreshAllData()
-            console.log("PageDataAnalysis allData ====");
         }
         if (!allData && pageNumData) {
             removeFild("allShas")

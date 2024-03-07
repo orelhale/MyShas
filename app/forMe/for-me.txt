@@ -13,3 +13,10 @@ TouchableHighlight - לא יודע
 Pressable - נראלי View אי אפשר ללחוץ עליו אזז זה תחליף 
 
 // npm i concurrently --save-dev // להריץ שני פקודות במקביל 
+
+
+import { Dimensions, useWindowDimensions } from 'react-native';
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+const windowWidth2 = useWindowDimensions().width;
+const windowHeight2 = useWindowDimensions().height;

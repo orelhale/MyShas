@@ -20,10 +20,6 @@ export default function HomeScreen({
     // let [allData, setAllData] = useState()
     let [listNamePage, setListNamePage] = useState()
     let [eventPage, setEventPage] = useState(false)
-    let [confForMenu, setConfForMenu] = useState({
-        selectAll: { condition: null, func: null },
-        startAgain: { condition: null, func: null },
-    })
 
 
 
@@ -69,30 +65,14 @@ export default function HomeScreen({
 
     function eventPageHndling(event) {
         console.log("event === ", event);
-        if (!event) return
-
-        if (event == "select") {
-            selectCat.finishedPages++
-            selectItem.finishedPages++
-            // console.log("selectItem === ", selectItem.finishedPages);
-            // console.log("selectCat === ", selectCat.finishedPages);
-        }
-        if (event == "unSelect") {
-            selectCat.finishedPages--
-            selectItem.finishedPages--
-            // console.log("unSelect === ", selectCat.finishedPages);
-            // console.log("unSelect === ", selectItem.finishedPages);
-        }
-        if (event == "selectAll") {
-            selectItem.finishedPages = selectItem.numPages
-        }
-        if (event == "unSelectAll") {
-            selectItem.finishedPages = 0
-        }
-
-        if (event == "startAgain") {
-
-        }
+        
+        // if (!event) return
+        // if (event == "select") { }
+        // if (event == "unSelect") { }
+        // if (event == "selectAll") { }
+        // if (event == "unSelectAll") { }
+        // if (event == "startAgain") { }
+        // if (event == "selectRange" || event == "unselectRange") { }
 
         selectItem.startAgain = (selectItem.finishedPages == selectItem.numPages)
 
@@ -134,8 +114,6 @@ export default function HomeScreen({
                             selectItem={selectItem}
                             eventPageHndling={eventPageHndling}
                             textToShow={textToShow[lang]}
-                            confForMenu={confForMenu}
-
                         />
                         {/* <View>
                     <Button title={(`<-`)} onPress={() => { removeSelect() }}></Button>
