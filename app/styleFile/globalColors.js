@@ -8,8 +8,12 @@ export default HomeScreen = {
     gold: "#CCA400",
     gold2: "rgb(238, 191, 0)",
     backgroundGold: "#CCA40030",
+    backgroundGold2: "#CCA40015",
     gold3: "#F6E27D",
+    
     blue: "#008ffb",
     backgroundBlue: "#008ffb25",
+    
+    backgroundGray: "#dfdfdf",
 
 }

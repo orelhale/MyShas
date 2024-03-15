@@ -1,11 +1,10 @@
-import { Pressable, StyleSheet, Text, View, Dimensions } from 'react-native';
+import { Pressable, StyleSheet, Text, View, Dimensions, Image } from 'react-native';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import pageListName from '../data/pageListName.json';
 import PageList from './PageList';
 import globalSizes from '../styleFile/globalSizes';
 import globalColors from '../styleFile/globalColors';
 import ButtonApp from './ButtonApp';
-import CompletedTracking from './CompletedTracking';
 import { Context } from '../screens/Context';
 import MIcon2 from "react-native-vector-icons/Fontisto"
 import Slider from './slider/Slider';
@@ -23,7 +22,7 @@ export default function Gmara({
     let heightW = Dimensions.get('window').height
     let [arrListNamePage, setArrListNamePage] = useState()
     let [arrListObjNamePage, setArrListObjNamePage] = useState()
-    let { addFuncToReturnButtonz, startLoader, stopLoader } = useContext(Context)
+    let { startLoader, stopLoader, setStartAgainMood, startAgainMood } = useContext(Context)
     let [sliderP, setSliderP] = useState(false)
 
 
@@ -53,6 +52,11 @@ export default function Gmara({
         }
     }, [selectItem])
 
+    useEffect(() => {
+        if (!!startAgainMood != !!selectItem.startAgain) {
+            setStartAgainMood((!!selectItem.startAgain ? () => () => startLoader(startAgain) : null))
+        }
+    }, [selectItem.startAgain])
 
     function initGmara() {
         let arr = []
@@ -164,7 +168,7 @@ export default function Gmara({
     }
 
     return (
-        <View style={{ minHeight: (heightW * 0.7) }}>
+        <View style={[styles.Gmara, { minHeight: (heightW * 0.7) }]}>
             <Text style={[styles.textTitle, globalSizes.fontSize]}>{textToShow.Masechet + " " + selectItem.name}</Text>
 
             {/* arrListNamePage && בשביל שהכפתורים לא יוצגו לפני שהמידע מוכן */}
@@ -173,7 +177,10 @@ export default function Gmara({
 
                 {/* <ButtonApp title={(selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll)} onPress={selectAll_func} /> */}
 
-                <Pressable onPress={() => startLoader(selectAll_func)} style={[styles.wrapButton, globalSizes.flexRow]}>
+                <Pressable
+                    onPress={() => startLoader(selectAll_func)}
+                    style={({ pressed }) => [styles.wrapButton, globalSizes.flexRow, pressed && { backgroundColor: globalColors.backgroundGold2 }]}
+                >
                     <Text style={styles.textButton}>{textToShow.All}</Text>
                     <MIcon2
                         size={30}
@@ -182,15 +189,13 @@ export default function Gmara({
                     />
                 </Pressable>
 
-                <ButtonApp title={'Range'} onPress={() => {
-                    setSliderP(new String('s'))
-                }} />
+                <Pressable
+                    style={({ pressed }) => [styles.wrapOpenSliderButton, pressed && { backgroundColor: globalColors.backgroundGold2 }]}
+                    onPress={() => { setSliderP(new String('s')) }}
+                >
+                    <Image source={require('../../assets/sliderIcon.png')} />
+                </Pressable>
 
-                {selectItem.startAgain && <ButtonApp title={textToShow.startAgain} styleWrap={styleWrapBTN} styleText={styleTextBTN} onPress={startAgain} >
-                    <View style={styles.wrapCupStartAgin}>
-                        <CompletedTracking />
-                    </View>
-                </ButtonApp>}
             </View>}
 
             {sliderP && <>
@@ -232,7 +237,7 @@ export default function Gmara({
 
 const styles = StyleSheet.create({
     Gmara: {
-
+        paddingBottom: 50,
     },
     wrapPages: {
         // flex:1,
@@ -299,5 +304,11 @@ const styles = StyleSheet.create({
         left: 20,
         right: 20,
         borderRadius: 20,
+    },
+    wrapOpenSliderButton: {
+        borderRadius: 10,
+        justifyContent: "center",
+        paddingLeft: 10,
+        paddingRight: 10,
     },
 });

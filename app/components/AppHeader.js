@@ -18,8 +18,9 @@ export default function AppHeader({ children }) {
 
     const { funcReturnButton, callFuncFromReturnButton } = useContext(Context);
 
-    return (
-        <View style={[styles.AppHeader, globalSizes.flexRow]}>
+    return (<>
+    {/*  (!!funcReturnButton && !!funcReturnButton.length) התנאי הזה הוא זמני עד שהיה יותר מכפתור אחד */}
+        {(!!funcReturnButton && !!funcReturnButton.length) && <View style={[styles.AppHeader, globalSizes.flexRow]}>
             <View style={[styles.sideRight, globalSizes.flexRow]}>
                 <>
                     {/* <ButtonApp
@@ -27,9 +28,9 @@ export default function AppHeader({ children }) {
                         styleWrap={styleWrapBTN}
                         styleText={styles.styleText}
                         onPress={() => { }}
-                    >
+                        >
                         <View style={styles.wrapCupStartAgin}>
-                            <CompletedTracking />
+                        <CompletedTracking />
                         </View>
                     </ButtonApp> */}
 
@@ -49,7 +50,8 @@ export default function AppHeader({ children }) {
                     <AppIcon name='keyboard-backspace' onPress={callFuncFromReturnButton} />
                 </View>
             }
-        </View>
+        </View>}
+    </>
     )
 }
 
@@ -57,15 +59,17 @@ export default function AppHeader({ children }) {
 const styles = StyleSheet.create({
     AppHeader: {
         justifyContent: 'space-between',
-        // borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-        backgroundColor: "#ddd",
+        borderBottomWidth: 3,
+        borderBottomColor: globalColors.backgroundGold,
+        // backgroundColor: "#ddd",
         // paddingBottom: 7,
         // paddingTop: 10,
         paddingRight: 10,
         paddingLeft: 10,
-        marginBottom: 10,
-        marginTop: 10,
+        paddingTop: 5,
+        paddingBottom: 5,
+        marginBottom: 7,
+        // marginTop: 10,
     },
     sideLeft: {
         alignItems: "center",

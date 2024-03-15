@@ -21,7 +21,10 @@ export default function AppFooter({
         <View style={[styles.AppHeader, globalSizes.flexRow]}>
             <Pressable
                 style={[styles.sideRight, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "CompletAreaScreen" ? styles.active : styles.unActiveRight)]}
-                onPress={() => { startLoader(); setShowScreen('CompletAreaScreen') }}
+                onPress={() => { 
+                    showScreen != 'CompletAreaScreen' && startLoader(); 
+                    showScreen != 'CompletAreaScreen' && setShowScreen('CompletAreaScreen') 
+                }}
             >
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
                     <Text>איזור הסיומים</Text>
@@ -37,7 +40,10 @@ export default function AppFooter({
 
             <Pressable
                 style={[styles.sideLeft, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "HomeScreen" ? styles.active : styles.unActiveLeft)]}
-                onPress={() => { startLoader(); setShowScreen('HomeScreen') }}
+                onPress={() => { 
+                    showScreen != 'HomeScreen' && startLoader(); 
+                    showScreen != 'HomeScreen' && setShowScreen('HomeScreen') 
+                }}
             >
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
                     <Text>Home</Text>
@@ -61,7 +67,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
         // paddingBottom: 7,
-        // backgroundColor: "#ddd",
+        // backgroundColor: globalColors.backgroundGray,
         marginTop: 4,
         // paddingRight: 10,
         // paddingLeft: 10,
@@ -103,7 +109,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
     },
     unActiveRight: {
-        backgroundColor: "#ddd",
+        backgroundColor: globalColors.backgroundGray,
         // backgroundColor: "red",
         borderTopLeftRadius: 20,
         // borderColor: globalColors.gold2,
@@ -113,7 +119,7 @@ const styles = StyleSheet.create({
         // borderTopWidth: 1,
     },
     unActiveLeft: {
-        backgroundColor: "#ddd",
+        backgroundColor: globalColors.backgroundGray,
         borderTopEndRadius: 20,
         borderTopWidth: 1,
         borderRightWidth: 1,

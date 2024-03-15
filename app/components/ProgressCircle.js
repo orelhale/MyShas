@@ -40,10 +40,10 @@ const ProgressCircle = ({ chartData }) => {
 
     let progress = chartData.data
     let radius = 40
-    // let color = "gray"
-    // let backgroundColor = "#dfdfdf"
-    let color = globalColors.blue
-    let backgroundColor = globalColors.backgroundBlue
+    let color = "gray"
+    let backgroundColor = globalColors.backgroundGray
+    // let color = globalColors.blue
+    // let backgroundColor = globalColors.backgroundBlue
     
     let circleWidth = 3
 

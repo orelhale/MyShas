@@ -10,6 +10,8 @@ import globalColors from "../styleFile/globalColors";
 
 import { Context } from './Context'
 import Loader4 from "../tempComponent/Loader4";
+import CompletedTracking from "../components/CompletedTracking";
+import globalSizes from "../styleFile/globalSizes";
 
 export default function Layout() {
    let { lang, setLang, setFuncReturnButton, showLoader, startAgainMood } = useContext(Context)
@@ -121,10 +123,13 @@ export default function Layout() {
             <Loader4 />
          </View>
 
-         {startAgainMood && <View style={[styles.test, { top: heightS - 170 }]}><Pressable onPress={startAgainMood}>
-            <Text>+++</Text>
-         </Pressable>
-         </View>}
+         {!!startAgainMood &&
+            <Pressable style={[globalSizes.flexRow, styles.warpStartAgain, { top: heightS - 180 }]} onPress={startAgainMood}>
+               {/* <Text style={styles.textStartAgain}>{textToShow.he.startAgain}</Text> */}
+               <Text style={styles.textStartAgain}>+</Text>
+               <CompletedTracking />
+            </Pressable>
+         }
 
          {lang && <AppFooter showScreen={showScreen} setShowScreen={setShowScreen} />}
 
@@ -159,10 +164,21 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       zIndex: 2,
    },
-   test: {
+   warpStartAgain: {
       position: "absolute",
       button: 0,
       left: 40,
-      backgroundColor: "red",
+      height: 55,
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 17,
+      padding: 10,
+      gap: 5,
+      borderWidth: 1,
+      borderColor: globalColors.gold,
+      backgroundColor: globalColors.gold,
+   },
+   textStartAgain: {
+      fontSize: 20,
    },
 });

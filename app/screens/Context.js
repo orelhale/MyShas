@@ -27,6 +27,9 @@ function ContextComponent({ children }) {
 
 
     function callFuncFromReturnButton(func) {
+        // מתי שחוזרים אחורה - מסיר את האייקון סיום מסכת
+        startAgainMood && setStartAgainMood(null)
+
         if (funcReturnButton.length) {
             funcReturnButton[0]()
             funcReturnButton.splice(0, 1)
@@ -35,6 +38,9 @@ function ContextComponent({ children }) {
     }
 
     function startLoader(func) {
+        // reset startAgainMood when the loader start
+        startAgainMood && setStartAgainMood(null)
+        
         func && (funcShowLoader.func = func)
         setShowLoader(new String('s'))
     }
