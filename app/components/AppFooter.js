@@ -21,9 +21,9 @@ export default function AppFooter({
         <View style={[styles.AppHeader, globalSizes.flexRow]}>
             <Pressable
                 style={[styles.sideRight, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "CompletAreaScreen" ? styles.active : styles.unActiveRight)]}
-                onPress={() => { 
-                    showScreen != 'CompletAreaScreen' && startLoader(); 
-                    showScreen != 'CompletAreaScreen' && setShowScreen('CompletAreaScreen') 
+                onPress={() => {
+                    showScreen != 'CompletAreaScreen' && startLoader();
+                    showScreen != 'CompletAreaScreen' && setShowScreen('CompletAreaScreen')
                 }}
             >
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
@@ -40,9 +40,9 @@ export default function AppFooter({
 
             <Pressable
                 style={[styles.sideLeft, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "HomeScreen" ? styles.active : styles.unActiveLeft)]}
-                onPress={() => { 
-                    showScreen != 'HomeScreen' && startLoader(); 
-                    showScreen != 'HomeScreen' && setShowScreen('HomeScreen') 
+                onPress={() => {
+                    showScreen != 'HomeScreen' && startLoader();
+                    showScreen != 'HomeScreen' && setShowScreen('HomeScreen')
                 }}
             >
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
@@ -66,26 +66,17 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
-        // paddingBottom: 7,
-        // backgroundColor: globalColors.backgroundGray,
         marginTop: 4,
-        // paddingRight: 10,
-        // paddingLeft: 10,
-
     },
     sideLeft: {
         width: '50%',
-        // backgroundColor: 'red',
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     sideRight: {
         width: '50%',
-        // backgroundColor: 'blue',
         justifyContent: 'center',
         alignItems: 'center',
-
     },
     styleText: {
         padding: 5,
@@ -103,27 +94,20 @@ const styles = StyleSheet.create({
         paddingTop: 10,
         paddingBottom: 7,
         borderColor: globalColors.gold2,
-
     },
     active: {
         borderBottomWidth: 1,
     },
     unActiveRight: {
         backgroundColor: globalColors.backgroundGray,
-        // backgroundColor: "red",
         borderTopLeftRadius: 20,
-        // borderColor: globalColors.gold2,
         borderTopWidth: 1,
         borderLeftWidth: 1,
-        // borderTopColor: '#d2d2d2',
-        // borderTopWidth: 1,
     },
     unActiveLeft: {
         backgroundColor: globalColors.backgroundGray,
         borderTopEndRadius: 20,
         borderTopWidth: 1,
         borderRightWidth: 1,
-        // borderTopColor: '#d2d2d2',
-        // borderTopWidth: 1,
     },
 });

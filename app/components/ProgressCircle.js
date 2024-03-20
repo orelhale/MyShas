@@ -40,12 +40,12 @@ const ProgressCircle = ({ chartData }) => {
 
     let progress = chartData.data
     let radius = 40
-    let color = "gray"
+    let color = "#777"
     let backgroundColor = globalColors.backgroundGray
     // let color = globalColors.blue
     // let backgroundColor = globalColors.backgroundBlue
-    
-    let circleWidth = 3
+
+    let circleWidth = 3.5
 
     const percentage = Math.round(progress * 100);
 
@@ -67,7 +67,7 @@ const ProgressCircle = ({ chartData }) => {
 
             />
             <View style={{ position: 'absolute', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-                <Text style={{ textAlign: 'center', color: 'black', fontSize: 16 }}>
+                <Text style={{ textAlign: 'center', color: 'black', fontSize: 18 }}>
                     {`${percentage}%`}
                 </Text>
             </View>

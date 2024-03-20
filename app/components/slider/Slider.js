@@ -1,5 +1,5 @@
 
-import { useCallback, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import globalSizes from '../../styleFile/globalSizes';
 
@@ -21,6 +21,8 @@ export default function Slider({
    emitRange,
 }) {
 
+   const refU = useRef();
+   const refU2 = useRef();
    const [low, setLow] = useState(min);
    const [high, setHigh] = useState(max);
    const renderThumb = useCallback(() => <Thumb />, []);
@@ -41,6 +43,30 @@ export default function Slider({
       set((num) => (num - 1 < min) ? num : (num - 1))
    }
 
+   function addOrRemoveToLow(index) {
+      refU.current().setLow(value);
+      refU2.current.updateSelectedRail();
+   }
+   function addOne(index) {
+      index == 0 && (high + 1 > max) ? high : (high + 1) && (() => {
+         refU.current().setHigh(high + 1)
+         refU2.current.updateSelectedRail()
+      })()
+      index == 1 && (low + 1 > max) ? low : (low + 1) && (() => {
+         refU.current().setLow(low + 1)
+         refU2.current.updateSelectedRail()
+      })();
+   }
+   function removeOne(index) {
+      index == 0 && (high - 1 < min) ? high : (high - 1) && (() => {
+         refU.current().setHigh(high - 1)
+         refU2.current.updateSelectedRail()
+      })()
+      index == 1 && (low - 1 < min) ? low : (low - 1) && (() => {
+         refU.current().setLow(low - 1)
+         refU2.current.updateSelectedRail()
+      })();
+   }
    return (
       <View style={styles.Slider}>
 
@@ -53,6 +79,8 @@ export default function Slider({
          </View>
 
          <RangeSlider
+            refU={refU}
+            refU2={refU2}
             style={styles.rangeSlider}
             min={min}
             max={max}
@@ -66,13 +94,16 @@ export default function Slider({
          />
 
          {/* כפתורים הוספה והורדה */}
-         <View style={[globalSizes.flexRow, styles.wrapArrows]}>
-            {[setHigh, setLow].map((set) => (
+         {/* <View style={[globalSizes.flexRow, styles.wrapArrows]}>
+            {[setHigh, setLow].map((set, index) => (
                <View style={[globalSizes.flexRow, styles.arrows]}>
                   <View style={styles.arrow}>
                      <MIcon
                         name={'chevron-right'}
-                        onPress={() => addSlider(set)}
+                        onPress={() => {
+                           addSlider(set)
+                           addOne(index)
+                        }}
                         color={"#fff"}
                         size={30}
 
@@ -82,7 +113,10 @@ export default function Slider({
                   <View style={styles.arrow}>
                      <MIcon
                         name={'chevron-left'}
-                        onPress={() => removeSlider(set)}
+                        onPress={() => {
+                           removeSlider(set)
+                           removeOne(index)
+                        }}
                         color={"#fff"}
                         size={30}
 
@@ -90,7 +124,7 @@ export default function Slider({
                   </View>
                </View>
             ))}
-         </View>
+         </View> */}
 
          {/* כפתורים בחירה */}
          <View style={[globalSizes.flexRow, styles.wrapButtons]}>
@@ -125,6 +159,17 @@ export default function Slider({
                      size={20}
                   />
                </View>
+               {/* <Pressable onPress={() => {
+                  console.log("orelllllllllll");
+                  // console.log("refU ==== ", refU.current().inPropsRef);
+                  console.log("refU2 ==== ", refU2.current);
+                  // console.log("refU ==== ",Object.keys(refU.current));
+                  refU.current().setLow(low)
+                  refU2.current.updateSelectedRail()
+                  // refU2.current.refU2()
+               }}>
+                  <Text>Orel</Text>
+               </Pressable> */}
             </View>
          </View>
       </View>
@@ -183,7 +228,7 @@ const styles = StyleSheet.create({
       backgroundColor: globalColors.gold,
    },
    wrapButtons: {
-      marginTop: 10,
+      marginTop: 20,
       justifyContent: "center",
       gap: 80,
    },

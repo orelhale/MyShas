@@ -4,7 +4,6 @@ import { getAllData, deleteAllData, storeData, deleteLang } from "../storage/sto
 import GmaraList from '../components/GmaraList';
 import Gmara from '../components/Gmara';
 import PageDataAnalysis from '../components/PageDataAnalysis';
-import globalColors from '../styleFile/globalColors';
 import textToShow from '../data/textToShow';
 import { Context } from './Context';
 
@@ -17,7 +16,6 @@ export default function HomeScreen({
 
     let [selectItem, setSelectItem] = useState()
     let [selectCat, setSelectCat] = useState()
-    // let [allData, setAllData] = useState()
     let [listNamePage, setListNamePage] = useState()
     let [eventPage, setEventPage] = useState(false)
 
@@ -65,7 +63,7 @@ export default function HomeScreen({
 
     function eventPageHndling(event) {
         console.log("event === ", event);
-        
+
         // if (!event) return
         // if (event == "select") { }
         // if (event == "unSelect") { }
@@ -136,16 +134,11 @@ export default function HomeScreen({
 
 const styles = StyleSheet.create({
     HomeScreen: {
-        // backgroundColor: globalColors.background,
-        // flex: 1,
-        // marginTop: 5,
-        // marginTop: 60,
+
     },
     delete: {
-        // backgroundColor: "red",
         color: "red",
         marginBottom: 20,
-        // marginTop: 10,
     },
     wrapGmara: {
         position: "relative",

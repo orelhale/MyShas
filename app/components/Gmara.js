@@ -4,7 +4,6 @@ import pageListName from '../data/pageListName.json';
 import PageList from './PageList';
 import globalSizes from '../styleFile/globalSizes';
 import globalColors from '../styleFile/globalColors';
-import ButtonApp from './ButtonApp';
 import { Context } from '../screens/Context';
 import MIcon2 from "react-native-vector-icons/Fontisto"
 import Slider from './slider/Slider';
@@ -26,37 +25,27 @@ export default function Gmara({
     let [sliderP, setSliderP] = useState(false)
 
 
-
     useEffect(() => {
         stopLoader()
     })
 
-    // useEffect(() => {
-    //     if (arrListNamePage) {
-    //         // console.log("arrListNamePage ==== ", arrListNamePage);
-    //         // console.log("arrListNamePage.length ==== ", arrListNamePage.length);
-    //         // console.log("last listNamePage ==== ", listNamePage[listNamePage.length - 2]);
-    //     }
-    // }, [arrListNamePage])
-
-    // useEffect(() => {
-    //     console.log("flagToSelectAll ==== ", flagToSelectAll);
-    // }, [flagToSelectAll])
 
     useEffect(() => {
         if (selectItem && listNamePage && listNamePage.length) {
+            // console.log("heightS ===== ", heightS);
+            // console.log("heightW ===== ", heightW);
             // *** Create list name and list select *** 
-            console.log("heightS ===== ", heightS);
-            console.log("heightW ===== ", heightW);
             initGmara()
         }
     }, [selectItem])
 
+
     useEffect(() => {
-        if (!!startAgainMood != !!selectItem.startAgain) {
-            setStartAgainMood((!!selectItem.startAgain ? () => () => startLoader(startAgain) : null))
+        if ((!!startAgainMood.func != !!selectItem.startAgain && arrListObjNamePage)) {
+            setStartAgainMood(!!selectItem.startAgain ? { func: () => startLoader(startAgain) } : { func: null })
         }
-    }, [selectItem.startAgain])
+    }, [selectItem.startAgain, arrListObjNamePage])
+
 
     function initGmara() {
         let arr = []
@@ -128,13 +117,6 @@ export default function Gmara({
         }
     }
 
-    let styleTextBTN = {
-        ...styles.styleTextBTN,
-    }
-    let styleWrapBTN = {
-        backgroundColor: globalColors.gold,
-        ...globalSizes.flexRow
-    }
 
 
     function emitRange(data) {
@@ -169,7 +151,9 @@ export default function Gmara({
 
     return (
         <View style={[styles.Gmara, { minHeight: (heightW * 0.7) }]}>
-            <Text style={[styles.textTitle, globalSizes.fontSize]}>{textToShow.Masechet + " " + selectItem.name}</Text>
+            <View style={styles.wrapTextTitle}>
+                <Text style={[styles.textTitle]}>{textToShow.Masechet + " " + selectItem.name}</Text>
+            </View>
 
             {/* arrListNamePage && בשביל שהכפתורים לא יוצגו לפני שהמידע מוכן */}
             {arrListNamePage && <View style={[styles.wrapButtons, globalSizes.flexRow]}>
@@ -240,17 +224,9 @@ const styles = StyleSheet.create({
         paddingBottom: 50,
     },
     wrapPages: {
-        // flex:1,
-        // flexDirection: "row-reverse",
         flexWrap: "wrap",
-        // marginBottom:50,
-        // overflow:"scroll"
-        // gap: 30,
-        // justifyContent:"space-around"
     },
     wrapButtons: {
-        // flexDirection: "row",
-        // justifyContent: "space-between",
         marginBottom: 30,
         gap: 10,
     },
@@ -258,17 +234,15 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginBottom: 10,
         fontWeight: 800,
+        fontSize: 23,
+    },
+    wrapTextTitle: {
+        display: "flex",
+        alignItems: 'center',
     },
     textButton: {
         fontSize: 20,
         color: globalColors.gold,
-    },
-    wrapCupStartAgin: {
-        paddingRight: 10,
-    },
-    styleTextBTN: {
-        color: "#fff",
-        paddingRight: 7,
     },
     wrapButton: {
         borderRadius: 10,

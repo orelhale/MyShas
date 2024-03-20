@@ -1,9 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 
-
-
 const Context = createContext()
-
 
 function ContextComponent({ children }) {
 
@@ -11,7 +8,7 @@ function ContextComponent({ children }) {
     let [lang, setLang] = useState()
     let [showLoader, setShowLoader] = useState(false)
     let [funcShowLoader, setFuncShowLoader] = useState({ func: null })
-    let [startAgainMood, setStartAgainMood] = useState()
+    let [startAgainMood, setStartAgainMood] = useState({ func: null })
 
     useEffect(() => {
         if (funcShowLoader.func) {
@@ -28,7 +25,7 @@ function ContextComponent({ children }) {
 
     function callFuncFromReturnButton(func) {
         // מתי שחוזרים אחורה - מסיר את האייקון סיום מסכת
-        startAgainMood && setStartAgainMood(null)
+        !!startAgainMood.func && (startAgainMood.func = null);
 
         if (funcReturnButton.length) {
             funcReturnButton[0]()
@@ -39,7 +36,7 @@ function ContextComponent({ children }) {
 
     function startLoader(func) {
         // reset startAgainMood when the loader start
-        startAgainMood && setStartAgainMood(null)
+        startAgainMood.func && (startAgainMood.func = null);
         
         func && (funcShowLoader.func = func)
         setShowLoader(new String('s'))
@@ -49,8 +46,6 @@ function ContextComponent({ children }) {
         setShowLoader(false)
     }
 
-    // splice
-    // unshift
     return (
         <Context.Provider value={{
             funcReturnButton,

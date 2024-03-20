@@ -18,15 +18,12 @@ export default globalElements = StyleSheet.create({
       alignItems: "center",
       height: 60,
       borderRadius: 20,
-      // width:60,
    },
    textTtem: {
-      // color: globalColors.secondary,
       color: '#fff',
       fontSize: 20,
    },
    btnText: {
-      // color: globalColors.gold,
       fontSize: 20,
       padding: 10,
       paddingLeft: 15,
@@ -34,11 +31,6 @@ export default globalElements = StyleSheet.create({
    },
    page: {
       marginBottom: 20,
-      // marginTop: 5,
    },
-   checkBox: {
-      // padding: 10,
-      // marginTop: 5,
-   }
 
 });

@@ -4,7 +4,7 @@
 
 
 import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import globalSizes from '../styleFile/globalSizes';
 import AppIcon from '../components/AppIcon';
 import globalColors from '../styleFile/globalColors';
@@ -93,9 +93,7 @@ export default function CompletAreaScreen({
       console.log("addComplet | item === ", item);
       if (item.type == 'cat') {
          let arr = listRef.gmaras.filter((gmara) => gmara.catId == item.id)
-         // let cat = listRef.gmaras[index]
          arr.forEach((gmara) => {
-            // console.log("catId ==== ", gmara.catId, "| name === ",gmara.name);
             gmara.completed++;
          })
       }
@@ -163,18 +161,19 @@ export default function CompletAreaScreen({
             <Text style={[styles.textCompleted, styles.itemText, { top: sizeTop[item.type] }]}>{item.completed}</Text>
 
             <View style={[styles.icons, globalSizes.flexRow]}>
-               <View>
-                  <MIcon name={'chevron-right'} onPress={() => addComplet(item)} size={30} color={globalColors.gold2} />
-               </View>
+               <Pressable style={({ pressed }) => [styles.wrapBtn, pressed && { backgroundColor: globalColors.backgroundGold }]} onPress={() => addComplet(item)}>
+                  <MIcon name={'chevron-right'} size={25} color={globalColors.gold2} />
+               </Pressable>
                <Text style={styles.itemText}>{item.name}</Text>
-               <View>
-                  <MIcon name={'chevron-left'} onPress={() => removeComplet(item)} size={30} color={globalColors.gold2} />
-               </View>
+               <Pressable style={({ pressed }) => [styles.wrapBtn, pressed && { backgroundColor: globalColors.backgroundGold }]} onPress={() => removeComplet(item)}>
+                  <MIcon name={'chevron-left'} size={25} color={globalColors.gold2} />
+               </Pressable>
             </View>
 
          </View >
       )
    }
+
    return (
       <ScrollView>
          <View style={styles.CompletAreaScreen}>
@@ -212,12 +211,8 @@ const styles = StyleSheet.create({
 
    },
    icons: {
-      // alignItems: 'left',
-      // justifyContent: "center",
 
-      // width:40,
       alignItems: 'center',
-      // backgroundColor: 'red'
       padding: 0,
    },
    textCompleted: {
@@ -225,19 +220,16 @@ const styles = StyleSheet.create({
       position: "absolute",
       top: 10,
    },
-   shas: {
 
-   },
-   cat: {
-      flexBasis: '32%',
 
-   },
-   gmara: {
-      flexBasis: '32%',
 
-   },
    itemText: {
       fontSize: 15,
       fontWeight: '600',
+   },
+   wrapBtn: {
+      borderColor: globalColors.gold,
+      borderRadius: 50,
+      padding: 3,
    },
 });

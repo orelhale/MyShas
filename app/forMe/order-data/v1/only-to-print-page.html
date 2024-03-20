@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="id"></div>
+    <div id="id2"></div>
+</body>
+
+<script>
+
+    let div = document.querySelector("#id")
+    let div2 = document.querySelector("#id2")
+    let listP = []
+    let list1 = ["א", "ב", "ג", "ד", "ה", "ו", "ז", "ח", "ט"]
+    let list2 = ["י", "יא", "יב", "יג", "יד", "טו", "טז", "יז", "יח", "יט"]
+    let list3 = ["י", "כ", "ל", "מ", "נ", "ס", "ע", "פ", "צ"]
+    let list4 = ["ק"]
+
+    function print(text) {
+        // div.innerHTML += `\"${text}.\", `
+        // div.innerHTML += `\"${text}:\", `
+        listP.push(`${text}. `)
+        listP.push(`${text}: `)
+    }
+
+    function app(params) {
+        div.innerHTML += "["
+        for (let l1 = 1; l1 < list1.length; l1++) {
+            print(list1[l1])
+        }
+        for (let l2 = 0; l2 < list2.length; l2++) {
+            print(list2[l2])
+        }
+        for (let l3 = 1; l3 < list3.length; l3++) {
+            print(list3[l3])
+            for (let l1 = 0; l1 < list1.length; l1++) {
+                print(list3[l3] + list1[l1])
+            }
+        }
+        for (let l4 = 0; l4 < list4.length; l4++) {
+            print(list4[l4])
+
+            for (let l1 = 0; l1 < list1.length; l1++) {
+                print(list4[l4] + list1[l1])
+            }
+            for (let l2 = 0; l2 < list2.length; l2++) {
+                print(list4[l4] + list2[l2])
+            }
+        }
+
+        for (let l4 = 0; l4 < list4.length; l4++) {
+            for (let l3 = 1; l3 < list3.length; l3++) {
+                print(list4[l4] + list3[l3])
+                for (let l1 = 0; l1 < list1.length; l1++) {
+                    print(list4[l4] + list3[l3] + list1[l1])
+                }
+            }
+        }
+
+
+        div.innerHTML += "]"
+    }
+
+    app()
+    function app2(params) {
+        div.innerHTML = JSON.stringify(listP)
+        // for (let i = 0; i < listP.length; i++) {
+        //     div2.innerHTML += `<div>${listP[i]}</div>`
+        // }
+    }
+    app2()
+</script>
+
+</html>

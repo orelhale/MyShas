@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    body {
+        direction: rtl;
+    }
+
+    .listPage {
+        display: flex;
+        flex-wrap: wrap;
+        width: 600px;
+        border: 1px black solid;
+        padding: 30px;
+        justify-content: space-between;
+    }
+
+    .page-wrap {
+        display: inline-flex;
+        padding: 2px;
+        width: 50px;
+        justify-content: space-between;
+        padding: 3px 15px;
+
+    }
+</style>
+
+<body>
+    <div id="list"></div>
+    <div id="listPage"></div>
+</body>
+
+<script id="myJson" type="application/json"></script>
+
+<script type="module">
+    import list from './data.json' assert {type: 'json'};
+    console.log(list);
+
+    let listDiv = document.getElementById("list")
+    let listPageDiv = document.getElementById("listPage")
+
+    function textInElement(obj) {
+        const newElement = document.createElement("button");
+        newElement.innerText = obj.name
+        newElement.onclick = () => clickButton(obj)
+        listDiv.appendChild(newElement);
+    }
+
+    for (let i = 0; i < list.length; i++) {
+        textInElement(list[i])
+    }
+
+    function clickButton(obj) {
+        console.log(obj);
+        listPageDiv.innerHTML = ''
+        listPageDiv.className = 'listPage'
+
+
+
+        for (let i = 0; i < obj.pageTrack.length; i++) {
+            const item = obj.pageTrack[i];
+
+            const newDivElement = document.createElement("div");
+            // newDivElement.innerHTML = item
+            newDivElement.className = 'page-wrap'
+            listPageDiv.appendChild(newDivElement);
+
+            const newElement = document.createElement("label");
+            newElement.innerHTML = item
+            newElement.className = 'page-label'
+            // newElement.for = ("page" + i)
+            newDivElement.appendChild(newElement);
+
+
+            const newInputElement = document.createElement("input");
+            newInputElement.type = "checkbox"
+            // newInputElement.id = ("page" + i)
+            newInputElement.className = 'page-input'
+            newDivElement.appendChild(newInputElement);
+
+
+            // const newElement = document.createElement("span");
+            // newElement.innerHTML = item
+            // newElement.className = 'page'
+            // listPageDiv.appendChild(newElement);
+        }
+    }
+</script>
+
+
+</html>

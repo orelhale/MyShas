@@ -123,8 +123,8 @@ export default function Layout() {
             <Loader4 />
          </View>
 
-         {!!startAgainMood &&
-            <Pressable style={[globalSizes.flexRow, styles.warpStartAgain, { top: heightS - 180 }]} onPress={startAgainMood}>
+         {startAgainMood && startAgainMood.func &&
+            <Pressable style={[globalSizes.flexRow, styles.warpStartAgain, { top: heightS - 180 }]} onPress={startAgainMood.func}>
                {/* <Text style={styles.textStartAgain}>{textToShow.he.startAgain}</Text> */}
                <Text style={styles.textStartAgain}>+</Text>
                <CompletedTracking />
@@ -141,16 +141,11 @@ export default function Layout() {
 
 const styles = StyleSheet.create({
    Layout: {
-      backgroundColor: globalColors.background,
+      backgroundColor: globalColors.appBackground,
       flex: 1,
-      // marginTop: 5,
-      // marginTop: 50,
-
    },
    wrapLoader: {
       position: "absolute",
-      // backgroundColor: "#fff",
-      // opacity: 0.5,
       zIndex: 100,
       opacity: 1,
    },
