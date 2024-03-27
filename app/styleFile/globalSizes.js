@@ -1,6 +1,7 @@
 import { I18nManager, StyleSheet } from "react-native";
 
 let RTL = I18nManager.isRTL
+let LTR = !I18nManager.isRTL
 
 export default globalSizes = StyleSheet.create({
     fontSize: {
@@ -18,6 +19,7 @@ export default globalSizes = StyleSheet.create({
     flexColumnReverse: {
         flexDirection: "column",
     },
+    LTR: LTR,
     // flexColumnReverse: {
     //     flexDirection: (RTL ? "column-reverse" : "column"),
     // },

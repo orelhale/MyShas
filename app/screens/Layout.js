@@ -119,12 +119,12 @@ export default function Layout() {
          {/* רקע בזמן טעינה - כדי למנוע מהמשתמש ללחוץ על כפתורים כשיש טעינה, חזקקקקקקקק */}
          <View style={[styles.backgroundLoader, { display: showLoader ? "flex" : "none" }]}></View>
          {/* Loader */}
-         <View style={[styles.wrapLoader, { display: showLoader ? "flex" : "none", top: ((heightS / 2) - 25), zIndex: 100, left: ((whiteS / 2) - 25) }]}>
+         <View style={[styles.wrapLoader, { display: showLoader ? "flex" : "none", top: ((heightS / 2) - 25), left: ((whiteS / 2) - 40) }]}>
             <Loader4 />
          </View>
 
          {startAgainMood && startAgainMood.func &&
-            <Pressable style={[globalSizes.flexRow, styles.warpStartAgain, { top: heightS - 180 }]} onPress={startAgainMood.func}>
+            <Pressable style={[globalSizes.flexRow, styles.warpStartAgain, { top: heightS - 180 }, (globalSizes.LTR ? { left: 40 } : { right: 40 })]} onPress={startAgainMood.func}>
                {/* <Text style={styles.textStartAgain}>{textToShow.he.startAgain}</Text> */}
                <Text style={styles.textStartAgain}>+</Text>
                <CompletedTracking />
@@ -148,6 +148,7 @@ const styles = StyleSheet.create({
       position: "absolute",
       zIndex: 100,
       opacity: 1,
+      zIndex: 100,
    },
    backgroundLoader: {
       backgroundColor: "#ddd",
@@ -162,7 +163,6 @@ const styles = StyleSheet.create({
    warpStartAgain: {
       position: "absolute",
       button: 0,
-      left: 40,
       height: 55,
       justifyContent: "center",
       alignItems: "center",

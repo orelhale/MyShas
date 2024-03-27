@@ -185,7 +185,7 @@ export default function Gmara({
             {sliderP && <>
                 <Pressable style={[styles.wrapSliderBackground]} onPress={() => { setSliderP() }}>
                 </Pressable>
-                <View style={[styles.wrapSlider]}>
+                <View style={[styles.wrapSlider, { top: ((heightW / 2) - 250) }]}>
                     <Slider
                         pageListName={pageListName}
                         max={selectItem.numPages - 1}
@@ -274,7 +274,7 @@ const styles = StyleSheet.create({
         position: "absolute",
         zIndex: 4,
         justifyContent: "center",
-        marginTop: 200,
+        // marginTop: 200,
         left: 20,
         right: 20,
         borderRadius: 20,

@@ -20,7 +20,7 @@ export default function AppFooter({
     return (
         <View style={[styles.AppHeader, globalSizes.flexRow]}>
             <Pressable
-                style={[styles.sideRight, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "CompletAreaScreen" ? styles.active : styles.unActiveRight)]}
+                style={[styles.sideRight, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "CompletAreaScreen" ? styles.active : (globalSizes.LTR ? styles.unActiveRight : styles.unActiveLeft))]}
                 onPress={() => {
                     showScreen != 'CompletAreaScreen' && startLoader();
                     showScreen != 'CompletAreaScreen' && setShowScreen('CompletAreaScreen')
@@ -39,7 +39,7 @@ export default function AppFooter({
             </Pressable>
 
             <Pressable
-                style={[styles.sideLeft, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "HomeScreen" ? styles.active : styles.unActiveLeft)]}
+                style={[styles.sideLeft, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "HomeScreen" ? styles.active : (globalSizes.LTR ? styles.unActiveLeft : styles.unActiveRight))]}
                 onPress={() => {
                     showScreen != 'HomeScreen' && startLoader();
                     showScreen != 'HomeScreen' && setShowScreen('HomeScreen')
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
-        marginTop: 4,
+        marginTop: 1,
     },
     sideLeft: {
         width: '50%',

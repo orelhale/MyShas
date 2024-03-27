@@ -220,9 +220,17 @@ const styles = StyleSheet.create({
       position: "absolute",
       top: 10,
    },
+   shas: {
 
+   },
+   cat: {
+      flexBasis: '32%',
 
+   },
+   gmara: {
+      flexBasis: '32%',
 
+   },
    itemText: {
       fontSize: 15,
       fontWeight: '600',

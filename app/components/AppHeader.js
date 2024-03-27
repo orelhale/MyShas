@@ -1,7 +1,3 @@
-// import { useEffect, useState } from 'react';
-// let [state, setState] = useState()
-// useEffect(() => {    }, [allData])
-
 
 import { useContext } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
@@ -63,9 +59,9 @@ const styles = StyleSheet.create({
         borderBottomColor: globalColors.backgroundGold,
         paddingRight: 10,
         paddingLeft: 10,
-        paddingTop: 5,
+        paddingTop: 2,
         paddingBottom: 5,
-        marginBottom: 7,
+        marginBottom: 1,
     },
     sideLeft: {
         alignItems: "center",
