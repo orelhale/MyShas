@@ -4,6 +4,7 @@ import globalSizes from '../styleFile/globalSizes';
 import { Context } from '../screens/Context'
 import globalColors from '../styleFile/globalColors';
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons"
+import textToShow from '../data/textToShow';
 
 
 export default function AppFooter({
@@ -11,7 +12,7 @@ export default function AppFooter({
     setShowScreen,
 }) {
 
-    let { startLoader, stopLoader } = useContext(Context)
+    let { startLoader, stopLoader, lang } = useContext(Context)
 
     useEffect(() => {
         stopLoader()
@@ -27,7 +28,7 @@ export default function AppFooter({
                 }}
             >
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
-                    <Text>איזור הסיומים</Text>
+                    <Text style={styles.text}>{textToShow[lang].completArea}</Text>
                     <View>
                         <MIcon
                             name={'trophy'}
@@ -46,7 +47,7 @@ export default function AppFooter({
                 }}
             >
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
-                    <Text>Home</Text>
+                    <Text style={styles.text}>{textToShow[lang].Home}</Text>
                     <View>
                         <MIcon
                             name={'trophy'}
@@ -78,13 +79,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    styleText: {
-        padding: 5,
-        color: "#fff",
-        paddingRight: 7,
-    },
-    wrapCupStartAgin: {
-        paddingRight: 10,
+    text: {
+        fontSize: 16,
+        fontWeight: '500',
     },
     buttonNav: {
         justifyContent: 'center',

@@ -11,6 +11,7 @@ let textToShowEnglish = {
     multipleChoice: "Multiple choice",
     completArea: "Complet Area",
     myShas: "My Shas",
+    Home: "Home",
 }
 
 let textToShowHebrow = {
@@ -22,6 +23,7 @@ let textToShowHebrow = {
     multipleChoice: "בחירה מרובה",
     completArea: "איזור הסיומים",
     myShas: "השס שלי",
+    Home: "בית",
 
 }
 
