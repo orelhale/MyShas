@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
     textTitle: {
         textAlign: "center",
         marginBottom: 10,
-        fontWeight: 800,
+        fontWeight: '800',
         fontSize: 23,
     },
     wrapTextTitle: {

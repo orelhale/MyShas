@@ -1,7 +1,3 @@
-// import { useEffect, useState } from 'react';
-// let [state, setState] = useState()
-// useEffect(() => {    }, [allData])
-
 
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons"
@@ -39,18 +35,13 @@ export default function AppIcon({
 
 const styles = StyleSheet.create({
     button: {
-        // borderRadius:1,
-        // flexDirection: 'row',
         borderRadius: 20,
         borderWidth: 0.5,
-        // padding: 5,
         width: 35,
         height: 35,
         textAlign: "center",
         alignItems: "center",
         justifyContent: "center",
-        // marginTop: 10,
-        // marginRight: 'auto',
         backgroundColor: "#FFF",
         borderColor: globalColors.gold,
     },

@@ -1,5 +1,4 @@
 
-
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import ProgressCircle from './ProgressCircle';
@@ -15,6 +14,7 @@ export default function PageDataAnalysis({
     selectItem,
     eventPage,
 }) {
+    
     // ******** Only for show developer and version ********
     // ******** Only for show developer and version ********
     const [toOpanPopup, setToOpanPopup] = useState(false);
@@ -23,7 +23,7 @@ export default function PageDataAnalysis({
     useEffect(() => {
         if (countClicks >= 5) {
             setCountClicks(0)
-            setToOpanPopup(true)
+            setToOpanPopup(new String("s"))
         }
     }, [countClicks])
 
@@ -33,15 +33,7 @@ export default function PageDataAnalysis({
     // ******** Only for show developer and version ********
     // ******** Only for show developer and version ********
 
-
     let [pageNumData, setPageNumData] = useState()
-
-    // useEffect(() => {
-    //     if (pageNumData) {
-    //         console.log("pageNumData ==== ", pageNumData);
-    //     }
-    // }, [pageNumData])
-
 
     // בכלל באפליקציה setAllData זה מתרחש רק פעם הראשונה כי אני לא עושה  
     useEffect(() => {
@@ -77,7 +69,6 @@ export default function PageDataAnalysis({
             removeFild("pageGmara")
         }
     }, [selectItem])
-
 
 
     useEffect(() => {
@@ -199,6 +190,7 @@ export default function PageDataAnalysis({
                             </Pressable>
                         </View>
                     </>}
+
                     {pageNumData.pageCat && <>
                         <View style={[styles.wrapData, globalSizes.flexColumnReverse]}>
                             {/* <CompletedTracking sumCompleted={(pageNumData.pageCat.sumCompleted + (pageNumData.pageCat.dataInPercentage == 100 ? 1 : 0))} /> */}
@@ -208,6 +200,7 @@ export default function PageDataAnalysis({
                             />
                         </View>
                     </>}
+
                     {pageNumData.pageGmara && <>
                         <View style={[styles.wrapData, globalSizes.flexColumnReverse]}>
                             {/* <CompletedTracking sumCompleted={(pageNumData.pageGmara.sumCompleted + (pageNumData.pageGmara.dataInPercentage == 100 ? 1 : 0))} /> */}
@@ -218,66 +211,6 @@ export default function PageDataAnalysis({
                         </View>
                     </>}
                 </View>
-
-                {/* <View style={[styles.PageDataAnalysis, globalSizes.flexRowReverse]}>
-                    {pageNumData.allShas && <ChartProgress
-                        chartData={{ data: (pageNumData.allShas.dataInPercentage / 100), lable: `${pageNumData.allShas.dataInPercentage}%` }}/>}
-                    {pageNumData.pageCat && <ChartProgress
-                        chartData={{ data: (pageNumData.pageCat.dataInPercentage / 100), lable: `${pageNumData.pageCat.dataInPercentage}%` }}/>}
-                    {pageNumData.pageGmara && <ChartProgress
-                        chartData={{ data: (pageNumData.pageGmara.dataInPercentage / 100), lable: `${pageNumData.pageGmara.dataInPercentage}%` }}/>}
-                </View> */}
-
-                {/* <View style={[styles.PageDataAnalysis2, globalSizes.flexRowReverse]}>
-                    {pageNumData.allShas &&
-                        <View style={[styles.details, globalSizes.flexRowReverse]}>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}>Page shas: {"   "+pageNumData.allShas.sumPages} </Text>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}> Finished: {pageNumData.allShas.sumFinishedPages} </Text>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}> {pageNumData.allShas.dataInPercentage}%</Text>
-                        </View>
-                    }
-                    {pageNumData.pageCat &&
-                        <View style={[styles.details, globalSizes.flexRowReverse]}>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}>Page cat: {"      "+pageNumData.pageCat.sumPages} </Text>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}> Finished: {pageNumData.pageCat.sumFinishedPages} </Text>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}> {pageNumData.pageCat.dataInPercentage}%</Text>
-                        </View>
-                    }
-                    {pageNumData.pageGmara &&
-                        <View style={[styles.details, globalSizes.flexRowReverse]}>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}>Page gmara: {" "+pageNumData.pageGmara.sumPages+" "} </Text>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}> Finished: {pageNumData.pageGmara.sumFinishedPages} </Text>
-                            <Text style={[
-                                styles.text,
-                                // globalSizes.fontSize
-                            ]}> {pageNumData.pageGmara.dataInPercentage}%</Text>
-                        </View>
-                    }
-                </View> */}
             </>
 
             }
@@ -288,25 +221,13 @@ export default function PageDataAnalysis({
 
 const styles = StyleSheet.create({
     PageDataAnalysis: {
-        // flexDirection: "row",
         justifyContent: "space-around",
         marginTop: 10,
         marginBottom: 10,
     },
-    PageDataAnalysis2: {// למחוק אחרי שכל הסתדר
-
-        // flexDirection: "row",
-        flexWrap: "wrap",
-        // justifyContent: "space-between"
-    },
     text: {
-        // width: "30%",
         paddingRight: 15,
         paddingLeft: 15,
-    },
-    details: {
-        // flexDirection: "row",
-        justifyContent: "space-between"
     },
     wrapData: {
         alignItems: "center",

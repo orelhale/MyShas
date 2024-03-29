@@ -1,7 +1,3 @@
-// import { useEffect, useState } from 'react';
-// let [state, setState] = useState()
-// useEffect(() => {    }, [allData])
-
 
 import { Image, StyleSheet, Text, View } from 'react-native';
 import globalSizes from '../styleFile/globalSizes';

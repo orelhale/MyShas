@@ -1,7 +1,3 @@
-// import { useEffect, useState } from 'react';
-// let [state, setState] = useState()
-// useEffect(() => {    }, [allData])
-
 
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
@@ -67,7 +63,6 @@ export default function CompletAreaScreen({
          gmaras: [],
       }
 
-
       let completedShas = allData[0].completed;
 
       for (const cat of allData) {
@@ -101,7 +96,8 @@ export default function CompletAreaScreen({
          let index = listRef.gmaras.findIndex((gmara) => gmara.id == item.id)
          let gmara = listRef.gmaras[index]
          gmara.completed++;
-      } if (item.type == 'shas') {
+      }
+      if (item.type == 'shas') {
          listRef.gmaras.forEach((gamra) => {
             gamra.completed++;
          })
@@ -208,10 +204,8 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       position: "relative",
       marginTop: 10,
-
    },
    icons: {
-
       alignItems: 'center',
       padding: 0,
    },
@@ -229,7 +223,6 @@ const styles = StyleSheet.create({
    },
    gmara: {
       flexBasis: '32%',
-
    },
    itemText: {
       fontSize: 15,
