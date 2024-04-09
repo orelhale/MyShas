@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
     },
     wrapButtons: {
         marginBottom: 30,
-        gap: 10,
+        gap: 15,
     },
     textTitle: {
         textAlign: "center",
@@ -251,11 +251,12 @@ const styles = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5,
         borderColor: globalColors.gold,
-        width: 85,
+        // width: 85,
         height: "auto",
         textAlign: "center",
         alignItems: "center",
-        justifyContent: "space-between",
+        // justifyContent: "space-between",
+        gap: 10,
         marginLeft: 15,
     },
     wrapSliderBackground: {
