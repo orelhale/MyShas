@@ -9,7 +9,6 @@ import MIcon from "react-native-vector-icons/MaterialCommunityIcons"
 
 export default function CompletAreaScreen({
    allData,
-   setAllData,
    needToSaveChanges,
 }) {
 
@@ -63,7 +62,9 @@ export default function CompletAreaScreen({
          gmaras: [],
       }
 
-      let completedShas = allData[0].completed;
+      let completedShas;
+      // זה נועד נפתור את הבאג: שכאשר מעלים את הפריט הראשון של הגמראות אז כל השס לא מתעדכן (isTheFirstLoop)
+      let iisTheFirstLoop = true;
 
       for (const cat of allData) {
          let completedCat = cat.list[0].completed
@@ -78,14 +79,19 @@ export default function CompletAreaScreen({
             completedShas = completedCat;
          }
          cat.completed = completedCat
+         if (iisTheFirstLoop) {
+            iisTheFirstLoop = false;
+            completedShas = cat.completed;
+            console.log("completedShas 1 ==== ",completedShas);
+         }
       }
-
+      console.log("completedShas 2 ==== ",completedShas);
       data.shas.push({ name: 'ש"ם', completed: completedShas, size: sizeShas, type: 'shas' })
       setCompletData(data)
    }
 
    function addComplet(item) {
-      console.log("addComplet | item === ", item);
+
       if (item.type == 'cat') {
          let arr = listRef.gmaras.filter((gmara) => gmara.catId == item.id)
          arr.forEach((gmara) => {
