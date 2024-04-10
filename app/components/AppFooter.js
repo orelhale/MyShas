@@ -5,7 +5,7 @@ import { Context } from '../screens/Context'
 import globalColors from '../styleFile/globalColors';
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons"
 import textToShow from '../data/textToShow';
-
+import MIcon2 from "react-native-vector-icons/Fontisto"
 
 export default function AppFooter({
     showScreen,
@@ -19,7 +19,7 @@ export default function AppFooter({
     })
 
     return (
-        <View style={[styles.AppHeader, globalSizes.flexRow]}>
+        <View style={[styles.AppFooter, globalSizes.flexRow]}>
             <Pressable
                 style={[styles.sideRight, globalSizes.flexRow, styles.wrapButtonNav, (showScreen == "CompletAreaScreen" ? styles.active : (globalSizes.LTR ? styles.unActiveRight : styles.unActiveLeft))]}
                 onPress={() => {
@@ -33,7 +33,7 @@ export default function AppFooter({
                         <MIcon
                             name={'trophy'}
                             size={globalSizes.iconSize}
-                            color={globalColors.gold}
+                            color={globalColors.gold2}
                         />
                     </View>
                 </View>
@@ -49,10 +49,10 @@ export default function AppFooter({
                 <View style={[globalSizes.flexColumn, styles.buttonNav]} >
                     <Text style={styles.text}>{textToShow[lang].Home}</Text>
                     <View>
-                        <MIcon
-                            name={'trophy'}
+                        <MIcon2
+                            name={'checkbox-active'}
                             size={globalSizes.iconSize}
-                            color={globalColors.gold}
+                            color={globalColors.gold2}
                         />
                     </View>
                 </View>
@@ -63,7 +63,7 @@ export default function AppFooter({
 
 
 const styles = StyleSheet.create({
-    AppHeader: {
+    AppFooter: {
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',

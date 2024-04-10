@@ -37,7 +37,7 @@ export default function CompletAreaScreen({
          initList()
          initData()
       }
-   }, [])
+   }, [allData])
 
    function initList() {
       let data = {
@@ -82,10 +82,9 @@ export default function CompletAreaScreen({
          if (iisTheFirstLoop) {
             iisTheFirstLoop = false;
             completedShas = cat.completed;
-            console.log("completedShas 1 ==== ",completedShas);
          }
       }
-      console.log("completedShas 2 ==== ",completedShas);
+      
       data.shas.push({ name: 'ש"ם', completed: completedShas, size: sizeShas, type: 'shas' })
       setCompletData(data)
    }
