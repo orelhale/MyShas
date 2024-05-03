@@ -17,7 +17,6 @@ const storeData = async (value) => {
    }
 };
 
-
 const getData = async () => {
    try {
       const jsonValue = await AsyncStorage.getItem("data");
@@ -31,19 +30,6 @@ const getData = async () => {
       console.log("Error: getData = ", e);
    }
 };
-// const getData = async (key) => {
-//    try {
-//       const jsonValue = await AsyncStorage.getItem(key || "");
-
-//       if (jsonValue != null) {
-//          return JSON.parse(jsonValue)
-//       }
-
-//       return jsonValue
-//    } catch (e) {
-//       console.log("Error: getData = ", e);
-//    }
-// };
 
 const getAllData = async () => {
    try {
@@ -60,8 +46,6 @@ const getAllData = async () => {
    }
 };
 
-
-
 async function initStorage() {
    console.log("****** initStorage *******");
    // console.log("storage ===== ", storage);
@@ -69,9 +53,10 @@ async function initStorage() {
    return await getData();
 }
 
-async function deleteAllData() {
-   console.log("*** deleteAllData ***");
-   await AsyncStorage.removeItem('data')
+async function resetAllData() {
+   console.log("*** resetAllData ***");
+   await AsyncStorage.removeItem("lang")
+   return storeData(storage)
 }
 
 const storeLang = async (value) => {
@@ -83,16 +68,17 @@ const getLang = async () => {
    let react = await AsyncStorage.getItem("lang");
    return react == null ? undefined : react
 }
+
 const deleteLang = async () => {
    await AsyncStorage.removeItem("lang")
 }
-// deleteAllData()
+
 export {
    getAllData,
-   deleteAllData,
    storeData,
    storeLang,
    getLang,
    getData,
    deleteLang,
+   resetAllData,
 }

@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import SelectLang from "../components/SelectLang";
-import { getAllData, getLang, storeData } from "../storage/storageFunc";
+import { getAllData, getLang, storeData, resetAllData } from "../storage/storageFunc";
 import HomeScreen from "./HomeScreen";
 import CompletAreaScreen from "./CompletAreaScreen";
 import AppHeader from "../components/AppHeader";
@@ -30,7 +30,7 @@ export default function Layout() {
    useEffect(() => {
       getLang().then((data) => { setLang(data || false) })
       initData()
-   }, [])
+   }, [lang])
 
    useEffect(() => {
       console.log("lang ====== ", lang);
@@ -65,7 +65,7 @@ export default function Layout() {
 
    async function initData() {
       let data = await getAllData()
-      setAllData(data)
+      setAllData(JSON.parse(JSON.stringify(data)))
    }
 
    function needToSaveChanges(dataToSaveNow) {
@@ -87,13 +87,20 @@ export default function Layout() {
       // console.log("index === ",index);
       // console.log("allData[catIndex].list[index] === ",allData[catIndex].list[index]);
 
+      console.log("---- Start save data ----");
       storeData(data)
       console.log("---- Data saving  ----");
    }
 
+   function resetData() {
+      resetAllData()
+      setLang(false)
+      initData()
+   }
+
    return (
       <View style={styles.Layout}>
-         {lang && <AppHeader />}
+         {lang && <AppHeader resetData={resetData} />}
 
          {lang && showScreen == 'HomeScreen' && (
             <HomeScreen
@@ -108,7 +115,6 @@ export default function Layout() {
          {lang && showScreen == 'CompletAreaScreen' && (
             <CompletAreaScreen
                allData={allData}
-               setAllData={setAllData}
                needToSaveChanges={needToSaveChanges}
             />
          )}

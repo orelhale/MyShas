@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
-import { getAllData, deleteAllData, storeData, deleteLang } from "../storage/storageFunc";
+import { getAllData } from "../storage/storageFunc";
 import GmaraList from '../components/GmaraList';
 import Gmara from '../components/Gmara';
 import PageDataAnalysis from '../components/PageDataAnalysis';
@@ -52,14 +52,6 @@ export default function HomeScreen({
         setSelectCat(cat)
     }
 
-    function deleteAll() {
-        deleteAllData()
-        setListNamePage()
-        setSelectCat()
-        setAllData()
-        setSelectItem()
-        initData()
-    }
 
     function eventPageHndling(event) {
         console.log("event === ", event);
