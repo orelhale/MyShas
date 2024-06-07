@@ -8,15 +8,21 @@ import ButtonApp from './ButtonApp';
 import globalColors from '../styleFile/globalColors';
 import CompletedTracking from './CompletedTracking';
 import textToShow from '../data/textToShow';
+import MenuG from '../tempComponent/Menu';
 
 
-export default function AppHeader({ children }) {
+export default function AppHeader({ children, setShowEmailPopup, resetData }) {
 
     const { funcReturnButton, callFuncFromReturnButton } = useContext(Context);
 
     return (<>
+        {/* <View style={styles.menu}>
+            <MenuG setShowEmailPopup={setShowEmailPopup} />
+        </View> */}
+
         {/*  (!!funcReturnButton && !!funcReturnButton.length) התנאי הזה הוא זמני עד שהיה יותר מכפתור אחד */}
-        {(!!funcReturnButton && !!funcReturnButton.length) && <View style={[styles.AppHeader, globalSizes.flexRow]}>
+        {/* {(!!funcReturnButton && !!funcReturnButton.length) && <View style={[styles.AppHeader, globalSizes.flexRow]}> */}
+        <View style={[styles.AppHeader, globalSizes.flexRow]}>
             <View style={[styles.sideRight, globalSizes.flexRow]}>
                 <>
                     {/* <ButtonApp
@@ -35,8 +41,17 @@ export default function AppHeader({ children }) {
                         onPress={() => { }}
                         color={globalColors.gold2}
                     /> */}
+                    <AppIcon
+                        name='email-outline'
+                        onPress={() => { setShowEmailPopup(new String("true")) }}
+                        color={globalColors.gold2}
+                    />
+                    <AppIcon
+                        name='delete'
+                        onPress={resetData}
+                        color={globalColors.gold2}
+                    />
 
-                    {children}
                 </>
             </View>
 
@@ -46,7 +61,8 @@ export default function AppHeader({ children }) {
                     <AppIcon name='keyboard-backspace' onPress={callFuncFromReturnButton} />
                 </View>
             }
-        </View>}
+        </View>
+        {/* </View>} */}
     </>
     )
 }
@@ -62,6 +78,8 @@ const styles = StyleSheet.create({
         paddingTop: 2,
         paddingBottom: 5,
         marginBottom: 1,
+        // position: "absolute",
+        zIndex: 3,
     },
     sideLeft: {
         alignItems: "center",
@@ -69,6 +87,10 @@ const styles = StyleSheet.create({
     sideRight: {
         gap: 15,
         alignItems: "center",
+    },
+    menu: {
+        zIndex: 2,
+        height: 35,
     },
     styleText: {
         padding: 5,

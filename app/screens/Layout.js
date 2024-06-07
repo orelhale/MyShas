@@ -12,6 +12,8 @@ import { Context } from './Context'
 import Loader4 from "../tempComponent/Loader4";
 import CompletedTracking from "../components/CompletedTracking";
 import globalSizes from "../styleFile/globalSizes";
+import Popup from "../components/Popup";
+import Email from "../components/Email";
 
 export default function Layout() {
    let { lang, setLang, setFuncReturnButton, showLoader, startAgainMood } = useContext(Context)
@@ -20,6 +22,7 @@ export default function Layout() {
    let [flagSaveDate, setFlagSaveDate] = useState(false)
    let [flagTo_FlagSaveDate, setFlagTo_FlagSaveDate] = useState(false)
    let [allData, setAllData] = useState()
+   const [showEmailPopup, setShowEmailPopup] = useState(false);
 
    let timeToSave = 2000;
 
@@ -100,7 +103,7 @@ export default function Layout() {
 
    return (
       <View style={styles.Layout}>
-         {lang && <AppHeader resetData={resetData} />}
+         {lang && <AppHeader resetData={resetData} setShowEmailPopup={setShowEmailPopup} />}
 
          {lang && showScreen == 'HomeScreen' && (
             <HomeScreen
@@ -138,6 +141,10 @@ export default function Layout() {
          }
 
          {lang && <AppFooter showScreen={showScreen} setShowScreen={setShowScreen} />}
+
+         <Popup toOpanPopup={showEmailPopup} style={{ borderWidth: 0 }}>
+            <Email clossEmailPopup={setShowEmailPopup}/>
+         </Popup>
 
       </View >
    );

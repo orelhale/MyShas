@@ -1,17 +1,25 @@
 
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import MIcon from "react-native-vector-icons/MaterialCommunityIcons"
+import MIcon2 from "react-native-vector-icons/Fontisto"
+import MIcon3 from "react-native-vector-icons/Ionicons"
+import MIcon4 from "react-native-vector-icons/MaterialIcons"
+import MIcon5 from "react-native-vector-icons/Feather"
 import globalSizes from '../styleFile/globalSizes';
 import globalColors from '../styleFile/globalColors';
+import { useMemo } from 'react';
 
+const listpackageIcon = { 2: MIcon2, 3: MIcon3, 4: MIcon4, 5: MIcon5 };
 
 export default function AppIcon({
     name,
     onPress,
     color,
     size,
-    style
+    style,
+    type,
 }) {
+    let Icon = useMemo(() => listpackageIcon[type] || MIcon)
 
     return (
         <Pressable
@@ -23,7 +31,7 @@ export default function AppIcon({
                 style && style,
             ]}
         >
-            <MIcon
+            <Icon
                 name={name || ''}
                 size={size || globalSizes.iconSize}
                 color={color || globalColors.gold}

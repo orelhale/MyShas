@@ -183,8 +183,7 @@ export default function Gmara({
             </View>}
 
             {sliderP && <>
-                <Pressable style={[styles.wrapSliderBackground]} onPress={() => { setSliderP() }}>
-                </Pressable>
+                <Pressable style={[styles.wrapSliderBackground]} onPress={setSliderP}></Pressable>
                 <View style={[styles.wrapSlider, { top: ((heightW / 2) - 250) }]}>
                     <Slider
                         pageListName={pageListName}

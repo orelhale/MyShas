@@ -14,7 +14,7 @@ export default function PageDataAnalysis({
     selectItem,
     eventPage,
 }) {
-    
+
     // ******** Only for show developer and version ********
     // ******** Only for show developer and version ********
     const [toOpanPopup, setToOpanPopup] = useState(false);
@@ -171,7 +171,7 @@ export default function PageDataAnalysis({
             {pageNumData && <>
 
                 {/* ******** Only for show developer and version ******** */}
-                <Popup toOpanPopup={toOpanPopup} pressOnBackground={setToOpanPopup} backdropOpacity={0.4}>
+                <Popup toOpanPopup={toOpanPopup} pressOnBackground={setToOpanPopup} backdropOpacity={0.4} style={styles.popup}>
                     <Text style={{ fontWeight: "bold" }}>Develop by: Orel Hale</Text>
                     <Text style={{ fontWeight: "bold" }}>Version: {app_json.expo.version}</Text>
                 </Popup>
@@ -225,11 +225,10 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
     },
-    text: {
-        paddingRight: 15,
-        paddingLeft: 15,
-    },
     wrapData: {
         alignItems: "center",
+    },
+    popup: {
+        padding: 20,
     },
 });

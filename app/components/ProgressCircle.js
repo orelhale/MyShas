@@ -1,51 +1,17 @@
-// import React from 'react';
-// import { Text, View } from 'react-native';
-// import { ProgressCircle as ProgressCircleSVG } from 'react-native-svg-charts';
-
-// export default function ProgressCircle({ chartData }) {
-
-//     let progress = chartData.data
-//     let radius = 40
-//     const percentage = `${Math.round(progress * 100)}%`;
-//     // let color = 'rgb(134, 65, 244)'
-//     let color = '#008ffb'
-//     let backgroundColor = '#008ffb25'
-//     let strokeWidth = 8
-
-//     return (
-//         <View style={{ alignItems: 'center' }}>
-
-//             {/* <ProgressCircle style={{ height: 200 }} progress={0.7} progressColor={'rgb(134, 65, 244)'} /> */}
-//             <ProgressCircleSVG
-//                 style={{ height: radius * 2, width: radius * 2 }}
-//                 progress={progress}
-//                 progressColor={color}
-//                 strokeWidth={strokeWidth}
-//                 backgroundColor={backgroundColor}
-//             />
-
-//             <Text style={{ position: 'absolute', textAlign: 'center', lineHeight: radius * 2, color: 'black', fontSize: 16 }}>
-//                 {percentage}
-//             </Text>
-//         </View>
-//     )
-// };
-
-import React from 'react';
 import { View, Text } from 'react-native';
 import { VictoryPie } from 'victory-native';
 import globalColors from '../styleFile/globalColors';
 
 const ProgressCircle = ({ chartData }) => {
 
-    let progress = chartData.data
-    let radius = 40
-    let color = "#777"
-    let backgroundColor = globalColors.backgroundGray
+    let progress = chartData.data;
+    let radius = 40;
+    let color = "#777";
+    let backgroundColor = globalColors.backgroundGray;
     // let color = globalColors.blue
     // let backgroundColor = globalColors.backgroundBlue
 
-    let circleWidth = 3.5
+    let circleWidth = 3.5;
 
     const percentage = Math.round(progress * 100);
 
