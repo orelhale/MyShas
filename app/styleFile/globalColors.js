@@ -4,7 +4,7 @@ export default HomeScreen = {
     appBackground: "#FFF",
 
     gold: "#CCA400",
-    gold2: "rgb(238, 191, 0)",
+    gold2: "#EEBF00",
     gold3: "#F6E27D",
     backgroundGold: "#CCA40030",
     backgroundGold2: "#CCA40015",
