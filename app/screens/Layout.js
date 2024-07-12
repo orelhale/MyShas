@@ -18,6 +18,7 @@ import Email from "../components/Email";
 export default function Layout() {
    let { lang, setLang, setFuncReturnButton, showLoader, startAgainMood, textLang } = useContext(Context)
 
+   
    let [showScreen, setShowScreen] = useState("HomeScreen")
    let [flagSaveDate, setFlagSaveDate] = useState(false)
    let [flagTo_FlagSaveDate, setFlagTo_FlagSaveDate] = useState(false)
