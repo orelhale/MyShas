@@ -1,34 +1,62 @@
-
-
-
-let textToShowEnglish = {
-    SelectAll: "Select All",
-    UnSelectAll: "Unselect All",
-    All: "All",
-    Masechet: "Masechet: ",
-    startAgain: "Start again",
-    multipleChoice: "Multiple choice",
-    completArea: "Complet Area",
-    myShas: "My Shas",
-    Home: "Home",
-    Contact: "Contact",
-    Shas: "Shas",
+const gmarakey = {
+    baba_metzia: '',
+    baba_batra: '',
+    sanhedrin: '',
+    makkot: '',
+    shevuot: '',
+    avodah_zarah: '',
+    horayot: '',
+    zevachim: '',
+    menachot: '',
+    chullin: '',
+    bechorot: '',
+    arachin: '',
+    temurah: '',
+    keritot: '',
+    meilah: '',
+    kinnim: '',
+    tamid: '',
+    midot: '',
+    niddah: '',
+    berachot: '',
+    shabbat: '',
+    eruvin: '',
+    pesachim: '',
+    shekalim: '',
+    yoma: '',
+    sukkah: '',
+    beitzah: '',
+    rosh_hashana: '',
+    taanit: '',
+    megillah: '',
+    moed_katan: '',
+    chagigah: '',
+    yevamot: '',
+    ketubot: '',
+    nedarim: '',
+    nazir: '',
+    sotah: '',
+    gitin: '',
+    kiddushin: '',
+    baba_kamma: ''
 }
 
-let textToShowHebrow = {
-    SelectAll: "סמן הכל",
-    UnSelectAll: "בטל הכל",
-    Masechet: "מסכת: ",
-    All: "הכל",
-    startAgain: "להתחיל שוב",
-    multipleChoice: "בחירה מרובה",
-    completArea: "איזור הסיומים",
-    myShas: "השס שלי",
-    Home: "בית",
-    Contact: "יצירת קשר",
-    Shas: 'ש"ם',
-}
-
+const gmaraName = [
+    'Baba Metzia', 'Baba Batra', 'Sanhedrin',
+    'Makkot', 'Shevuot', 'Avodah Zarah',
+    'Horayot', 'Zevachim', 'Menachot',
+    'Chullin', 'Bechorot', 'Arachin',
+    'Temurah', 'Keritot', 'Meilah',
+    'Kinnim', 'Tamid', 'Midot',
+    'Niddah', 'Berachot', 'Shabbat',
+    'Eruvin', 'Pesachim', 'Shekalim',
+    'Yoma', 'Sukkah', 'Beitzah',
+    'Rosh Hashana', 'Taanit', 'Megillah',
+    'Moed Katan', 'Chagigah', 'Yevamot',
+    'Ketubot', 'Nedarim', 'Nazir',
+    'Sotah', 'Gitin', 'Kiddushin',
+    'Baba Kamma'
+]
 
 const gmarakeyEg = {
     baba_metzia: 'Baba Metzia',
@@ -76,28 +104,7 @@ const gmarakeyEg = {
 
 
 
-const mishnakeyHe = {
-    zeraim: "זרעים",
-    moed: "מועד",
-    nashim: "נשים",
-    nezikin: "נזיקין",
-    kodashim: "קדשים",
-    tahorot: "טהרות"
-}
-
-
-
-
-const mishnakeyEn = {
-    zeraim: "Zeraim",
-    moed: "Moed",
-    nashim: "Nashim",
-    nezikin: "Nezikin",
-    kodashim: "Kodashim",
-    tahorot: "Tahorot"
-}
-
-const gmarakeyHe = {
+const y = {
     berachot: 'ברכות',
     shabbat: 'שבת',
     eruvin: 'עירובין',
@@ -139,10 +146,3 @@ const gmarakeyHe = {
     midot: 'מדות',
     niddah: 'נדה',
 }
-
-let textToShow = {
-    "en": { ...textToShowEnglish, ...gmarakeyEg, ...mishnakeyEn },
-    "he": { ...textToShowHebrow, ...gmarakeyHe, ...mishnakeyHe },
-}
-
-export default textToShow

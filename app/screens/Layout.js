@@ -16,7 +16,7 @@ import Popup from "../components/Popup";
 import Email from "../components/Email";
 
 export default function Layout() {
-   let { lang, setLang, setFuncReturnButton, showLoader, startAgainMood } = useContext(Context)
+   let { lang, setLang, setFuncReturnButton, showLoader, startAgainMood, textLang } = useContext(Context)
 
    let [showScreen, setShowScreen] = useState("HomeScreen")
    let [flagSaveDate, setFlagSaveDate] = useState(false)
@@ -109,6 +109,7 @@ export default function Layout() {
             <HomeScreen
                setLang={setLang}
                lang={lang}
+               textLang={textLang}
                allData={allData}
                setAllData={setAllData}
                needToSaveChanges={needToSaveChanges}
@@ -119,6 +120,7 @@ export default function Layout() {
             <CompletAreaScreen
                allData={allData}
                needToSaveChanges={needToSaveChanges}
+               textLang={textLang}
             />
          )}
 
@@ -143,7 +145,7 @@ export default function Layout() {
          {lang && <AppFooter showScreen={showScreen} setShowScreen={setShowScreen} />}
 
          <Popup toOpanPopup={showEmailPopup} style={{ borderWidth: 0 }}>
-            <Email clossEmailPopup={setShowEmailPopup}/>
+            <Email clossEmailPopup={setShowEmailPopup} />
          </Popup>
 
       </View >

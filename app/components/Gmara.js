@@ -14,7 +14,7 @@ export default function Gmara({
     listNamePage,
     selectItem,
     eventPageHndling,
-    textToShow,
+    textLang,
 }) {
     let pageToComponent = 15;
     let heightS = Dimensions.get('screen').height
@@ -152,20 +152,20 @@ export default function Gmara({
     return (
         <View style={[styles.Gmara, { minHeight: (heightW * 0.7) }]}>
             <View style={styles.wrapTextTitle}>
-                <Text style={[styles.textTitle]}>{textToShow.Masechet + " " + selectItem.name}</Text>
+                <Text style={[styles.textTitle]}>{(textLang['Masechet'] || 'Masechet') + " " + (textLang[selectItem.name] || selectItem.name)}</Text>
             </View>
 
             {/* arrListNamePage && בשביל שהכפתורים לא יוצגו לפני שהמידע מוכן */}
             {arrListNamePage && <View style={[styles.wrapButtons, globalSizes.flexRow]}>
                 {/* <ButtonApp title={` <- `} onPress={() => { removeSelect() }} /> */}
 
-                {/* <ButtonApp title={(selectItem.finishedPages == 0 ? textToShow.SelectAll : textToShow.UnSelectAll)} onPress={selectAll_func} /> */}
+                {/* <ButtonApp title={(selectItem.finishedPages == 0 ? textLang.SelectAll : textLang.UnSelectAll)} onPress={selectAll_func} /> */}
 
                 <Pressable
                     onPress={() => startLoader(selectAll_func)}
                     style={({ pressed }) => [styles.wrapButton, globalSizes.flexRow, pressed && { backgroundColor: globalColors.backgroundGold2 }]}
                 >
-                    <Text style={styles.textButton}>{textToShow.All}</Text>
+                    <Text style={styles.textButton}>{textLang.All}</Text>
                     <MIcon2
                         size={30}
                         name={(selectItem.finishedPages == selectItem.numPages ? 'checkbox-active' : 'checkbox-passive')}

@@ -1,12 +1,10 @@
 
 
 
-import { useContext, useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text, View, Button, TouchableOpacity, TouchableHighlight } from 'react-native';
-import globalElements from '../styleFile/globalElements';
+import { useContext } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import globalSizes from '../styleFile/globalSizes';
 import globalColors from '../styleFile/globalColors';
-import ButtonApp from './ButtonApp';
 import { Context } from '../screens/Context';
 
 
@@ -17,7 +15,7 @@ export default function GmaraList({
    selectCat,
 }) {
 
-   let { startLoader, addFuncToReturnButton } = useContext(Context)
+   let { startLoader, addFuncToReturnButton, textLang } = useContext(Context)
 
    // useEffect(() => {
    //    if (selectCat) {
@@ -41,46 +39,36 @@ export default function GmaraList({
    }
 
    return (
-      <>
-         {
-            allData && !selectCat && <View style={[styles.wrapList, globalSizes.flexRow]}>
-               {allData.map((item, index) =>
-                  <Pressable
-                     key={("Pressable1" + index)}
-                     // style={[globalElements.boxTtem]}
-                     style={({ pressed }) => [globalElements.boxTtem, (pressed && { backgroundColor: globalColors.backgroundGold })]}
-                     onPress={() => pressCat(item)}
-                  >
-                     <Text style={globalElements.textTtem}>{item.name}</Text>
-                  </Pressable>
-               )}
-            </View>
-         }
-         {
-            selectCat && (
-               <View>
-                  {/* <View style={[styles.wrapButtons, globalSizes.flexRowReverse]}>
-                     <ButtonApp title={` <- `} onPress={() => { removeSelect() }} />
-                  </View> */}
-                  <View style={[styles.wrapList, globalSizes.flexRow]}>
-                     {selectCat.list.map((item, index) =>
-                        <Pressable
-                           key={("Pressable2" + index)}
-                           // style={[globalElements.boxTtem]}
-                           style={({ pressed }) => [globalElements.boxTtem, (pressed && { backgroundColor: globalColors.backgroundGold })]}
+      <View>
 
-                           onPress={() => {
-                              startLoader()
-                              pressGmara(item)
-                           }}
-                        >
-                           <Text style={globalElements.textTtem}>{item.name}</Text>
-                        </Pressable>)}
-                  </View>
-               </View>
-            )
-         }
-      </>
+         {allData && !selectCat && <View style={[styles.wrapList, globalSizes.flexRow]}>
+            {allData.map((item, index) =>
+               <Pressable
+                  key={("Pressable1" + index)}
+                  style={({ pressed }) => [styles.boxTtem, (pressed && { backgroundColor: globalColors.backgroundGold })]}
+                  onPress={() => pressCat(item)}
+               >
+                  <Text style={styles.textItem}>{textLang[item.name] || item.name}</Text>
+               </Pressable>
+            )}
+         </View>}
+
+         {selectCat && <View style={[styles.wrapList, globalSizes.flexRow]}>
+            {selectCat.list.map((item, index) =>
+               <Pressable
+                  key={("Pressable2" + index)}
+                  style={({ pressed }) => [styles.boxTtem, (pressed && { backgroundColor: globalColors.backgroundGold })]}
+                  onPress={() => {
+                     startLoader()
+                     pressGmara(item)
+                  }}
+               >
+                  <Text style={styles.textItem}>{textLang[item.name] || item.name}</Text>
+               </Pressable>
+            )}
+         </View>}
+
+      </View>
    )
 }
 
@@ -92,16 +80,25 @@ const styles = StyleSheet.create({
       flexWrap: "wrap",
       justifyContent: 'space-around',
    },
-   catItem: {
-
-   },
-   item: {
-
-   },
-   wrapButtons: {
-      // flexDirection: "row",
-      justifyContent: "space-between",
+   boxTtem: {
       marginBottom: 10,
-
+      backgroundColor: 'red',
+      backgroundColor: globalColors.gold,
+      borderWidth: 1,
+      borderColor: globalColors.gold,
+      color: "red",
+      fontSize: 30,
+      flexBasis: "30%",
+      justifyContent: 'center',
+      alignItems: "center",
+      height: 60,
+      borderRadius: 20,
+      paddingLeft: 8,
+      paddingRight: 8,
+   },
+   textItem: {
+      color: '#fff',
+      fontSize: 20,
+      textAlign: "center",
    },
 });

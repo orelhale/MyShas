@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import textToShow from "../data/textToShow";
 
 const Context = createContext()
 
@@ -45,7 +46,7 @@ function ContextComponent({ children }) {
     function stopLoader() {
         setShowLoader(false)
     }
-
+    
     return (
         <Context.Provider value={{
             funcReturnButton,
@@ -53,6 +54,7 @@ function ContextComponent({ children }) {
             addFuncToReturnButton,
             callFuncFromReturnButton,
             lang,
+            textLang: textToShow[lang],
             setLang,
             showLoader,
             startLoader,

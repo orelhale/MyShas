@@ -10,6 +10,7 @@ import MIcon from "react-native-vector-icons/MaterialCommunityIcons"
 export default function CompletAreaScreen({
    allData,
    needToSaveChanges,
+   textLang,
 }) {
 
    let [completData, setCompletData] = useState({
@@ -84,8 +85,8 @@ export default function CompletAreaScreen({
             completedShas = cat.completed;
          }
       }
-      
-      data.shas.push({ name: 'ש"ם', completed: completedShas, size: sizeShas, type: 'shas' })
+
+      data.shas.push({ name: 'Shas', completed: completedShas, size: sizeShas, type: 'shas' })
       setCompletData(data)
    }
 
@@ -165,7 +166,7 @@ export default function CompletAreaScreen({
                <Pressable style={({ pressed }) => [styles.wrapBtn, pressed && { backgroundColor: globalColors.backgroundGold }]} onPress={() => addComplet(item)}>
                   <MIcon name={'chevron-right'} size={25} color={globalColors.gold2} />
                </Pressable>
-               <Text style={styles.itemText}>{item.name}</Text>
+               <Text style={styles.itemText}>{textLang[item.name] || item.name}</Text>
                <Pressable style={({ pressed }) => [styles.wrapBtn, pressed && { backgroundColor: globalColors.backgroundGold }]} onPress={() => removeComplet(item)}>
                   <MIcon name={'chevron-left'} size={25} color={globalColors.gold2} />
                </Pressable>

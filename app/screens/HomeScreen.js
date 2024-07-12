@@ -4,7 +4,6 @@ import { getAllData } from "../storage/storageFunc";
 import GmaraList from '../components/GmaraList';
 import Gmara from '../components/Gmara';
 import PageDataAnalysis from '../components/PageDataAnalysis';
-import textToShow from '../data/textToShow';
 import { Context } from './Context';
 
 export default function HomeScreen({
@@ -12,7 +11,7 @@ export default function HomeScreen({
     setAllData,
     needToSaveChanges,
 }) {
-    let { lang } = useContext(Context)
+    let { textLang } = useContext(Context)
 
     let [selectItem, setSelectItem] = useState()
     let [selectCat, setSelectCat] = useState()
@@ -84,10 +83,6 @@ export default function HomeScreen({
                         eventPage={eventPage}
                     />
 
-                    {/* <View style={styles.delete}>
-                        <Button color={"red"} title='Delete data' onPress={deleteAll}></Button>
-                        <Button color={"red"} title='Delete lang' onPress={() => { deleteLang(); setLang() }}></Button>
-                    </View> */}
 
                     {!selectItem && <GmaraList
                         allData={allData}
@@ -103,7 +98,7 @@ export default function HomeScreen({
                             setSelectItem={setSelectItem}
                             selectItem={selectItem}
                             eventPageHndling={eventPageHndling}
-                            textToShow={textToShow[lang]}
+                            textLang={textLang}
                         />
                         {/* <View>
                     <Button title={(`<-`)} onPress={() => { removeSelect() }}></Button>
@@ -127,10 +122,6 @@ export default function HomeScreen({
 const styles = StyleSheet.create({
     HomeScreen: {
 
-    },
-    delete: {
-        color: "red",
-        marginBottom: 20,
     },
     wrapGmara: {
         position: "relative",
